@@ -2,20 +2,22 @@ drop database if exists library;
 create database library;
 use library;
 
+drop table if exists authors;
+create table authors(
+    author_id int auto_increment primary key,
+    author_name varchar(60) not null
+);
+
 drop table if exists books;
 create table books(
 	book_id int auto_increment primary key,
     book_name varchar(60) not null,
-    book_descr varchar(600),
+    book_description varchar(600),
     release_year year not null,
     author_id int not null,
-    book_rating double     
-);
-
-drop table if exists authors;
-create table authors(
-	author_id int auto_increment primary key,
-    author_name varchar(60) not null
+    book_rating double,
+    constraint books_author_fk
+        foreign key (author_id) references authors (author_id)
 );
 
 drop table if exists genres;
@@ -37,9 +39,13 @@ create table book_genres(
 drop table if exists users;
 create table users(
 	user_id int auto_increment primary key,
-    user_name varchar(60) not null,
+    first_name varchar(60) not null,
+    last_name varchar(60) not null,
+    email varchar(60) not null,
     username varchar(60) not null,
-    user_password varchar(60) not null
+    password_hash varchar(60) not null,
+    constraint user_email_unique
+                  unique (email)
 );
 
 drop table if exists reservations;
