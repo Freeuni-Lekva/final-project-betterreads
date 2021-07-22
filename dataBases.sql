@@ -1,0 +1,80 @@
+drop database if exists library;
+create database library;
+use library;
+
+drop table if exists books;
+create table books(
+	book_id int auto_increment primary key,
+    book_name varchar(60) not null,
+    book_descr varchar(600),
+    release_year year not null,
+    author_id int not null,
+    book_rating double     
+);
+
+drop table if exists authors;
+create table authors(
+	author_id int auto_increment primary key,
+    author_name varchar(60) not null
+);
+
+drop table if exists genres;
+create table genres(
+	genre_id int auto_increment primary key,
+    genre_name varchar(60) not null
+);
+
+drop table if exists book_genres;
+create table book_genres(
+	book_id int not null,
+    genre_id int not null,
+    constraint book_genres_book_fk 
+		foreign key (book_id) references books(book_id),
+    constraint book_genres_genre_fk
+		foreign key (genre_id) references genres(genre_id)
+);
+
+drop table if exists users;
+create table users(
+	user_id int auto_increment primary key,
+    user_name varchar(60) not null,
+    username varchar(60) not null,
+    user_password varchar(60) not null
+);
+
+drop table if exists reservations;
+create table reservations(
+	reservation_id int auto_increment primary key,
+	user_id int not null,
+    book_id int not null,
+    deadline date not null,
+	constraint reservation_user_fk
+		foreign key (user_id) references users(user_id),
+	constraint reservation_book_fk
+		foreign key (book_id) references books(book_id)  
+);
+
+drop table if exists book_shelf;
+create table book_shelf(
+	user_id int not null,
+    book_id int not null,
+    constraint book_shelf_user_fk
+		foreign key (user_id) references users(user_id),
+	constraint book_shelf_book_fk
+		foreign key (book_id) references books(book_id)  
+);
+
+drop table if exists reviews;
+create table reviews(
+	review_id int auto_increment primary key,
+	user_id int not null,
+    book_id int not null,
+    book_rating double not null,
+    user_comment varchar(600),
+    date_posted date not null,
+    num_likes int not null,
+    constraint reviews_user_fk
+		foreign key (user_id) references users(user_id),
+	constraint reviews_book_fk
+		foreign key (book_id) references books(book_id)  
+);
