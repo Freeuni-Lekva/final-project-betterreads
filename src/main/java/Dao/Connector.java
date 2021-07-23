@@ -9,9 +9,9 @@ public class Connector {
     private static Connection connection;
     private Connector(String dbName) throws SQLException {
         BasicDataSource dataSource = new BasicDataSource();
-        dataSource.setUrl("jdbc:mysql://localhost:3306/library");
+        dataSource.setUrl("jdbc:mysql://localhost:3306/" + dbName);
         dataSource.setUsername("root");
-        dataSource.setPassword("root");
+        dataSource.setPassword("rootroot");
         connection = dataSource.getConnection();
     }
 
