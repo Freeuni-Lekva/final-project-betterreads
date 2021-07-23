@@ -12,8 +12,8 @@ drop table if exists books;
 create table books(
 	book_id int auto_increment primary key,
     book_name varchar(60) not null,
-    book_description varchar(600),
-    release_year year not null,
+    book_description varchar(6000),
+    release_year int not null,
     author_id int not null,
     book_rating double,
     constraint books_author_fk
