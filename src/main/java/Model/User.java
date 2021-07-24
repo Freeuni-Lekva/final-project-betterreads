@@ -47,4 +47,17 @@ public class User {
         return password_hash;
     }
 
+    @Override
+    public boolean equals(Object o){
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        if(user.getUsername().equals(this.username) && user.getEmail().equals(this.email)
+            && user.getFirst_name().equals(this.first_name) && user.getLast_name().equals(this.last_name)
+                && user.getPassword_hash().equals(this.password_hash))
+            return true;
+
+        return false;
+    }
+
 }
