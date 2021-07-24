@@ -3,10 +3,7 @@ package Dao;
 import Model.Book;
 import Model.Genre;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.concurrent.locks.Condition;
 
 public class GenreDao implements GenreDaoInterface{
@@ -14,12 +11,14 @@ public class GenreDao implements GenreDaoInterface{
 
     public GenreDao(String dataBaseName) throws SQLException {
         connection = Connector.getConnection(dataBaseName);
+        Statement statement = connection.createStatement();
+        statement.executeQuery("use " + dataBaseName);
     }
 
     @Override
     public boolean addGenre(Genre genre) throws SQLException {
         PreparedStatement statement;
-        statement = connection.prepareStatement("insert into genres(genre_name) values('?');");
+        statement = connection.prepareStatement("insert into genres(genre_name) values(?);");
         statement.setString(1, genre.getGenre_name());
         return statement.executeUpdate() != 0;
     }
