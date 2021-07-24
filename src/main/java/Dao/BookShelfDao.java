@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BookShelfDao implements BookShelfDaoInterface{
+    private final int ALREADY_READ = 1;
+    private final int MARKED_FOR_FUTURE = 0;
     private String dbName;
     private Connection connection;
     public BookShelfDao(String dbName){
@@ -49,7 +51,7 @@ public class BookShelfDao implements BookShelfDaoInterface{
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("select * from book_shelf where book_id = ? and already_read = ? join books on book_shelf.book_id = books.book_id");
             preparedStatement.setInt(1,user_id);
-            preparedStatement.setInt(2,1);
+            preparedStatement.setInt(2,ALREADY_READ);
             ResultSet resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
                 Book book = createBook(resultSet.getInt("book_id"),resultSet.getString("book_name"),
@@ -71,7 +73,7 @@ public class BookShelfDao implements BookShelfDaoInterface{
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("select * from book_shelf where book_id = ? and already_read = ? join books on book_shelf.book_id = books.book_id");
             preparedStatement.setInt(1,user_id);
-            preparedStatement.setInt(2,0);
+            preparedStatement.setInt(2,MARKED_FOR_FUTURE);
             ResultSet resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
                 Book book = createBook(resultSet.getInt("book_id"),resultSet.getString("book_name"),
