@@ -1,0 +1,12 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+# Datasource local storage ignored files
+.idea/dataSources/
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/
+
+src/main/java/Constants/DataBaseConstants.java
+target/
+.idea/final-project-betterreads.iml
