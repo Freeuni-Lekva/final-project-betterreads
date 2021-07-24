@@ -1,2 +1,3 @@
+Constants\DataBaseConstants.class
 Dao\Connector.class
 Dao\CreateDataBase.class
