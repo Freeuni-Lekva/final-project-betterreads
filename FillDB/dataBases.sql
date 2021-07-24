@@ -16,6 +16,7 @@ create table books(
     release_year int not null,
     author_id int not null,
     book_rating double,
+    available_count int not null,
     constraint books_author_fk
         foreign key (author_id) references authors (author_id)
 );
@@ -64,6 +65,7 @@ drop table if exists book_shelf;
 create table book_shelf(
 	user_id int not null,
     book_id int not null,
+    already_read int not null,
     constraint book_shelf_user_fk
 		foreign key (user_id) references users(user_id),
 	constraint book_shelf_book_fk
