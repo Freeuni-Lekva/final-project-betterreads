@@ -21,7 +21,8 @@ public class BookDao implements BookDaoInterface{
     @Override
     public boolean AddBook(Book book, List<String> genres) throws SQLException {
         PreparedStatement statement;
-        statement = connection.prepareStatement("insert into books values(?, ?, ?, ?, ?);");
+        statement = connection.prepareStatement("insert into books (book_name, book_description, release_year, author_id, book_rating)" +
+                "values(?,?,?,?,?);" );
         statement.setString(1, book.getBook_name());
         statement.setString(2, book.getBook_description());
         statement.setInt(3, book.getRelease_year());
@@ -72,7 +73,7 @@ public class BookDao implements BookDaoInterface{
     @Override
     public List<Book> getBookByName(String name) throws SQLException {
         PreparedStatement statement;
-        statement = connection.prepareStatement("select * from books where book_name = ?;");
+        statement = connection.prepareStatement("select * from books where book_name = '?';");
         statement.setString(1, name);
         ResultSet rs = statement.executeQuery();
         List<Book> result = new ArrayList<>();

@@ -19,7 +19,7 @@ public class GenreDao implements GenreDaoInterface{
     @Override
     public boolean addGenre(Genre genre) throws SQLException {
         PreparedStatement statement;
-        statement = connection.prepareStatement("insert into Genres values(?);");
+        statement = connection.prepareStatement("insert into genres(genre_name) values('?');");
         statement.setString(1, genre.getGenre_name());
         return statement.executeUpdate() != 0;
     }
