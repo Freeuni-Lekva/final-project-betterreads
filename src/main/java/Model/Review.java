@@ -3,12 +3,12 @@ package Model;
 import java.sql.Date;
 
 public class Review {
-    int user_id;
-    int book_id;
-    double rating;
-    String comment;
-    Date date;
-    int num_likes;
+    private int user_id;
+    private int book_id;
+    private double rating;
+    private String comment;
+    private Date date;
+    private int num_likes;
 
     public int getUser_id() {
         return user_id;

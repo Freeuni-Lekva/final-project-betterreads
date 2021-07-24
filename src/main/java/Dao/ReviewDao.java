@@ -16,7 +16,7 @@ public class ReviewDao implements ReviewDaoInterface{
     @Override
     public void addReview(int user_id, int book_id, double rating, String comment, Date date, int num_likes) {
         try {
-            PreparedStatement st = conn.prepareStatement("INSERT INTO exam_lecturers  VALUES(?,?);");
+            PreparedStatement st = conn.prepareStatement("INSERT INTO exam_lecturers  VALUES(?,?,?,?,?,?);");
             st.setInt(1, user_id);
             st.setInt(2, book_id);
             st.setDouble(3, rating);
