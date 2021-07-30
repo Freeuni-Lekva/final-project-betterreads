@@ -1,5 +1,6 @@
 package Dao;
 
+import Constants.SharedConstants;
 import Model.Book;
 
 import javax.xml.transform.Result;
@@ -11,8 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BookShelfDao implements BookShelfDaoInterface{
-    private final int ALREADY_READ = 1;
-    private final int MARKED_FOR_FUTURE = 0;
     private String dbName;
     private Connection connection;
     public BookShelfDao(String dbName){
@@ -28,7 +27,7 @@ public class BookShelfDao implements BookShelfDaoInterface{
     public List<Book> getAllBooksInBookShelf(int user_id) {
         List<Book> resultList = new ArrayList<>();
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("select * from book_shelf where book_id = ? join books on book_shelf.book_id = books.book_id");
+            PreparedStatement preparedStatement = connection.prepareStatement("select * from book_shelf join books on book_shelf.book_id = books.book_id where book_shelf.user_id = ?;");
             preparedStatement.setInt(1,user_id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
@@ -49,9 +48,10 @@ public class BookShelfDao implements BookShelfDaoInterface{
     public List<Book> getAlreadyReadBooks(int user_id) {
         List<Book> resultList = new ArrayList<>();
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("select * from book_shelf where book_id = ? and already_read = ? join books on book_shelf.book_id = books.book_id");
+            PreparedStatement preparedStatement = connection.prepareStatement("select * from book_shelf " +
+                    "join books on book_shelf.book_id = books.book_id where  book_shelf.user_id = ? and book_shelf.already_read = ?;");
             preparedStatement.setInt(1,user_id);
-            preparedStatement.setInt(2,ALREADY_READ);
+            preparedStatement.setInt(2, SharedConstants.ALREADY_READ);
             ResultSet resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
                 Book book = createBook(resultSet.getInt("book_id"),resultSet.getString("book_name"),
@@ -71,9 +71,10 @@ public class BookShelfDao implements BookShelfDaoInterface{
     public List<Book> getMarkedBooks(int user_id) {
         List<Book> resultList = new ArrayList<>();
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("select * from book_shelf where book_id = ? and already_read = ? join books on book_shelf.book_id = books.book_id");
+            PreparedStatement preparedStatement = connection.prepareStatement("select * from book_shelf " +
+                    "join books on book_shelf.book_id = books.book_id where  book_shelf.user_id = ? and book_shelf.already_read = ?;");
             preparedStatement.setInt(1,user_id);
-            preparedStatement.setInt(2,MARKED_FOR_FUTURE);
+            preparedStatement.setInt(2, SharedConstants.MARKED_FOR_FUTURE);
             ResultSet resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
                 Book book = createBook(resultSet.getInt("book_id"),resultSet.getString("book_name"),

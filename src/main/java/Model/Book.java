@@ -30,6 +30,7 @@ public class Book {
         this.book_rating = book_rating;
     }
     public void setAvailable_count(int available_count ){this.available_count  = available_count ;}
+
     public int getBook_id(){
         return book_id;
     }
@@ -49,4 +50,12 @@ public class Book {
         return book_rating;
     }
     public int getAvailable_count(){return available_count ;}
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Book book = (Book) o;
+        return book_name.equals(book.book_name) && author_id == book.author_id && release_year == book.release_year && book_description.equals(book.book_description);
+    }
 }
