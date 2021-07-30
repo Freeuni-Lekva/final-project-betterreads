@@ -2,10 +2,7 @@ package Dao;
 
 import Model.User;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class UserDao implements UserDaoInterface {
     private String dbName;
@@ -14,7 +11,9 @@ public class UserDao implements UserDaoInterface {
     public UserDao(String dbName){
         this.dbName = dbName;
         try {
-            connection = Connector.getConnection(dbName);
+            this.connection = Connector.getConnection(dbName);
+            Statement stm = connection.createStatement();
+            stm.execute("use " + dbName + ";");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -27,16 +26,15 @@ public class UserDao implements UserDaoInterface {
     @Override
     public boolean create(User user) {
         try {
-            PreparedStatement pst = connection.prepareStatement("insert into user (first_name," +
-                    " last_name, email, username, password_hash) values(?,?,?,?,?)");
+            PreparedStatement pst = connection.prepareStatement("insert into users(first_name," +
+                    " last_name, email, username, password_hash) values(?,?,?,?,?);", Statement.RETURN_GENERATED_KEYS);
+
             pst.setString(1, user.getFirst_name());
             pst.setString(2, user.getLast_name());
             pst.setString(3, user.getEmail());
             pst.setString(4, user.getUsername());
             pst.setString(5, user.getPassword_hash());
-            if (pst.executeUpdate() == 0) {
-                return false;
-            }
+            pst.executeUpdate();
             return true;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -47,7 +45,7 @@ public class UserDao implements UserDaoInterface {
     @Override
     public User getUserByMail(String mail) {
         try {
-            PreparedStatement pst = connection.prepareStatement("select * from Users where mail = ?");
+            PreparedStatement pst = connection.prepareStatement("select * from users where email = ?;");
             pst.setString(1, mail);
             ResultSet resSet = pst.executeQuery();
             return createUserByRS(resSet);
@@ -60,7 +58,7 @@ public class UserDao implements UserDaoInterface {
     @Override
     public User getUserByUsername(String username) {
         try {
-            PreparedStatement pst = connection.prepareStatement("select * from Users where username = ?");
+            PreparedStatement pst = connection.prepareStatement("select * from users where username = ?;");
             pst.setString(1, username);
             ResultSet resSet = pst.executeQuery();
             return createUserByRS(resSet);
@@ -73,7 +71,7 @@ public class UserDao implements UserDaoInterface {
     @Override
     public User getUserById(int id) {
         try {
-            PreparedStatement pst = connection.prepareStatement("select * from Users where user_id = ?");
+            PreparedStatement pst = connection.prepareStatement("select * from users where user_id = ?;");
             pst.setInt(1, id);
             ResultSet resSet = pst.executeQuery();
             return createUserByRS(resSet);
@@ -86,7 +84,7 @@ public class UserDao implements UserDaoInterface {
     @Override
     public boolean containsUserByMail(String mail) {
         try {
-            PreparedStatement pst = connection.prepareStatement("select * from Users where mail = ?");
+            PreparedStatement pst = connection.prepareStatement("select * from users where email = ?;");
             pst.setString(1, mail);
             ResultSet resSet = pst.executeQuery();
             return resSet.next();
@@ -99,7 +97,7 @@ public class UserDao implements UserDaoInterface {
     @Override
     public boolean containsUserByUserName(String username) {
         try {
-            PreparedStatement pst = connection.prepareStatement("select * from Users where username = ?");
+            PreparedStatement pst = connection.prepareStatement("select * from users where username = ?;");
             pst.setString(1, username);
             ResultSet resSet = pst.executeQuery();
             return resSet.next();
@@ -112,6 +110,7 @@ public class UserDao implements UserDaoInterface {
     private User createUserByRS(ResultSet resultSet) {
         try {
             User user = new User();
+            resultSet.next();
             user.setUser_id(resultSet.getInt(1));
             user.setFirst_name(resultSet.getString(2));
             user.setLast_name(resultSet.getString(3));
