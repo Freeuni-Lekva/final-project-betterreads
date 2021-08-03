@@ -17,6 +17,7 @@ create table books(
     author_id int not null,
     book_rating double,
     available_count int not null,
+    book_photo varchar(600),
     constraint books_author_fk
         foreign key (author_id) references authors (author_id)
 );
@@ -46,7 +47,9 @@ create table users(
     username varchar(60) not null,
     password_hash varchar(60) not null,
     constraint user_email_unique
-                  unique (email)
+                  unique (email),
+  constraint username_unique
+      unique (username)
 );
 
 drop table if exists reservations;
