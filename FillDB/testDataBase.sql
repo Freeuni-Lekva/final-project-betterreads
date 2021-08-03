@@ -46,10 +46,11 @@ create table users(
     email varchar(60) not null,
     username varchar(60) not null,
     password_hash varchar(60) not null,
+    constraint username_unique
+                 unique (username),
     constraint user_email_unique
-                  unique (email),
-  constraint username_unique
-      unique (username)
+                  unique (email)
+
 );
 
 drop table if exists reservations;
