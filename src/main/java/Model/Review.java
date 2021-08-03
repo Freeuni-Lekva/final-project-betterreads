@@ -1,6 +1,7 @@
 package Model;
 
 import java.sql.Date;
+import java.util.Objects;
 
 public class Review {
     private int user_id;
@@ -56,6 +57,14 @@ public class Review {
 
     public void setNum_likes(int num_likes) {
         this.num_likes = num_likes;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Review review = (Review) o;
+        return getUser_id() == review.getUser_id() && getBook_id() == review.getBook_id() && getDate().equals(review.getDate());
     }
 
 }

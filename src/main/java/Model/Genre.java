@@ -1,5 +1,7 @@
 package Model;
 
+import java.util.Objects;
+
 public class Genre {
     private int GenreId;
     private String name;
@@ -18,6 +20,14 @@ public class Genre {
 
     public String getGenre_name(){
         return this.name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Genre genre = (Genre) o;
+        return name.equals(genre.name);
     }
 
 }
