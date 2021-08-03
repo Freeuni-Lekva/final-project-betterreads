@@ -2,12 +2,15 @@ package Dao;
 
 import Model.Book;
 import Model.Genre;
+import service.fuzzySearch;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class BookDao implements BookDaoInterface{
@@ -16,7 +19,6 @@ public class BookDao implements BookDaoInterface{
     public BookDao(String dataBaseName) throws SQLException {
         connection = Connector.getConnection(dataBaseName);
     }
-
 
     @Override
     public boolean AddBook(Book book, List<String> genres) throws SQLException {
@@ -32,8 +34,32 @@ public class BookDao implements BookDaoInterface{
     }
 
     @Override
-    public List<Book> filterBooks(String name) {
-        return null;
+    public List<Book> filterBooks(final String text) throws SQLException {
+        PreparedStatement statement;
+        statement = connection.prepareStatement("select * from books;");
+        ResultSet rs = statement.executeQuery();
+        List<Book> bookList = new ArrayList<>();
+        while(rs.next()){
+            bookList.add(getBookByRS(rs));
+        }
+        Collections.sort(bookList, new Comparator<Book>() {
+            @Override
+            public int compare(Book o1, Book o2) {
+                double d1 = fuzzySearch.levDistance(o1.getBook_name(), text) / o1.getBook_name().length();
+                double d2 = fuzzySearch.levDistance(o2.getBook_name(), text) / o2.getBook_name().length();
+                double d3 = fuzzySearch.levDistance(o1.getAuthor_name(), text) / o1.getAuthor_name().length();
+                double d4 = fuzzySearch.levDistance(o2.getAuthor_name(), text) / o2.getAuthor_name().length();
+                double m1 = Math.min(d1, d3);
+                double m2 = Math.min(d2, d4);
+                if (m1 == m2)
+                    return 0;
+                else if (m1 > m2)
+                    return 1;
+                else
+                    return -1;
+            }
+        });
+        return bookList;
     }
 
     @Override
@@ -101,8 +127,8 @@ public class BookDao implements BookDaoInterface{
     public List<Book> getBookByGenre(Genre genre) throws SQLException {
         PreparedStatement statement;
         statement = connection.prepareStatement("select * from books b"+
-                                                    "join book_genres bg on b.book_id = bg.book_id " +
-                                                    "where bg.genre_id = " + genre.getGenre_id() + ";");
+                "join book_genres bg on b.book_id = bg.book_id " +
+                "where bg.genre_id = " + genre.getGenre_id() + ";");
         ResultSet rs = statement.executeQuery();
         List<Book> result = new ArrayList<>();
         while(rs.next()){

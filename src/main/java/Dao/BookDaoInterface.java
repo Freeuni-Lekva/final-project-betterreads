@@ -10,15 +10,20 @@ import java.util.List;
 public interface BookDaoInterface {
     /**
      *
-     * @param name name of the book
-     * @param description short description of the book
-     * @param releaseYear year the book was released
-     * @param authorID author's ID
-     * @param rating book rating
+     * @param book book to be added
+     * @param genres genres this book belongs to
+     * @return true if book was added, false otherwise
+     * @throws SQLException
      */
     public boolean AddBook(Book book, List<String> genres) throws SQLException;
 
-    public List<Book> filterBooks(String name);
+    /**
+     * search books with entered text
+     * @param text text user entered
+     * @return list of books sorted by likeness to given text
+     * @throws SQLException
+     */
+    public List<Book> filterBooks(String text) throws SQLException;
 
     /**
      *

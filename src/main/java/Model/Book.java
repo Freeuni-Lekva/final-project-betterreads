@@ -6,8 +6,10 @@ public class Book {
     private String book_description;
     private int release_year;
     private int author_id;
+    private String author_name;
     private double book_rating;
     private int available_count ;
+
 
     public Book(){
     }
@@ -26,6 +28,7 @@ public class Book {
     public void setAuthor_id(int author_id){
         this.author_id = author_id;
     }
+    public void setAuthor_name(String author_name){ this.author_name = author_name; }
     public void setBook_rating(double book_rating){
         this.book_rating = book_rating;
     }
@@ -40,6 +43,7 @@ public class Book {
     public String getBook_description(){
         return book_description;
     }
+    public String getAuthor_name(){ return author_name; }
     public int getAuthor_id(){
         return author_id;
     }
@@ -58,4 +62,6 @@ public class Book {
         Book book = (Book) o;
         return book_name.equals(book.book_name) && author_id == book.author_id && release_year == book.release_year && book_description.equals(book.book_description);
     }
+
+
 }
