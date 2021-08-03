@@ -8,6 +8,7 @@ public class Book {
     private int author_id;
     private double book_rating;
     private int available_count ;
+    private String book_photo;
 
     public Book(){
     }
@@ -30,6 +31,7 @@ public class Book {
         this.book_rating = book_rating;
     }
     public void setAvailable_count(int available_count ){this.available_count  = available_count ;}
+    public void setBook_photo(String book_photo) {this.book_photo = book_photo; }
 
     public int getBook_id(){
         return book_id;
@@ -50,6 +52,7 @@ public class Book {
         return book_rating;
     }
     public int getAvailable_count(){return available_count ;}
+    public String getBook_photo(){return book_photo; }
 
     @Override
     public boolean equals(Object o) {
