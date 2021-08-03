@@ -37,6 +37,18 @@ public class BookDao implements BookDaoInterface{
     }
 
     @Override
+    public List<Book> getAllBooks() throws SQLException {
+        PreparedStatement statement;
+        statement = connection.prepareStatement("select * from books;");
+        ResultSet rs = statement.executeQuery();
+        List<Book> bookList = new ArrayList<>();
+        while(rs.next()){
+            bookList.add(getBookByRS(rs));
+        }
+        return bookList;
+    }
+
+    @Override
     public Book getBook(int bookID) throws SQLException {
         PreparedStatement statement;
         statement = connection.prepareStatement("select * from books where book_id = ?;");
