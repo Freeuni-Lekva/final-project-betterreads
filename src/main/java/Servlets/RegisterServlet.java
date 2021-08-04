@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 
@@ -42,6 +43,12 @@ public class RegisterServlet extends HttpServlet {
         } else {
             String hashedPassword = allServices.getHashService().hashPassword(password);
             if(userService.addUser(first_name, last_name, username, hashedPassword, email)){
+                User user = userService.getUserByMail(email);
+                HttpSession session = request.getSession();
+                User currUser = (User)session.getAttribute(SharedConstants.SESSION_ATTRIBUTE);
+                if(currUser == null) {
+                    request.getSession().setAttribute(SharedConstants.SESSION_ATTRIBUTE, user);
+                }
                 request.getRequestDispatcher("WEB-INF/HomePage.jsp").forward(request, response);
             }
         }
