@@ -1,5 +1,7 @@
 package Service;
 
+import java.sql.SQLException;
+
 public class AllServices {
     private HashService hashService;
     private UserService userService;
@@ -7,13 +9,19 @@ public class AllServices {
     private UserBooksService userBooksService;
     private VallidationService vallService;
     private DescriptionShortener descriptionShortener;
-    public AllServices(){
+    private BookService bookService;
+    public AllServices() throws SQLException {
         hashService = new HashService();
         userService = new UserService();
         bestBooks = new bestBooks();
         userBooksService = new UserBooksService();
         vallService = new VallidationService();
         descriptionShortener = new DescriptionShortener();
+        bookService = new BookService();
+    }
+
+    public BookService getBookService(){
+        return bookService;
     }
     public HashService getHashService(){
         return hashService;
