@@ -39,8 +39,13 @@ public interface UserServiceInterface {
 
     /**
      *
-     * @param user
-     * @return true if new user added
+     * @param firstname
+     * @param lastname
+     * @param username
+     * @param password
+     * @param mail
+     * @return true if user successfully registrated
      */
-    boolean addUser(User user);
+    boolean addUser(String firstname, String lastname, String username, String password, String mail);
+
 }

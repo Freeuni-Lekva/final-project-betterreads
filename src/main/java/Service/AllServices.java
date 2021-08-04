@@ -5,12 +5,13 @@ public class AllServices {
     private UserService userService;
     private bestBooks bestBooks;
     private UserBooksService userBooksService;
+    private VallidationService vallService;
     public AllServices(){
         hashService = new HashService();
         userService = new UserService();
         bestBooks = new bestBooks();
         userBooksService = new UserBooksService();
-
+        vallService = new VallidationService();
     }
     public HashService getHashService(){
         return hashService;
@@ -18,10 +19,9 @@ public class AllServices {
     public UserService getUserService(){
         return userService;
     }
-
     public Service.bestBooks getBestBooks() {
         return bestBooks;
     }
-
     public UserBooksService getUserBooksService(){ return userBooksService; }
+    public VallidationService getVallService(){return vallService; }
 }
