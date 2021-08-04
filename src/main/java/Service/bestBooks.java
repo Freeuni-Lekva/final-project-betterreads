@@ -26,6 +26,7 @@ public class bestBooks {
                     return -1;
             }
         });
+        System.out.println(bookList.size());
         for(int i = from; i<= to; i++){
             retList.add(bookList.get(i));
         }
