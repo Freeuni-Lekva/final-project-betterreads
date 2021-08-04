@@ -6,12 +6,14 @@ public class AllServices {
     private bestBooks bestBooks;
     private UserBooksService userBooksService;
     private VallidationService vallService;
+    private DescriptionShortener descriptionShortener;
     public AllServices(){
         hashService = new HashService();
         userService = new UserService();
         bestBooks = new bestBooks();
         userBooksService = new UserBooksService();
         vallService = new VallidationService();
+        descriptionShortener = new DescriptionShortener();
     }
     public HashService getHashService(){
         return hashService;
@@ -24,4 +26,5 @@ public class AllServices {
     }
     public UserBooksService getUserBooksService(){ return userBooksService; }
     public VallidationService getVallService(){return vallService; }
+    public DescriptionShortener getDescriptionShortener() {return descriptionShortener;}
 }
