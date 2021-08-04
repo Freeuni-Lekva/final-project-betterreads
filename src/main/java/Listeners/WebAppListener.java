@@ -9,11 +9,12 @@ import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
+import java.sql.SQLException;
 
 @WebListener
 public class WebAppListener implements ServletContextListener, HttpSessionListener {
     private AllServices allServices;
-    public WebAppListener(){
+    public WebAppListener() throws SQLException {
         allServices = new AllServices();
     }
     @Override

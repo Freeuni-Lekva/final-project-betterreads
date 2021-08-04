@@ -17,7 +17,8 @@
     DescriptionShortener ds = allServices.getDescriptionShortener();
 %>
 <li>
-    <%= book.getBook_name() %>
+    <a href="showBook?bookId=<%= book.getBook_id()%>"><%= book.getBook_name() %>
+        </a>
     <br>
     <%= ds.shorten(book.getBook_description())%>
     <br>
