@@ -33,4 +33,13 @@ public interface ReservationsDaoInterface {
      * @throws SQLException
      */
     public List<Reservation> getReservationByDeadline(Date deadline) throws SQLException;
+
+    /**
+     *
+     * @param deadline Date
+     * @return List of reservations of given user and with given deadline
+     *         null when there are no reservation deadlines for that date
+     * @throws SQLException
+     */
+    public List<Reservation> getReservationByDeadlineAndUser(Date deadline, int userId) throws SQLException;
 }
