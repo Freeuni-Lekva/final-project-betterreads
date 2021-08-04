@@ -1,4 +1,8 @@
-<%--
+<%@ page import="Constants.SharedConstants" %>
+<%@ page import="Service.bestBooks" %>
+<%@ page import="Model.Book" %>
+<%@ page import="java.util.List" %>
+<%@ page import="Service.AllServices" %><%--
   Created by IntelliJ IDEA.
   User: etsir
   Date: 8/3/2021
@@ -11,9 +15,31 @@
     <title>Better Reads</title>
 </head>
 <body>
-<h1>Welcome to Better Reads!</h1>
-<a href="/login">Already a member? Sign In</a>
+    <h1>Welcome to Better Reads!</h1>
+    <a href="/login">Already a member? Sign In</a>
 <br>
-<a href="/register">Register here!</a>
+    <a href="/register">Register here!</a>
+<br>
+    <form action="/search" method = "post">
+        <label for="stext">Search books:</label>
+        <input type="text" id="stext" name="stext" >
+        <button type="submit">search</button>
+    </form>
+<br>
+    <%
+        AllServices allServices = (AllServices) pageContext.getServletContext().getAttribute(SharedConstants.ATTRIBUTE);
+        bestBooks bb = allServices.getBestBooks();
+        List<Book> list = bb.getBestBooks(1, 5);
+    %>
+    <ul>
+    <%
+        for(Book b : list){
+    %>
+    <li><%= b.getBook_name() %></li>
+    <%
+        }
+    %>
+    </ul>
+
 </body>
 </html>

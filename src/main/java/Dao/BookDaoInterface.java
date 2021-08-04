@@ -29,6 +29,12 @@ public interface BookDaoInterface {
 
     /**
      *
+     * @return list of all books
+     */
+    public List<Book> getAllBooks() throws SQLException;
+
+    /**
+     *
      * @param authorID author
      * @return List of author's books
      */
