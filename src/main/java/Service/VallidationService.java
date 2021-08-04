@@ -38,7 +38,7 @@ public class VallidationService implements VallidationServiceInterface{
         } else if(!isMailCorrect(mail)){
             return "Mail is not correct";
         } else if(!isPasswordCorrect(password)){
-            return "Password is too short";
+            return "The password must be at least 7 characters long";
         }
         return "";
     }
