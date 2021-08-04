@@ -36,4 +36,11 @@ public interface UserServiceInterface {
      * @return true if password for this user is correct
      */
     boolean checkPassword(User user,String password);
+
+    /**
+     *
+     * @param user
+     * @return true if new user added
+     */
+    boolean addUser(User user);
 }
