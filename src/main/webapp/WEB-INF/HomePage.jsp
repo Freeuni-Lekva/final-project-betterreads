@@ -2,7 +2,8 @@
 <%@ page import="Service.bestBooks" %>
 <%@ page import="Model.Book" %>
 <%@ page import="java.util.List" %>
-<%@ page import="Service.AllServices" %><%--
+<%@ page import="Service.AllServices" %>
+<%@ page import="Model.User" %><%--
   Created by IntelliJ IDEA.
   User: etsir
   Date: 8/3/2021
@@ -16,9 +17,26 @@
 </head>
 <body>
     <h1>Welcome to Better Reads!</h1>
+<%
+    HttpSession httpSession = pageContext.getSession();
+    User user = (User) httpSession.getAttribute(SharedConstants.SESSION_ATTRIBUTE);
+
+    if(user == null){
+%>
+
     <a href="/login">Already a member? Sign In</a>
 <br>
     <a href="/register">Register here!</a>
+    <%
+        } else {
+
+    %>
+    <form action="/logout" method = "post">
+        <button type="submit">Log Out</button>
+    </form>
+    <%
+        }
+    %>
 <br>
     <form action="/search" method = "post">
         <label for="stext">Search books:</label>
