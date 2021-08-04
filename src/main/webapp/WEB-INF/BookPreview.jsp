@@ -12,7 +12,7 @@
 <li>
     <%= book.getBook_name() %>
     <br>
-    <%= book.getBook_description()%>
+        <%= book.getBook_description()%>
     <br>
     <img src=<%= book.getBook_photo()%> width="100" height="150">
 </li>
