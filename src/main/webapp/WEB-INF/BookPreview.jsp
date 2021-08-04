@@ -1,4 +1,7 @@
-<%@ page import="Model.Book" %><%--
+<%@ page import="Model.Book" %>
+<%@ page import="Service.AllServices" %>
+<%@ page import="Constants.SharedConstants" %>
+<%@ page import="Service.DescriptionShortener" %><%--
   Created by IntelliJ IDEA.
   User: Vano
   Date: 04.08.2021
@@ -9,10 +12,14 @@
 <html>
 <body>
 <% Book book = (Book) request.getAttribute("book"); %>
+<%
+    AllServices allServices = (AllServices) pageContext.getServletContext().getAttribute(SharedConstants.ATTRIBUTE);
+    DescriptionShortener ds = allServices.getDescriptionShortener();
+%>
 <li>
     <%= book.getBook_name() %>
     <br>
-        <%= book.getBook_description()%>
+    <%= ds.shorten(book.getBook_description())%>
     <br>
     <img src=<%= book.getBook_photo()%> width="100" height="150">
 </li>
