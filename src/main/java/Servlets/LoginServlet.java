@@ -29,14 +29,10 @@ public class LoginServlet extends HttpServlet {
         if(userService.checkUsernameExists(username)){
             User user = userService.getUserByUsername(username);
             if(userService.checkPassword(user,password)){
-                //
                 User currUser = (User)session.getAttribute(SharedConstants.SESSION_ATTRIBUTE);
-                if(currUser == null){
-                    //System.out.println("new  user in session");
+                if(currUser == null)
                     request.getSession().setAttribute(SharedConstants.SESSION_ATTRIBUTE,user);
-                } else {
-                    //System.out.println("already user in session");
-                }
+
                 request.getRequestDispatcher("WEB-INF/HomePage.jsp").forward(request,response);
 
             } else {
@@ -46,13 +42,9 @@ public class LoginServlet extends HttpServlet {
             User user = userService.getUserByMail(username);
             if(userService.checkPassword(user,password)){
                 User currUser = (User)session.getAttribute(SharedConstants.SESSION_ATTRIBUTE);
-                if(currUser == null){
-
+                if(currUser == null)
                     request.getSession().setAttribute(SharedConstants.SESSION_ATTRIBUTE,user);
 
-                } else {
-                    //System.out.println("already user in session");
-                }
                 request.getRequestDispatcher("WEB-INF/HomePage.jsp").forward(request,response);
 
             } else {

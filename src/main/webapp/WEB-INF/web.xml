@@ -51,4 +51,24 @@
     <servlet-name>LogoutServlet</servlet-name>
     <url-pattern>/logout</url-pattern>
   </servlet-mapping>
+
+  <servlet>
+    <servlet-name>ProfileServlet</servlet-name>
+    <servlet-class>Servlets.UserProfileServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>ProfileServlet</servlet-name>
+    <url-pattern>/userProfile</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>HomePageServlet</servlet-name>
+    <servlet-class>Servlets.HomePageServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>HomePageServlet</servlet-name>
+    <url-pattern>/home</url-pattern>
+  </servlet-mapping>
 </web-app>

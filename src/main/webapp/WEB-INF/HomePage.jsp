@@ -31,6 +31,8 @@
         } else {
 
     %>
+    <a href="userProfile?userId=<%= user.getUser_id()%>"><p>visit your profile</p>
+    </a>
     <form action="/logout" method = "post">
         <button type="submit">Log Out</button>
     </form>
