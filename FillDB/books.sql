@@ -34,7 +34,7 @@ insert into books(book_name, book_description, release_year, author_id, book_rat
                  Jay Gatsby and his new love for the beautiful Daisy Buchanan, of lavish parties on Long Island at a time when The New York 
                  Times noted gin was the national drink and sex the national obsession, it is an exquisitely crafted tale of America in the 1920s.", 
            1925, 8, 0, 10,
-                  "https://images-na.ssl-images-amazon.com/images/I/41tz6beOrOL._SX348_BO1,204,203,200_.jpg");
+                  "https://images-na.ssl-images-amazon.com/images/I/81djg0KWthS.jpg");
 
 insert into books(book_name, book_description, release_year, author_id, book_rating, available_count, book_photo)
            values("David Copperfield", "David Copperfield is the story of a young man's adventures on his journey from an unhappy and 
@@ -43,7 +43,7 @@ insert into books(book_name, book_description, release_year, author_id, book_rat
                  James Steerforth; his formidable aunt, Betsey Trotwood; the eternally humble, yet treacherous Uriah Heep; frivolous, 
                  enchanting Dora Spenlow; and the magnificently impecunious Wilkins Micawber, one of literature's great comic creations", 
            1850, 4, 0, 3,
-                 "https://images-na.ssl-images-amazon.com/images/I/41tz6beOrOL._SX348_BO1,204,203,200_.jpg");
+                 "https://images-na.ssl-images-amazon.com/images/I/41uMgxeWY0L.jpg");
 
 insert into books(book_name, book_description, release_year, author_id, book_rating, available_count, book_photo)
            values("The Adventures of Huckleberry Finn", "A nineteenth-century boy from a Mississippi River town recounts his adventures as
