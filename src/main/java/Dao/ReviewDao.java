@@ -14,14 +14,15 @@ public class ReviewDao implements ReviewDaoInterface{
     }
 
     @Override
-    public void addReview(int user_id, int book_id, double rating, String comment, Date date, int num_likes) {
+    public void addReview(int user_id, int book_id, double rating, String comment, String date, int num_likes) {
         try {
-            PreparedStatement st = conn.prepareStatement("INSERT INTO exam_lecturers  VALUES(?,?,?,?,?,?);");
+            PreparedStatement st = conn.prepareStatement("INSERT INTO reviews " +
+                    "(user_id, book_id, book_rating, user_comment, date_posted, num_likes)  VALUES(?,?,?,?,?,?);");
             st.setInt(1, user_id);
             st.setInt(2, book_id);
             st.setDouble(3, rating);
             st.setString(4, comment);
-            st.setDate(5, date);
+            st.setDate(5, Date.valueOf(date));
             st.setInt(6, num_likes);
             if (st.executeUpdate() == 0)
                 throw new SQLException("something went wrong while inserting a pair of exam and a lecturer");

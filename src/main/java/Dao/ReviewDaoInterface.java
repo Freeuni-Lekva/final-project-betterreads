@@ -15,7 +15,7 @@ public interface ReviewDaoInterface {
      * @param date date review was posted
      * @param num_likes number of likes review has
      */
-    void addReview(int user_id, int book_id, double rating, String comment, Date date, int num_likes);
+    void addReview(int user_id, int book_id, double rating, String comment, String date, int num_likes);
 
     /**
      * @param book_id id of book

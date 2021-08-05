@@ -17,6 +17,37 @@ public class ReservationsDao implements ReservationsDaoInterface{
     }
 
     @Override
+    public boolean addReservation(int user_id, int book_id) {
+        System.out.println("add reservation");
+        boolean exists = false;
+        try {
+            List<Reservation> reservations = getReservationByUser(user_id);
+            for (Reservation reservation : reservations) {
+                if (reservation.getUser().getUser_id() == user_id) {
+                    exists = true;
+                    break;
+                }
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        if(exists) return false;
+        try {
+            PreparedStatement statement = connection.prepareStatement("insert into reservations " +
+                    "(user_id, book_id, deadline) values (?, ?, ?)");
+            statement.setInt(1, user_id);
+            statement.setInt(2, book_id);
+            long time = System.currentTimeMillis();
+            Date twoWeeksAfterDate = new Date(time + 8467200 * 1000);
+            statement.setDate(3, twoWeeksAfterDate);
+            return statement.executeUpdate() != 0;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
     public Reservation getReservationById(int reservationId) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement
                 ("select * from reservations" +
