@@ -59,7 +59,7 @@
             request.setAttribute("book", b);
     %>
             <jsp:include page='BookPreview.jsp'>
-                <jsp:param name="bok" value="${b}"/>
+                <jsp:param name="book" value="${b}"/>
             </jsp:include>
     <%
         }
