@@ -91,4 +91,14 @@
     <servlet-name>BookServlet</servlet-name>
     <url-pattern>/showBook</url-pattern>
   </servlet-mapping>
+
+  <servlet>
+    <servlet-name>BookMarkingServlet</servlet-name>
+    <servlet-class>Servlets.BookMarkingServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>BookMarkingServlet</servlet-name>
+    <url-pattern>/bookMarking</url-pattern>
+  </servlet-mapping>
 </web-app>
