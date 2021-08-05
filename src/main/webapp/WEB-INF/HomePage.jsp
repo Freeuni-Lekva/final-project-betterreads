@@ -1,9 +1,9 @@
 <%@ page import="Constants.SharedConstants" %>
-<%@ page import="Service.bestBooks" %>
 <%@ page import="Model.Book" %>
 <%@ page import="java.util.List" %>
 <%@ page import="Service.AllServices" %>
-<%@ page import="Model.User" %><%--
+<%@ page import="Model.User" %>
+<%@ page import="Service.BookService" %><%--
   Created by IntelliJ IDEA.
   User: etsir
   Date: 8/3/2021
@@ -45,10 +45,14 @@
         <input type="text" id="stext" name="stext" >
         <button type="submit">search</button>
     </form>
-<br>
+
+    <form action="/catalogue" method = "get">
+        <button type="submit"> Catalogue </button>
+    </form>
+ <br>
     <%
         AllServices allServices = (AllServices) pageContext.getServletContext().getAttribute(SharedConstants.ATTRIBUTE);
-        bestBooks bb = allServices.getBestBooks();
+        BookService bb = allServices.getBookService();
         List<Book> list = bb.getBestBooks(1, 5);
     %>
     <ul>
