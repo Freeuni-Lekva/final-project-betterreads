@@ -35,6 +35,7 @@ public class UserBooksService implements UserBooksServiceInterface{
             List<Reservation> reservations = reservationsDao.getReservationByDeadlineAndUser(currDate,user_id);
             System.out.println(reservations.size());
             for(Reservation reservation : reservations){
+                System.out.println(reservation.getDeadline().toString() + "   " + currDate.toString());
                 if(reservation.getDeadline().after(currDate)){
                     books.add(reservation.getReservedBook());
                 }
