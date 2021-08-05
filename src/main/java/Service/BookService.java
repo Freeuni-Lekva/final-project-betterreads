@@ -2,6 +2,8 @@ package Service;
 
 import Constants.SharedConstants;
 import Dao.BookDao;
+import java.sql.SQLException;
+
 import Dao.UserDao;
 import Model.Book;
 
@@ -74,4 +76,8 @@ public class BookService implements BookServiceInterface{
         return bookList;
     }
 
+    @Override
+    public Book getBookById(int id) throws SQLException {
+        return bookDao.getBookById(id);
+    }
 }

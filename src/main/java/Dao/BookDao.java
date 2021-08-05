@@ -36,6 +36,16 @@ public class BookDao implements BookDaoInterface{
     }
 
     @Override
+    public Book getBookById(int id) throws SQLException {
+        PreparedStatement statement;
+        statement = connection.prepareStatement("select * from books where book_id = ?;");
+        statement.setInt(1, id);
+        ResultSet rs = statement.executeQuery();
+        if(!rs.next()) return null;
+        return getBookByRS(rs);
+    }
+
+    @Override
     public List<Book> filterBooks(String name) {
         return null;
     }
@@ -123,8 +133,8 @@ public class BookDao implements BookDaoInterface{
     public List<Book> getBookByGenre(Genre genre) throws SQLException {
         PreparedStatement statement;
         statement = connection.prepareStatement("select * from books b"+
-                                                    "join book_genres bg on b.book_id = bg.book_id " +
-                                                    "where bg.genre_id = " + genre.getGenre_id() + ";");
+                "join book_genres bg on b.book_id = bg.book_id " +
+                "where bg.genre_id = " + genre.getGenre_id() + ";");
         ResultSet rs = statement.executeQuery();
         List<Book> result = new ArrayList<>();
         while(rs.next()){

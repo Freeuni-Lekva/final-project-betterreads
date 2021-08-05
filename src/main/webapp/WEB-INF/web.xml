@@ -81,4 +81,14 @@
     <servlet-name>CatalogueServlet</servlet-name>
     <url-pattern>/catalogue</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>BookServlet</servlet-name>
+    <servlet-class>Servlets.BookServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>BookServlet</servlet-name>
+    <url-pattern>/showBook</url-pattern>
+  </servlet-mapping>
 </web-app>

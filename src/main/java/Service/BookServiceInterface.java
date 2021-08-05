@@ -2,6 +2,8 @@ package Service;
 
 import Model.Book;
 
+import java.sql.SQLException;
+
 import java.util.List;
 
 public interface BookServiceInterface {
@@ -39,4 +41,11 @@ public interface BookServiceInterface {
      * @return list of books sorted by release year - descending
      */
     List<Book> newToOld();
+
+    /**
+     *
+     * @param id
+     * @return
+     */
+    Book getBookById(int id) throws SQLException;
 }
