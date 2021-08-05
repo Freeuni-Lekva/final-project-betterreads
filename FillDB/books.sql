@@ -53,7 +53,7 @@ insert into books(book_name, book_description, release_year, author_id, book_rat
                  "https://i.pinimg.com/originals/d4/3a/df/d43adf654a3ae582f2ced8023afdaf0a.jpg");
 
 insert into books(book_name, book_description, release_year, author_id, book_rating, available_count, book_photo)
-           values("Les Mis�rables", "Victor Hugo's tale of injustice, heroism and love follows the fortunes of Jean Valjean, an escaped convict
+           values("Les Miserables", "Victor Hugo's tale of injustice, heroism and love follows the fortunes of Jean Valjean, an escaped convict
                  determined to put his criminal past behind him. But his attempts to become a respected member of the community are constantly put 
                  under threat: by his own conscience, when, owing to a case of mistaken identity, another man is arrested in his place; and by the 
                  relentless investigations of the dogged Inspector Javert. It is not simply for himself that Valjean must stay free, however, 
@@ -81,3 +81,66 @@ insert into books(book_name, book_description, release_year, author_id, book_rat
                   fairy tale for grown-ups that records the evolution from revolution against tyranny to a totalitarianism just as terrible.", 
            1945, 6, 0, 5,
                   "https://images-na.ssl-images-amazon.com/images/I/515KWRPPnYL._SX305_BO1,204,203,200_.jpg");
+                  
+insert into books(book_name, book_description, release_year, author_id, book_rating, available_count, book_photo)
+			values("Crime and Punishment","Crime and Punishment focuses on the mental anguish and moral dilemmas
+					of Rodion Raskolnikov, an impoverished ex-student in Saint Petersburg who formulates a plan 
+                    to kill an unscrupulous pawnbroker for her money",
+                    1866,1,0,9,"https://images-na.ssl-images-amazon.com/images/I/71CcO-jvRUL.jpg");
+                    
+insert into books(book_name, book_description, release_year, author_id, book_rating, available_count, book_photo)
+			values("A Farewell to Arms","novel about a man named Frederick who is in the Italian army as part of their ambulance Corp. 
+					Lt Frederick Henry drives an ambulance for the Italian army. ...
+                    When he gets back, he meets a nurse named Catherine Barkley and falls for her.",
+                    1929,9,0,4,"https://images-na.ssl-images-amazon.com/images/I/51+k43bzSXL._SX322_BO1,204,203,200_.jpg");
+    
+insert into books(book_name, book_description, release_year, author_id, book_rating, available_count, book_photo)
+			values("A Study in Scarlet","Story of how Sherlock Holmes solved the murder of Joseph Stangerson (and later, Enoch Drebber). 
+					When the police (head detectives Lestrade and Gregson) show up at their doorstep, stumped by a crime, 
+                    they turn to amateur detective Sherlock Holmes for help.",
+                    1887,18,0,3,"https://upload.wikimedia.org/wikipedia/commons/2/2c/ArthurConanDoyle_AStudyInScarlet_annual.jpg");
+        
+ insert into books(book_name, book_description, release_year, author_id, book_rating, available_count, book_photo)
+			values("The Hound of the Baskervilles","Sherlock Holmes and Dr Watson investigate the legend of a supernatural hound,
+				a beast that may be stalking a young heir on the fog-shrouded moorland that makes up his estate. 
+                On his uncle's death Sir Henry Baskerville returns from abroad and opens up the ancestral hall on the
+                desolate moors of Devonshire.",
+                1902,18,0,4,"https://myfictionbook.com/wp-content/uploads/2020/12/108-108_c3fc7c5a8a0636e254274dc2e19d2f94.jpg");
+                
+ insert into books(book_name, book_description, release_year, author_id, book_rating, available_count, book_photo)
+			values("Murder on the Orient Express","After a murder takes place on a train journey, a detective decides to investigate and find 
+					the culprit amongst the passengers aboard. In the process, he also learns the true identity of the victim.",
+                    1934,30,0,6,"https://lyceumtheatre.org/wp-content/uploads/2019/09/Murder-on-the-Orient-Express-WebPstr.jpg");               
+ 
+insert into books(book_name, book_description, release_year, author_id, book_rating, available_count, book_photo)
+			values("The Metamorphosis","Spectacular novella narrating the story of Gregor Samsa, a salesman who gets up one morning
+					and finds himself magically transformed into a big insect and struggles to conform to this new condition.",
+                    1915,25,0,2,"https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1359061917l/485894.jpg");
+
+insert into books(book_name, book_description, release_year, author_id, book_rating, available_count, book_photo)
+			values("The Shining","The Shining is set in Colorado in the 1970s. It centres on the Torrance family:
+				husband Jack, wife Wendy, and their five-year-old son, Danny. At the beginning of the novel, 
+                Jack is hired as the caretaker of the remote Overlook Hotel for the winter offseason. ... 
+                Jack is nonetheless determined to be the caretaker.",
+                1977,29,0,4,"https://cdn.waterstones.com/bookjackets/large/9781/4447/9781444720723.jpg");
+ 
+insert into books(book_name, book_description, release_year, author_id, book_rating, available_count, book_photo)
+			values("The Green Mile","It tells the story of death row supervisor Paul Edgecombe's encounter with John Coffey, 
+					an unusual inmate who displays inexplicable healing and empathetic abilities.",
+                    1996,29,0,2,"https://d1w7fb2mkkr3kw.cloudfront.net/assets/images/book/lrg/9780/5750/9780575084346.jpg");
+                    
+insert into books(book_name, book_description, release_year, author_id, book_rating, available_count, book_photo)
+			values("The Three Musketeers","Set between 1625 and 1628, it recounts the adventures of a young man 
+						named d'Artagnan (a character based on Charles de Batz-Castelmore d'Artagnan) 
+						after he leaves home to travel to Paris, hoping to join the Musketeers of the Guard. ... 
+                        The Three Musketeers is primarily a historical and adventure novel.",
+                        1844,27,0,3,"https://images-na.ssl-images-amazon.com/images/I/81eHy22tzML.jpg");
+                            
+insert into books(book_name, book_description, release_year, author_id, book_rating, available_count, book_photo)
+			values("To Kill a Mockingbird","To Kill a Mockingbird is a novel by Harper Lee. 
+					Although it was written in 1960 it is set in the mid-1930s in the small town of Maycomb, Alabama. ... 
+					Many residents of Maycomb are racists and during the novel Atticus is asked to defend Tom Robinson, 
+					a black man wrongly accused of raping a white woman.",
+					1960,26,0,3,"https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/To_Kill_a_Mockingbird_%28first_edition_cover%29.jpg/1200px-To_Kill_a_Mockingbird_%28first_edition_cover%29.jpg");                    
+                    
+                    
