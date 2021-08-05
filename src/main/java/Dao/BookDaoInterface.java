@@ -31,7 +31,7 @@ public interface BookDaoInterface {
      *
      * @return list of all books
      */
-    public List<Book> getAllBooks() throws SQLException;
+    public List<Book> getAllBooks();
 
     /**
      *

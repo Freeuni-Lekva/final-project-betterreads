@@ -71,4 +71,14 @@
     <servlet-name>HomePageServlet</servlet-name>
     <url-pattern>/home</url-pattern>
   </servlet-mapping>
+
+  <servlet>
+    <servlet-name>CatalogueServlet</servlet-name>
+    <servlet-class>Servlets.CatalogueServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>CatalogueServlet</servlet-name>
+    <url-pattern>/catalogue</url-pattern>
+  </servlet-mapping>
 </web-app>

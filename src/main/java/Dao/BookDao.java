@@ -13,8 +13,12 @@ import java.util.List;
 public class BookDao implements BookDaoInterface{
     Connection connection;
 
-    public BookDao(String dataBaseName) throws SQLException {
-        connection = Connector.getConnection(dataBaseName);
+    public BookDao(String dataBaseName){
+        try {
+            connection = Connector.getConnection(dataBaseName);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
 
@@ -37,13 +41,17 @@ public class BookDao implements BookDaoInterface{
     }
 
     @Override
-    public List<Book> getAllBooks() throws SQLException {
+    public List<Book> getAllBooks() {
         PreparedStatement statement;
-        statement = connection.prepareStatement("select * from books;");
-        ResultSet rs = statement.executeQuery();
         List<Book> bookList = new ArrayList<>();
-        while(rs.next()){
-            bookList.add(getBookByRS(rs));
+        try {
+            statement = connection.prepareStatement("select * from books;");
+            ResultSet rs = statement.executeQuery();
+            while(rs.next()){
+                bookList.add(getBookByRS(rs));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
         return bookList;
     }
@@ -87,7 +95,7 @@ public class BookDao implements BookDaoInterface{
     @Override
     public List<Book> getBookByName(String name) throws SQLException {
         PreparedStatement statement;
-        statement = connection.prepareStatement("select * from books where book_name = '?';");
+        statement = connection.prepareStatement("select * from books where book_name = ?;");
         statement.setString(1, name);
         ResultSet rs = statement.executeQuery();
         List<Book> result = new ArrayList<>();
