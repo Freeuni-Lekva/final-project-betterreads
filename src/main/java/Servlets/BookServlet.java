@@ -19,6 +19,7 @@ public class BookServlet extends HttpServlet {
         try {
             Book b = allServices.getBookService().getBookById(Integer.parseInt(bookId));
             httpServletRequest.setAttribute("bookID", b.getBook_id());
+            System.out.println(b.getBook_id());
             httpServletRequest.setAttribute("bookName", b.getBook_name());
             httpServletRequest.setAttribute("authorId", b.getAuthor_id());
             httpServletRequest.setAttribute("description", b.getBook_description());

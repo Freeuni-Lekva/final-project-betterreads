@@ -3,7 +3,6 @@ package Dao;
 import Constants.SharedConstants;
 import Model.Book;
 
-import javax.xml.transform.Result;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -89,6 +88,33 @@ public class BookShelfDao implements BookShelfDaoInterface{
         }
         return resultList;
     }
+
+    @Override
+    public boolean addMarkedBook(int user_id, int book_id) {
+        boolean exists = false;
+        List<Book> markedBooks = getMarkedBooks(user_id);
+        for(Book b : markedBooks){
+            if(b.getBook_id() == book_id){
+                exists = true;
+                break;
+            }
+        }
+
+        if(exists) return false;
+
+        try {
+            PreparedStatement statement = connection.prepareStatement("insert into book_shelf " +
+                    "(user_id, book_id, already_read) values(?,?,?);");
+            statement.setInt(1, user_id);
+            statement.setInt(2, book_id);
+            statement.setInt(3, SharedConstants.MARKED_FOR_FUTURE);
+            return statement.executeUpdate() != 0;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
+    }
+
     private Book createBook(int book_id, String book_name, String book_description, int release_year,int author_id,double book_rating, int available_count){
         Book book = new Book();
         book.setBook_id(book_id);

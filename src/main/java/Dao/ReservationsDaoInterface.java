@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface ReservationsDaoInterface {
+
+    boolean addReservation(int user_id, int book_id);
     /**
      *
      * @param reservationId int

@@ -25,4 +25,8 @@ public interface UserBooksServiceInterface {
      * @return List of marked, but not reserved books
      */
     List<Book> getBooksForFuture(int user_id);
+
+    void addReservedBook(int user_id, int book_id);
+
+    void addBooksForFuture(int user_id, int book_id);
 }

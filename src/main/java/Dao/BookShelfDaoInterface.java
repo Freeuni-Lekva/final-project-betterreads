@@ -27,5 +27,12 @@ public interface BookShelfDaoInterface {
      */
     List<Book> getMarkedBooks(int user_id);
 
+    /**
+     *  @param user_id
+     * @param book_id
+     * @return
+     */
+    boolean addMarkedBook(int user_id, int book_id);
+
 
 }
