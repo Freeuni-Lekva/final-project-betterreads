@@ -25,11 +25,16 @@ public class CatalogueServlet extends HttpServlet {
         String yearSort = request.getParameter("booksYear");
         String ratingSort = request.getParameter("bookRating");
         List<Book> list = bs.getAllBooks();
+
+        if (request.getParameter("action") != null){
+            list = bs.removeUnavailableBooks(list);
+        }
+
         if(yearSort != null) {
             if (yearSort.equals("old to new")) {
-                list = bs.oldToNew();
+                list = bs.oldToNew(bs.getAllBooks());
             } else if (yearSort.equals("new to old")) {
-                list = bs.newToOld();
+                list = bs.newToOld(bs.getAllBooks());
             }
         } else {
             if (ratingSort != null) {

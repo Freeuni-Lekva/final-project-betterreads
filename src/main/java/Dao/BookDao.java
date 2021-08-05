@@ -142,4 +142,20 @@ public class BookDao implements BookDaoInterface{
         }
         return result;
     }
+
+    @Override
+    public List<Book> getAvailableBooks() {
+        PreparedStatement statement;
+        List<Book> bookList = new ArrayList<>();
+        try {
+            statement = connection.prepareStatement("select * from books where available_count > 0;");
+            ResultSet rs = statement.executeQuery();
+            while(rs.next()){
+                bookList.add(getBookByRS(rs));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return bookList;
+    }
 }
