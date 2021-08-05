@@ -18,10 +18,6 @@ public class GenreService {
     }
 
     public List<String> getGenres(){
-        System.out.println(423);
-        for(int i = 0; i < genreDao.getAllGenres().size(); i++){
-            System.out.println(genreDao.getAllGenres().get(i));
-        }
         return genreDao.getAllGenres();
     }
 }
