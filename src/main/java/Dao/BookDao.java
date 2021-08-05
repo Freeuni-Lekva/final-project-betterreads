@@ -76,6 +76,8 @@ public class BookDao implements BookDaoInterface{
         res.setRelease_year(rs.getInt(4));
         res.setAuthor_id(rs.getInt(5));
         res.setBook_rating(rs.getDouble(6));
+        res.setAvailable_count(rs.getInt(7));
+        res.setBook_photo(rs.getString(8));
         return res;
     }
 
