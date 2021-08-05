@@ -73,4 +73,11 @@ public interface BookDaoInterface {
      * @return list of available books
      */
     public List<Book> getAvailableBooks();
+
+    /**
+     *
+     * @param genre
+     * @return list of books of this genre
+     */
+    List<Book> getBookByGenre(String genre);
 }

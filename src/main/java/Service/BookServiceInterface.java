@@ -61,4 +61,11 @@ public interface BookServiceInterface {
      * @return only available books from list
      */
     List<Book> removeUnavailableBooks(List<Book> list);
+
+    /**
+     *
+     * @param genres array of genre names
+     * @return list of books
+     */
+    List<Book> getBooksByGanres(String[] genres);
 }

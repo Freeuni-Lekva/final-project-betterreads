@@ -46,6 +46,10 @@ public class CatalogueServlet extends HttpServlet {
                 }
             }
         }
+        if (request.getParameter("GenreFilter") != null){
+            String[] names = request.getParameterValues("genres");
+            list = bs.getBooksByGanres(names);
+        }
         request.setAttribute("list", list);
         request.getRequestDispatcher("WEB-INF/Catalogue.jsp").forward(request,response);
     }

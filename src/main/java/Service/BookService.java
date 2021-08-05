@@ -6,12 +6,10 @@ import java.sql.SQLException;
 
 import Dao.UserDao;
 import Model.Book;
+import Model.Genre;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 public class BookService implements BookServiceInterface{
     private BookDao bookDao;
@@ -69,6 +67,7 @@ public class BookService implements BookServiceInterface{
         return bookList;
     }
 
+    @Override
     public List<Book> newToOld(List<Book> bookList)  {
         List<Book> result = oldToNew(bookList);
         Collections.reverse(result);
@@ -94,5 +93,31 @@ public class BookService implements BookServiceInterface{
             }
         }
         return result;
+    }
+
+    @Override
+    public List<Book> getBooksByGanres(String[] genres){
+        BookDao bd = new BookDao(SharedConstants.DATA_BASE_NAME);
+        List<Book> result = new ArrayList<Book>();
+        for(int i = 0; i < genres.length; i++){
+            List<Book> tmp = bd.getBookByGenre(genres[i]);
+            result.addAll(tmp);
+        }
+        return removeDuplicates(result);
+    }
+
+    private List<Book> removeDuplicates(List<Book> list){
+        List<Book> result = new ArrayList<>();
+        for(int i = 0; i < list.size(); i++){
+            if(!result.contains(list.get(i))) result.add(list.get(i));
+        }
+        return result;
+    }
+
+    private boolean contains(List<Book> list, Book book){
+        for(int i = 0; i < list.size(); i++){
+            if(book.equals(list.get(i))) return true;
+        }
+        return false;
     }
 }
