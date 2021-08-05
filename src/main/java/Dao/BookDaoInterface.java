@@ -67,4 +67,10 @@ public interface BookDaoInterface {
      * @return
      */
     public Book getBookById(int id) throws SQLException;
+
+    /**
+     *
+     * @return list of available books
+     */
+    public List<Book> getAvailableBooks();
 }
