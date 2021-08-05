@@ -53,9 +53,8 @@ public class BookService implements BookServiceInterface{
         return bookList;
     }
 
-    public List<Book> oldToNew() {
+    public List<Book> oldToNew(List<Book> bookList) {
         BookDao bd = new BookDao(SharedConstants.DATA_BASE_NAME);
-        List<Book> bookList = bd.getAllBooks();
         Collections.sort(bookList, new Comparator<Book>() {
             @Override
             public int compare(Book o1, Book o2) {
@@ -70,14 +69,30 @@ public class BookService implements BookServiceInterface{
         return bookList;
     }
 
-    public List<Book> newToOld()  {
-        List<Book> bookList = oldToNew();
-        Collections.reverse(bookList);
-        return bookList;
+    public List<Book> newToOld(List<Book> bookList)  {
+        List<Book> result = oldToNew(bookList);
+        Collections.reverse(result);
+        return result;
     }
 
     @Override
     public Book getBookById(int id) throws SQLException {
         return bookDao.getBookById(id);
+    }
+
+    @Override
+    public List<Book> availableBooks() {
+        return bookDao.getAvailableBooks();
+    }
+
+    @Override
+    public List<Book> removeUnavailableBooks(List<Book> list){
+        List<Book> result = new ArrayList<>();
+        for(int i = 0 ; i < list.size(); i++){
+            if(list.get(i).getAvailable_count() > 0){
+                result.add(list.get(i));
+            }
+        }
+        return result;
     }
 }

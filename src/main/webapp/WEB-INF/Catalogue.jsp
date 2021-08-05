@@ -44,6 +44,10 @@
     <input type="submit" value="Sort by rating"/>
 </form>
 
+<form action="/catalogue" method = "post">
+    <input type="submit" name="action" value="Get available books">
+</form>
+
 <ul>
     <%
         for(Book b : list){
