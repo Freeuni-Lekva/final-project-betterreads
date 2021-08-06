@@ -21,7 +21,7 @@
 %>
 <h2>You have no access here!</h2>
 <%
-        }
+        } else {
 %>
 <h2>Here are admin functions:</h2>
 <br>
@@ -32,6 +32,8 @@
 <h4>Add genre from here</h4>
 <br>
 <h4>Add book from here</h4>
-
+<%
+    }
+%>
 </body>
 </html>
