@@ -22,7 +22,6 @@ public class CatalogueServlet extends HttpServlet {
         GenreService genreService = allServices.getGenreService();
         List<String> genres = genreService.getGenres();
         request.setAttribute("genres", genres);
-        System.out.println(genres);
         request.getRequestDispatcher("WEB-INF/Catalogue.jsp").forward(request,response);
     }
     @Override
