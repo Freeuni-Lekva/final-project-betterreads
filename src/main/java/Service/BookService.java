@@ -133,7 +133,7 @@ public class BookService implements BookServiceInterface{
     }
 
     @Override
-    public List<Book> getBooksByGanres(String[] genres){
+    public List<Book> getBooksByGanres(String[] genres, List<Book> list) {
         BookDao bd = null;
         try {
             bd = new BookDao(Connector.getConnection(SharedConstants.DATA_BASE_NAME));
@@ -141,12 +141,24 @@ public class BookService implements BookServiceInterface{
             throwables.printStackTrace();
         }
         List<Book> result = new ArrayList<Book>();
-        for(int i = 0; i < genres.length; i++){
+        for (int i = 0; i < genres.length; i++) {
             List<Book> tmp = bd.getBookByGenre(genres[i]);
             result.addAll(tmp);
         }
-        return removeDuplicates(result);
+        result = removeDuplicates(result);
+        return getIntersection(list, result);
     }
+
+    private List<Book> getIntersection(List<Book> list, List<Book> tmp){
+        List<Book> answer = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            if (contain(tmp, list.get(i))) {
+                answer.add(list.get(i));
+            }
+        }
+        return answer;
+    }
+
 
     private List<Book> removeDuplicates(List<Book> list){
         List<Book> result = new ArrayList<>();
@@ -156,7 +168,7 @@ public class BookService implements BookServiceInterface{
         return result;
     }
 
-    private boolean contains(List<Book> list, Book book){
+    private boolean contain(List<Book> list, Book book){
         for(int i = 0; i < list.size(); i++){
             if(book.equals(list.get(i))) return true;
         }
