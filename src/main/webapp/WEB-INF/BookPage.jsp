@@ -8,6 +8,15 @@
 
 <body>
 
+<jsp:include page='Header.jsp'>
+    <jsp:param name="Header" value="Header"/>
+</jsp:include>
+
+<form action="/catalogue" method = "get">
+    <button type="submit"> Catalogue </button>
+</form>
+<br>
+
 <h1>${bookName}</h1>
 <form action="/bookMarking" method="post">
     <input name="bookID" type="hidden" value="${bookID}"/>
@@ -17,23 +26,6 @@
     <label>Available - ${count}</label>
     <p>${description}</p>
 
-    <%
-        HttpSession httpSession = pageContext.getSession();
-        User user = (User) httpSession.getAttribute(SharedConstants.SESSION_ATTRIBUTE);
-
-        if(user != null){
-    %>
-    <label><input type="submit" name="reserve" value="Reserve Book"></label>
-    <label><input type="submit" name="mark" value="Mark As Interested"></label>
-    <%
-       } else {
-    %>
-    <a href="/login">Already a member? Sign In</a>
-    <br>
-    <a href="/register">Register here!</a>
-    <%
-       }
-    %>
 
 </form>
 </body>

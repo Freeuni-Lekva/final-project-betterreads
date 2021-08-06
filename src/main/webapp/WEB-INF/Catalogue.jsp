@@ -17,6 +17,11 @@
 </head>
 <body>
 
+<jsp:include page='Header.jsp'>
+    <jsp:param name="Header" value="Header"/>
+</jsp:include>
+
+
 <%
     AllServices allServices = (AllServices) pageContext.getServletContext().getAttribute(SharedConstants.ATTRIBUTE);
     BookService bs = allServices.getBookService();
