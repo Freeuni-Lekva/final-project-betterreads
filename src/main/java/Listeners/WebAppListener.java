@@ -31,6 +31,7 @@ public class WebAppListener implements ServletContextListener, HttpSessionListen
     public void sessionCreated(HttpSessionEvent httpSessionEvent) {
         HttpSession session = httpSessionEvent.getSession();
         session.setAttribute(SharedConstants.SESSION_ATTRIBUTE, null);
+        session.setAttribute(SharedConstants.ADMIN_SESSION, null);
     }
 
     @Override
