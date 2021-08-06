@@ -9,7 +9,8 @@ public class AllServices {
     private VallidationService vallService;
     private DescriptionShortener descriptionShortener;
     private BookService bookService;
-    public GenreService genreService;
+    private GenreService genreService;
+    private AdminService adminService;
 
     public AllServices() throws SQLException {
         hashService = new HashService();
@@ -19,6 +20,7 @@ public class AllServices {
         descriptionShortener = new DescriptionShortener();
         bookService = new BookService();
         genreService = new GenreService();
+        adminService = new AdminService();
     }
     public HashService getHashService(){
         return hashService;
@@ -31,5 +33,6 @@ public class AllServices {
     public DescriptionShortener getDescriptionShortener() {return descriptionShortener;}
     public BookService getBookService(){return bookService;}
     public GenreService getGenreService(){return genreService;}
+    public AdminService getAdminService(){ return adminService; }
 }
 
