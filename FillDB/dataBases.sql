@@ -89,3 +89,10 @@ create table reviews(
 	constraint reviews_book_fk
 		foreign key (book_id) references books(book_id)  
 );
+
+drop table if exists admins;
+create table admins(
+	user_id int,
+    constraint admin_user_id unique (user_id)    
+);
+
