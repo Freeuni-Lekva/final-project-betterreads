@@ -13,8 +13,7 @@ public class ReviewDaoTest extends TestCase{
     ReviewDao rd;
 
     protected void setUp() throws SQLException {
-        rd = new ReviewDao("testLibrary");
-        connection = Connector.getConnection("testLibrary");
+        rd = new ReviewDao(Connector.getConnection("testLibrary"));
     }
 
     private void helper() throws SQLException {
