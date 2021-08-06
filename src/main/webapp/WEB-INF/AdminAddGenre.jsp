@@ -1,7 +1,7 @@
 <html>
 
 <head>
-   <title>Add Book</title>
+   <title>Add Genre</title>
 </head>
 
 <body>
