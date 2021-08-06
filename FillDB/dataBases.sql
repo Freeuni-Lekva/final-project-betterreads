@@ -80,7 +80,6 @@ create table reviews(
 	review_id int auto_increment primary key,
 	user_id int not null,
     book_id int not null,
-    book_rating double not null,
     user_comment varchar(600),
     date_posted date not null,
     num_likes int not null,
@@ -88,4 +87,16 @@ create table reviews(
 		foreign key (user_id) references users(user_id),
 	constraint reviews_book_fk
 		foreign key (book_id) references books(book_id)  
+);
+
+drop table if exists ratings;
+create table ratings(
+    rating_id int auto_increment primary key,
+    user_id int not null,
+    book_id int not null,
+    book_rating int not null,
+    constraint ratings_user_fk
+        foreign key (user_id) references users(user_id),
+    constraint ratings_book_fk
+        foreign key (book_id) references books(book_id)
 );
