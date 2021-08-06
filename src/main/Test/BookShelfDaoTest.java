@@ -1,6 +1,7 @@
 
 import Constants.SharedConstants;
 import Dao.BookShelfDao;
+import Dao.CDB;
 import Dao.Connector;
 import Model.Book;
 import junit.framework.TestCase;
@@ -18,6 +19,7 @@ public class BookShelfDaoTest extends TestCase {
     private Connection conn;
 
     protected void setUp() throws SQLException {
+        CDB cdb = new CDB();
         String dbName = "testLibrary";
         this.conn = Connector.getConnection(dbName);
         Statement stm = conn.createStatement();
@@ -33,7 +35,7 @@ public class BookShelfDaoTest extends TestCase {
         book1.setRelease_year(1980);
         book2 = new Book();
         book2.setBook_name("Mglebi");
-        book2.setAuthor_id(2);
+        book2.setAuthor_id(1);
         book2.setBook_description("Am cxovrebashi mgeli unda iyo da mgelze ufro mgeli");
         book2.setRelease_year(1999);
     }
@@ -53,7 +55,7 @@ public class BookShelfDaoTest extends TestCase {
         addUser2();
         addBook2();
         BookShelfDao bsd = new BookShelfDao(Connector.getConnection("testLibrary"));
-        List<Book> list = bsd.getAlreadyReadBooks(2);
+        List<Book> list = bsd.getAlreadyReadBooks(1);
 
         assertEquals(1, list.size());
         assertTrue(book2.equals(list.get(0)));
@@ -64,7 +66,38 @@ public class BookShelfDaoTest extends TestCase {
     public void test1getAllBooksInBookShelfTest() throws SQLException {
         BookShelfDao bsd = new BookShelfDao(Connector.getConnection("testLibrary"));
         List<Book> list = bsd.getAllBooksInBookShelf(1);
+        assertEquals(0, list.size());
+    }
 
+    @Test
+    public void testGetMarkedBooks() throws SQLException {
+        addUser1();
+        addBook1();
+        BookShelfDao bsd = new BookShelfDao(Connector.getConnection("testLibrary"));
+        List<Book> list = bsd.getMarkedBooks(1);
+        assertEquals(1, list.size());
+        assertTrue(book1.equals(list.get(0)));
+    }
+
+    @Test
+    public void testAddMarkedBook() throws SQLException {
+        BookShelfDao bsd = new BookShelfDao(Connector.getConnection("testLibrary"));
+        addUser1();
+        addBook1();
+        addBook2();
+        assertFalse(bsd.addMarkedBook(1, 1));
+    }
+
+    @Test
+    public void testRemoveBook() throws SQLException {
+        BookShelfDao bsd = new BookShelfDao(Connector.getConnection("testLibrary"));
+        addUser1();
+        addBook1();
+        addUser2();
+        addBook2();
+        bsd.removeBook(1, 1);
+        bsd.removeBook(2, 2);
+        List<Book> list = bsd.getAllBooksInBookShelf(1);
         assertEquals(0, list.size());
     }
 
@@ -117,7 +150,6 @@ public class BookShelfDaoTest extends TestCase {
         pst3.execute();
     }
 
-
     private void addBook2() throws SQLException {
         PreparedStatement pst1 = conn.prepareStatement("insert into authors(author_name)" +
                 " values(?);");
@@ -130,15 +162,15 @@ public class BookShelfDaoTest extends TestCase {
         pst2.setString(1,"Mglebi");
         pst2.setString(2, "Am cxovrebashi mgeli unda iyo da mgelze ufro mgeli");
         pst2.setInt(3, 1999);
-        pst2.setInt(4,2);
+        pst2.setInt(4,1);
         pst2.setInt(5, 0);
         pst2.setInt(6, 17);
         pst2.execute();
 
         PreparedStatement pst3 = conn.prepareStatement("insert into book_shelf(user_id, book_id, already_read)" +
                 " values(?, ?, ?);");
-        pst3.setInt(1,2);
-        pst3.setInt(2, 2);
+        pst3.setInt(1,1);
+        pst3.setInt(2, 1);
         pst3.setInt(3, SharedConstants.ALREADY_READ);
         pst3.execute();
     }
