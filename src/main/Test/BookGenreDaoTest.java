@@ -18,8 +18,8 @@ public class BookGenreDaoTest extends TestCase {
     BookGenreDao bgd;
 
     protected void setUp() throws SQLException {
-        bgd = new BookGenreDao("testLibrary");
         connection = Connector.getConnection("testLibrary");
+        bgd = new BookGenreDao(connection);
     }
 
     private void helper() throws SQLException {
