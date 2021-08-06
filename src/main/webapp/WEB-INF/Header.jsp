@@ -44,6 +44,10 @@
     <button type="submit">Log Out</button>
 </form>
 
+<form action="/suggestions" method = "post">
+    <button type="submit">Suggest me a book</button>
+</form>
+
 
 <%
     }
