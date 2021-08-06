@@ -68,4 +68,18 @@ public interface BookServiceInterface {
      * @return list of books
      */
     List<Book> getBooksByGanres(String[] genres);
+
+    /**
+     *
+     * @param bookList
+     * @return books sorted by rating - ascending
+     */
+    List<Book> sortHighToLow(List<Book> bookList);
+
+    /**
+     *
+     * @param bookList
+     * @return books sorted by rating - descending
+     */
+    List<Book> sortLowToHigh(List<Book> bookList);
 }

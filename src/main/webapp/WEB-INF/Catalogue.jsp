@@ -31,28 +31,21 @@
     }
 %>
 
-<form action="/catalogue" method= "post">
-    <label for="booksYear">Sort books:</label>
-    <select id="booksYear" name="booksYear">
-        <option value="old to new">Old -> New</option>
-        <option value="new to old">New -> Old</option>
-    </select>
-    <input type="submit" value="Sort by year"/>
-</form>
 
 <form action="/catalogue" method= "post">
-    <label for="bookRating">Sort books:</label>
-    <select id="bookRating" name="bookRating">
-        <option value="High -> Low">High -> Low</option>
-        <option value="Low -> High">Low -> High</option>
-    </select>
-    <input type="submit" value="Sort by rating"/>
-</form>
+    <label for="SortBooks">Sort books:</label>
+    <select id="SortBooks" name="SortBooks">
+        <option value="High -> Low">Rating: High -> Low</option>
+        <option value="Low -> High">Rating: Low -> High</option>
+        <option value="old to new">Release year: Old -> New</option>
+        <option value="new to old">Release year: New -> Old</option>
+    </select><br>
 
-<form action="/catalogue" method = "post">
-    <input type="submit" name="action" value="Get available books">
-</form>
+    <input type="checkbox" id="Available" name="Available" value="Available">
+    <label for="Available"> Get available books </label><br>
 
+    <input type="submit" Submit ="Sort"/>
+</form>
 
 <fieldset> <legend>Choose your interests</legend>
     <form action="/catalogue" method = "post">

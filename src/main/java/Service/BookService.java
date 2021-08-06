@@ -110,6 +110,29 @@ public class BookService implements BookServiceInterface{
     }
 
     @Override
+    public  List<Book> sortLowToHigh(List<Book> bookList){
+        Collections.sort(bookList, new Comparator<Book>() {
+            @Override
+            public int compare(Book o1, Book o2) {
+                if(o1.getBook_rating() == o2.getBook_rating())
+                    return 0;
+                if(o1.getBook_rating() > o2.getBook_rating())
+                    return 1;
+                else
+                    return -1;
+            }
+        });
+        return bookList;
+    }
+
+    @Override
+    public List<Book> sortHighToLow(List<Book> bookList){
+        List<Book> result = sortLowToHigh(bookList);
+        Collections.reverse(result);
+        return result;
+    }
+
+    @Override
     public List<Book> getBooksByGanres(String[] genres){
         BookDao bd = null;
         try {
