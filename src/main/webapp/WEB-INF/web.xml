@@ -121,4 +121,24 @@
     <servlet-name>RatingServlet</servlet-name>
     <url-pattern>/rating</url-pattern>
   </servlet-mapping>
+
+  <servlet>
+    <servlet-name>LogoutServletAdmin</servlet-name>
+    <servlet-class>Servlets.LogoutServletAdmin</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>LogoutServletAdmin</servlet-name>
+    <url-pattern>/logoutAdmin</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>AdminHomeServlet</servlet-name>
+    <servlet-class>Servlets.AdminHomePageServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>AdminHomeServlet</servlet-name>
+    <url-pattern>/adminHome</url-pattern>
+  </servlet-mapping>
 </web-app>

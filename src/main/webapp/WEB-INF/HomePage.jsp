@@ -23,9 +23,6 @@
     </jsp:include>
 
 
-    <form action="/catalogue" method = "get">
-        <button type="submit"> Catalogue </button>
-    </form>
  <br>
     <%
         AllServices allServices = (AllServices) pageContext.getServletContext().getAttribute(SharedConstants.ATTRIBUTE);

@@ -19,6 +19,10 @@
     <button type="submit">search</button>
 </form>
 
+<form action="/catalogue" method = "get">
+    <button type="submit"> Catalogue </button>
+</form>
+
 <form action="/home" method = "post">
     <button type="submit"> BetterReads </button>
 </form>
@@ -26,7 +30,6 @@
 <%
     HttpSession httpSession = pageContext.getSession();
     User user = (User) httpSession.getAttribute(SharedConstants.SESSION_ATTRIBUTE);
-
     if(user == null){
 %>
 

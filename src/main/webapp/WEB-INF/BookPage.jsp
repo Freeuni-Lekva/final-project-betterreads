@@ -18,13 +18,26 @@
 
 <body>
 
+<%
+    HttpSession httpSession = pageContext.getSession();
+    User admin = (User) httpSession.getAttribute(SharedConstants.ADMIN_SESSION);
+    if(admin == null){
+%>
+
 <jsp:include page='Header.jsp'>
     <jsp:param name="Header" value="Header"/>
 </jsp:include>
 
-<form action="/catalogue" method = "get">
-    <button type="submit"> Catalogue </button>
-</form>
+<%
+} else {
+%>
+<jsp:include page='AdminHeader.jsp'>
+    <jsp:param name="AdminHeader" value="AdminHeader"/>
+</jsp:include>
+<%
+    }
+%>
+
 <br>
 
 <h1>${bookName}</h1>
@@ -37,7 +50,7 @@
     <p>${description}</p>
 
     <%
-        HttpSession httpSession = pageContext.getSession();
+        httpSession = pageContext.getSession();
         User user = (User) httpSession.getAttribute(SharedConstants.SESSION_ATTRIBUTE);
         Integer book_ID = (Integer)request.getAttribute("bookID");
         if(user != null){

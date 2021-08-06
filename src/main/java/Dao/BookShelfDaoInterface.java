@@ -30,11 +30,14 @@ public interface BookShelfDaoInterface {
     /**
      *  @param user_id
      * @param book_id
-     * @return
+     * @return true if user marks book
      */
     boolean addMarkedBook(int user_id, int book_id);
 
+    /**
+     *
+     * @param user_id
+     * @param book_id
+     */
     void removeBook(int user_id, int book_id);
-
-
 }
