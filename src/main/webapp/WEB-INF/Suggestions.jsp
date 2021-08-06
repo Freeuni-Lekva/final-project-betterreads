@@ -12,7 +12,7 @@
 <ul>
     <li>
         <c:forEach items="${list}" var="book">
-
+            <jsp:include page="BookPreview.jsp"/>
         </c:forEach>
     </li>
 </ul>
