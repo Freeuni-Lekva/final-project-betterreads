@@ -24,6 +24,7 @@ public class CatalogueServlet extends HttpServlet {
         request.setAttribute("genres", genres);
         request.getRequestDispatcher("WEB-INF/Catalogue.jsp").forward(request,response);
     }
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         AllServices allServices = (AllServices) getServletContext().getAttribute(SharedConstants.ATTRIBUTE);
@@ -47,17 +48,14 @@ public class CatalogueServlet extends HttpServlet {
             }
         }
 
-
-        if (request.getParameter("GenreFilter") != null){
-            String[] names = request.getParameterValues("genres");
-            list = bs.getBooksByGanres(names);
+        if (request.getParameter("genre") != null){
+            String[] names = request.getParameterValues("genre");
+            list = bs.getBooksByGanres(names, list);
         }
         request.setAttribute("list", list);
-
         GenreService genreService = allServices.getGenreService();
         List<String> genres = genreService.getGenres();
         request.setAttribute("genres", genres);
-
         request.getRequestDispatcher("WEB-INF/Catalogue.jsp").forward(request,response);
     }
 }

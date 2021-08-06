@@ -32,7 +32,7 @@
     }
 %>
 
-
+<fieldset> <legend>Choose your interests</legend>
 <form action="/catalogue" method= "post">
     <label for="SortBooks">Sort books:</label>
     <select id="SortBooks" name="SortBooks">
@@ -40,24 +40,20 @@
         <option value="Low -> High">Rating: Low -> High</option>
         <option value="old to new">Release year: Old -> New</option>
         <option value="new to old">Release year: New -> Old</option>
-    </select><br>
-
+    </select><br><br>
     <input type="checkbox" id="Available" name="Available" value="Available">
     <label for="Available"> Get available books </label><br>
+    <h2> Choose genres: </h2>
+
+    <c:forEach items="${genres}" var="genre">
+        <input type="checkbox" id="${genre}" name="genre" value="${genre}">
+        <label for="${genre}"> ${genre} </label><br>
+    </c:forEach>
 
     <input type="submit" Submit ="Sort"/>
 </form>
-
-
-<fieldset> <legend>Choose your interests</legend>
-    <form action="/catalogue" method = "post">
-        <c:forEach items="${genres}" var="genre">
-            <input type="checkbox" id="${genre}" name="genres" value="${genre}">
-            <label for="${genre}"> ${genre} </label><br>
-        </c:forEach>
-        <input type="submit" name="GenreFilter" value="GenreFilter">
-    </form>
 </fieldset>
+
 
 
 <ul>
