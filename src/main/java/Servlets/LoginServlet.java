@@ -2,6 +2,7 @@ package Servlets;
 
 import Constants.SharedConstants;
 import Model.User;
+import Service.AdminService;
 import Service.AllServices;
 import Service.UserService;
 
@@ -24,15 +25,27 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
         AllServices allServices = (AllServices) getServletContext().getAttribute(SharedConstants.ATTRIBUTE);
 
-
         UserService userService = allServices.getUserService();
+        AdminService adminService = allServices.getAdminService();
         HttpSession session = request.getSession();
+
+
         if(userService.checkUsernameExists(username) && userService.checkPassword(userService.getUserByUsername(username),password)){
+            if(adminService.isAdmin(userService.getUserByUsername(username))){
+                session.setAttribute(SharedConstants.ADMIN_SESSION,userService.getUserByUsername(username));
+                request.getRequestDispatcher("WEB-INF/AdminHomePage.jsp").forward(request,response);
+                return;
+            }
             if((User)session.getAttribute(SharedConstants.SESSION_ATTRIBUTE) == null)
                 session.setAttribute(SharedConstants.SESSION_ATTRIBUTE,userService.getUserByUsername(username));
 
             request.getRequestDispatcher("WEB-INF/HomePage.jsp").forward(request,response);
         } else if(userService.checkMailExists(username) && userService.checkPassword(userService.getUserByMail(username),password)){
+            if(adminService.isAdmin(userService.getUserByMail(username))){
+                session.setAttribute(SharedConstants.ADMIN_SESSION,userService.getUserByMail(username));
+                request.getRequestDispatcher("WEB-INF/AdminHomePage.jsp").forward(request,response);
+                return;
+            }
             if((User)session.getAttribute(SharedConstants.SESSION_ATTRIBUTE) == null)
                 session.setAttribute(SharedConstants.SESSION_ATTRIBUTE,userService.getUserByMail(username));
 
