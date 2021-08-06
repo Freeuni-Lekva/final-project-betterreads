@@ -15,7 +15,7 @@ public class GenreDaoTest extends TestCase {
     @Override
     protected void setUp() throws SQLException {
         connection = Connector.getConnection("testLibrary");
-        genreDao = new GenreDao("testLibrary");
+        genreDao = new GenreDao(connection);
     }
 
     public void testGetGenre() throws SQLException {

@@ -8,13 +8,12 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class GenreDao implements GenreDaoInterface{
     Connection connection;
 
-    public GenreDao(String dataBaseName) throws SQLException {
-        connection = Connector.getConnection(dataBaseName);
-        Statement statement = connection.createStatement();
-        statement.executeQuery("use " + dataBaseName);
+    public GenreDao(Connection connection) throws SQLException {
+        this.connection = connection;
     }
 
     @Override
@@ -38,7 +37,7 @@ public class GenreDao implements GenreDaoInterface{
         statement = connection.prepareStatement("select * from genres where genre_id = ?;");
         statement.setInt(1, id);
         ResultSet rs = statement.executeQuery();
-        if(!rs.next()) return null;
+        if(!rs.first()) return null;
         return getGenreByRS(rs);
     }
 

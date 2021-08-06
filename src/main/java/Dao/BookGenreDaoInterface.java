@@ -1,6 +1,5 @@
 package Dao;
 
-import Model.Book;
 import Model.Genre;
 
 import java.sql.SQLException;
