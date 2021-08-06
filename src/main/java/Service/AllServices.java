@@ -9,7 +9,7 @@ public class AllServices {
     private VallidationService vallService;
     private DescriptionShortener descriptionShortener;
     private BookService bookService;
-    public GenreService genreService;
+    private GenreService genreService;
 
     public AllServices() throws SQLException {
         hashService = new HashService();

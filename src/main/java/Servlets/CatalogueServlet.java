@@ -2,8 +2,10 @@ package Servlets;
 
 import Constants.SharedConstants;
 import Model.Book;
+import Model.Genre;
 import Service.AllServices;
 import Service.BookService;
+import Service.GenreService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -16,6 +18,10 @@ public class CatalogueServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        AllServices allServices = (AllServices) getServletContext().getAttribute(SharedConstants.ATTRIBUTE);
+        GenreService genreService = allServices.getGenreService();
+        List<String> genres = genreService.getGenres();
+        request.setAttribute("genres", genres);
         request.getRequestDispatcher("WEB-INF/Catalogue.jsp").forward(request,response);
     }
     @Override
@@ -51,6 +57,11 @@ public class CatalogueServlet extends HttpServlet {
             list = bs.getBooksByGanres(names);
         }
         request.setAttribute("list", list);
+
+        GenreService genreService = allServices.getGenreService();
+        List<String> genres = genreService.getGenres();
+        request.setAttribute("genres", genres);
+
         request.getRequestDispatcher("WEB-INF/Catalogue.jsp").forward(request,response);
     }
 }
