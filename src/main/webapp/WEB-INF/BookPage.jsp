@@ -14,6 +14,15 @@
 
 <body>
 
+<jsp:include page='Header.jsp'>
+    <jsp:param name="Header" value="Header"/>
+</jsp:include>
+
+<form action="/catalogue" method = "get">
+    <button type="submit"> Catalogue </button>
+</form>
+<br>
+
 <h1>${bookName}</h1>
 <form action="bookMarking?bookId=${bookID}" method="post">
     <input name="bookID" type="hidden" value="${bookID}"/>

@@ -17,34 +17,11 @@
 </head>
 <body>
     <h1>Welcome to Better Reads!</h1>
-<%
-    HttpSession httpSession = pageContext.getSession();
-    User user = (User) httpSession.getAttribute(SharedConstants.SESSION_ATTRIBUTE);
 
-    if(user == null){
-%>
+    <jsp:include page='Header.jsp'>
+        <jsp:param name="Header" value="Header"/>
+    </jsp:include>
 
-    <a href="/login">Already a member? Sign In</a>
-<br>
-    <a href="/register">Register here!</a>
-    <%
-        } else {
-
-    %>
-    <a href="userProfile?userId=<%= user.getUser_id()%>"><p>visit your profile</p>
-    </a>
-    <form action="/logout" method = "post">
-        <button type="submit">Log Out</button>
-    </form>
-    <%
-        }
-    %>
-<br>
-    <form action="/search" method = "post">
-        <label for="stext">Search books:</label>
-        <input type="text" id="stext" name="stext" >
-        <button type="submit">search</button>
-    </form>
 
     <form action="/catalogue" method = "get">
         <button type="submit"> Catalogue </button>

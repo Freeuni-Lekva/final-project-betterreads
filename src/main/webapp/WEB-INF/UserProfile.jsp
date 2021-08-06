@@ -12,6 +12,11 @@
     <title>User Profile</title>
 </head>
 <body>
+
+<form action="/home" method = "post">
+    <button type="submit"> BetterReads </button>
+</form>
+
 <p>${name } ${lastName}</p>
 <p>email: ${email}</p>
 <p>username: ${username}</p>

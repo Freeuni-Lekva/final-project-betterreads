@@ -144,6 +144,39 @@ public class BookDao implements BookDaoInterface{
     }
 
     @Override
+    public List<Book> getBookByGenre(String genre)  {
+        PreparedStatement statement;
+        List<Book> result = new ArrayList<>();
+        try {
+            statement = connection.prepareStatement("select * from book_genres bg "+
+                    " join books b on b.book_id = bg.book_id " +
+                    " join genres g on g.genre_id = bg.genre_id "+
+                    " where g.genre_name = ?;");
+            statement.setString(1, genre);
+            ResultSet rs = statement.executeQuery();
+            while(rs.next()){
+                result.add(getBookByRow(rs));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return result;
+    }
+
+    private Book getBookByRow(ResultSet rs) throws SQLException {
+        Book res = new Book();
+        res.setBook_id(rs.getInt(1));
+        res.setBook_name(rs.getString(4));
+        res.setBook_description(rs.getString(5));
+        res.setRelease_year(rs.getInt(6));
+        res.setAuthor_id(rs.getInt(7));
+        res.setBook_rating(rs.getDouble(8));
+        res.setAvailable_count(rs.getInt(9));
+        res.setBook_photo(rs.getString(10));
+        return res;
+    }
+
+    @Override
     public List<Book> getAvailableBooks() {
         PreparedStatement statement;
         List<Book> bookList = new ArrayList<>();

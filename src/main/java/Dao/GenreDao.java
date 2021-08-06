@@ -3,8 +3,10 @@ package Dao;
 import Model.Book;
 import Model.Genre;
 
+import java.awt.*;
 import java.sql.*;
-import java.util.concurrent.locks.Condition;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GenreDao implements GenreDaoInterface{
     Connection connection;
@@ -38,5 +40,21 @@ public class GenreDao implements GenreDaoInterface{
         ResultSet rs = statement.executeQuery();
         if(!rs.next()) return null;
         return getGenreByRS(rs);
+    }
+
+    @Override
+    public List<String> getAllGenres(){
+        PreparedStatement statement;
+        List<String> genreList = new ArrayList<>();
+        try {
+            statement = connection.prepareStatement("select genre_name from genres;");
+            ResultSet rs = statement.executeQuery();
+            while(rs.next()){
+                genreList.add((rs.getString(1)));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return genreList;
     }
 }
