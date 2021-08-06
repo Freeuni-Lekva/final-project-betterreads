@@ -12,8 +12,8 @@ import java.util.List;
 public class ReservationsDao implements ReservationsDaoInterface{
     private Connection connection;
 
-    public ReservationsDao(String dbName) throws SQLException {
-        this.connection = Connector.getConnection(dbName);
+    public ReservationsDao(Connection connection) {
+        this.connection = connection;
     }
 
     @Override

@@ -12,7 +12,7 @@ import java.util.List;
 public class GenreDao implements GenreDaoInterface{
     Connection connection;
 
-    public GenreDao(Connection connection) throws SQLException {
+    public GenreDao(Connection connection) {
         this.connection = connection;
     }
 

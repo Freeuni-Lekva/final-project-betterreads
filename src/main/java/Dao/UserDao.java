@@ -8,15 +8,8 @@ public class UserDao implements UserDaoInterface {
     private String dbName;
     private Connection connection;
 
-    public UserDao(String dbName){
-        this.dbName = dbName;
-        try {
-            this.connection = Connector.getConnection(dbName);
-            Statement stm = connection.createStatement();
-            stm.execute("use " + dbName + ";");
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+    public UserDao(Connection connection){
+        this.connection = connection;
     }
 
     public String getDBName(){
