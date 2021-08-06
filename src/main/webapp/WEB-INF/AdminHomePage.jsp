@@ -34,7 +34,7 @@
 <br>
 <h4>Add genre from here</h4>
 <br>
-<h4>Add book from here</h4>
+<h4><a href="/addBook">Add new book </a></h4>
 <%
     }
 %>
