@@ -121,4 +121,14 @@
     <servlet-name>AdminHomeServlet</servlet-name>
     <url-pattern>/adminHome</url-pattern>
   </servlet-mapping>
+
+  <servlet>
+    <servlet-name>AdminRemoveRes</servlet-name>
+    <servlet-class>Servlets.AdminReservationServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>AdminRemoveRes</servlet-name>
+    <url-pattern>/adminReservations</url-pattern>
+  </servlet-mapping>
 </web-app>

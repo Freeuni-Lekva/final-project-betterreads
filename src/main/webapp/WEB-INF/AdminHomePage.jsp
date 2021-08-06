@@ -28,7 +28,7 @@
 %>
 <h2>Here are admin functions:</h2>
 <br>
-<h4>View all reservations from here</h4>
+<a href="/adminReservations">View all reservations from here</a>
 <br>
 <h4>Add author from here</h4>
 <br>
