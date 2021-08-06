@@ -111,4 +111,14 @@
     <servlet-name>SuggestionsServlet</servlet-name>
     <url-pattern>/suggestions</url-pattern>
   </servlet-mapping>
+
+  <servlet>
+    <servlet-name>RatingServlet</servlet-name>
+    <servlet-class>Servlets.RatingServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>RatingServlet</servlet-name>
+    <url-pattern>/rating</url-pattern>
+  </servlet-mapping>
 </web-app>

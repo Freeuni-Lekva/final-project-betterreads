@@ -89,3 +89,16 @@ create table reviews(
 	constraint reviews_book_fk
 		foreign key (book_id) references books(book_id)  
 );
+
+drop table if exists ratings;
+create table ratings(
+	rating_id int auto_increment primary key,
+	user_id int not null,
+    book_id int not null,
+    book_rating int not null,
+    constraint reviews_user_fk
+		foreign key (user_id) references users(user_id),
+	constraint reviews_book_fk
+		foreign key (book_id) references books(book_id)
+);
+

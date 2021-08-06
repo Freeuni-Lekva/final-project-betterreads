@@ -9,6 +9,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <body>
+
+<jsp:include page='Header.jsp'>
+    <jsp:param name="Header" value="Header"/>
+</jsp:include>
+
 <ul>
     <li>
         <c:forEach items="${list}" var="book">
