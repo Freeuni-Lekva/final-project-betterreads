@@ -47,8 +47,6 @@
 <%
     }
 %>
-<form action="/home" method = "post">
-    <button type="submit">Home Page</button>
-</form>
+
 </body>
 </html>
