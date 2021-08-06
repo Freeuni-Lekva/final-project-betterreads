@@ -36,8 +36,15 @@ public class UserService implements UserServiceInterface{
         return hashService.hashPassword(password).equals(user.getPassword_hash());
     }
 
+
     @Override
-    public boolean addUser(User user) {
-        return userDao.create(user);
+    public boolean addUser(String first_name, String last_name, String username, String password, String email) {
+        User newUser = new User();
+        newUser.setPassword_hash(password);
+        newUser.setUsername(username);
+        newUser.setFirst_name(first_name);
+        newUser.setLast_name(last_name);
+        newUser.setEmail(email);
+        return userDao.create(newUser);
     }
 }

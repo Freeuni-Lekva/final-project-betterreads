@@ -11,6 +11,11 @@
     <title>Incorrect</title>
 </head>
 <body>
+
+<form action="/home" method = "post">
+    <button type="submit"> BetterReads </button>
+</form>
+
 <h3>Please Try Again</h3>
 <h4>Your username or password is incorrect</h4>
 <form action="login" method="post">

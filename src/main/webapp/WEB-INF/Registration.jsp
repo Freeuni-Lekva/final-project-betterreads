@@ -12,6 +12,10 @@
 </head>
 <body>
 
+<form action="/home" method = "post">
+    <button type="submit"> BetterReads </button>
+</form>
+
 <form action="register" method="post">
     <table style="width: 25%">
         <tr>

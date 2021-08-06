@@ -24,42 +24,20 @@ public class LoginServlet extends HttpServlet {
         String password = request.getParameter("password");
         AllServices allServices = (AllServices) getServletContext().getAttribute(SharedConstants.ATTRIBUTE);
 
+
         UserService userService = allServices.getUserService();
         HttpSession session = request.getSession();
-        if(userService.checkUsernameExists(username)){
-            User user = userService.getUserByUsername(username);
-            if(userService.checkPassword(user,password)){
-                //
-                User currUser = (User)session.getAttribute(SharedConstants.SESSION_ATTRIBUTE);
-                if(currUser == null){
-                    //System.out.println("new  user in session");
-                    request.getSession().setAttribute(SharedConstants.SESSION_ATTRIBUTE,user);
-                } else {
-                    //System.out.println("already user in session");
-                }
-                request.getRequestDispatcher("WEB-INF/HomePage.jsp").forward(request,response);
+        if(userService.checkUsernameExists(username) && userService.checkPassword(userService.getUserByUsername(username),password)){
+            if((User)session.getAttribute(SharedConstants.SESSION_ATTRIBUTE) == null)
+                session.setAttribute(SharedConstants.SESSION_ATTRIBUTE,userService.getUserByUsername(username));
 
-            } else {
-                request.getRequestDispatcher("WEB-INF/IncorrectData.jsp").forward(request,response);
-            }
-        } else if(userService.checkMailExists(username)){
-            User user = userService.getUserByMail(username);
-            if(userService.checkPassword(user,password)){
-                User currUser = (User)session.getAttribute(SharedConstants.SESSION_ATTRIBUTE);
-                if(currUser == null){
+            request.getRequestDispatcher("WEB-INF/HomePage.jsp").forward(request,response);
+        } else if(userService.checkMailExists(username) && userService.checkPassword(userService.getUserByMail(username),password)){
+            if((User)session.getAttribute(SharedConstants.SESSION_ATTRIBUTE) == null)
+                session.setAttribute(SharedConstants.SESSION_ATTRIBUTE,userService.getUserByMail(username));
 
-                    request.getSession().setAttribute(SharedConstants.SESSION_ATTRIBUTE,user);
-
-                } else {
-                    //System.out.println("already user in session");
-                }
-                request.getRequestDispatcher("WEB-INF/HomePage.jsp").forward(request,response);
-
-            } else {
-                request.getRequestDispatcher("WEB-INF/IncorrectData.jsp").forward(request,response);
-            }
+            request.getRequestDispatcher("WEB-INF/HomePage.jsp").forward(request,response);
         } else {
-            //this username or email does not exists
             request.getRequestDispatcher("WEB-INF/IncorrectData.jsp").forward(request,response);
         }
     }

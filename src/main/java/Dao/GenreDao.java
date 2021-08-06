@@ -3,10 +3,11 @@ package Dao;
 import Model.Book;
 import Model.Genre;
 
+import java.awt.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.locks.Condition;
+
 
 public class GenreDao implements GenreDaoInterface{
     Connection connection;

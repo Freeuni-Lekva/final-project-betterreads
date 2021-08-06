@@ -10,11 +10,10 @@ import java.util.List;
 public interface BookDaoInterface {
     /**
      *
-     * @param name name of the book
-     * @param description short description of the book
-     * @param releaseYear year the book was released
-     * @param authorID author's ID
-     * @param rating book rating
+     * @param book
+     * @param genres
+     * @return
+     * @throws SQLException
      */
     public boolean AddBook(Book book, List<String> genres) throws SQLException;
 
@@ -31,7 +30,7 @@ public interface BookDaoInterface {
      *
      * @return list of all books
      */
-    public List<Book> getAllBooks() throws SQLException;
+    public List<Book> getAllBooks();
 
     /**
      *
@@ -61,4 +60,24 @@ public interface BookDaoInterface {
      * @return list of books with following genre
      */
     public List<Book> getBookByGenre(Genre genre) throws SQLException;
+
+    /**
+     *
+     * @param id
+     * @return
+     */
+    public Book getBookById(int id) throws SQLException;
+
+    /**
+     *
+     * @return list of available books
+     */
+    public List<Book> getAvailableBooks();
+
+    /**
+     *
+     * @param genre
+     * @return list of books of this genre
+     */
+    List<Book> getBookByGenre(String genre);
 }

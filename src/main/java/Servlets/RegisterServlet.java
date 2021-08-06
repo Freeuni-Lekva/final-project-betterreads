@@ -4,11 +4,13 @@ import Constants.SharedConstants;
 import Model.User;
 import Service.AllServices;
 import Service.UserService;
+import Service.VallidationService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 
@@ -28,18 +30,26 @@ public class RegisterServlet extends HttpServlet {
 
         AllServices allServices = (AllServices) getServletContext().getAttribute(SharedConstants.ATTRIBUTE);
         UserService userService = allServices.getUserService();
-        if(userService.checkMailExists(email) || userService.checkUsernameExists(username)){
-            request.getRequestDispatcher("WEB-INF/AlreadyRegistered.jsp").forward(request,response);
+
+        VallidationService vallService = allServices.getVallService();
+        String errorMessage = vallService.getErrorMessage(first_name, last_name, email, password, username);
+        if(!errorMessage.isEmpty()){
+            request.setAttribute("Error", errorMessage);
+            request.getRequestDispatcher("WEB-INF/AlreadyRegistered.jsp").forward(request, response);
+        } else  if(userService.checkUsernameExists(username) || userService.checkMailExists(email)){
+            errorMessage = "The specified account already exists";
+            request.setAttribute("Error", errorMessage);
+            request.getRequestDispatcher("WEB-INF/AlreadyRegistered.jsp").forward(request, response);
         } else {
-            User newUser = new User();
             String hashedPassword = allServices.getHashService().hashPassword(password);
-            newUser.setPassword_hash(hashedPassword);
-            newUser.setUsername(username);
-            newUser.setFirst_name(first_name);
-            newUser.setLast_name(last_name);
-            newUser.setEmail(email);
-            if(userService.addUser(newUser)){
-                request.getRequestDispatcher("WEB-INF/HomePage.jsp").forward(request,response);
+            if(userService.addUser(first_name, last_name, username, hashedPassword, email)){
+                User user = userService.getUserByMail(email);
+                HttpSession session = request.getSession();
+                User currUser = (User)session.getAttribute(SharedConstants.SESSION_ATTRIBUTE);
+                if(currUser == null) {
+                    request.getSession().setAttribute(SharedConstants.SESSION_ATTRIBUTE, user);
+                }
+                request.getRequestDispatcher("WEB-INF/HomePage.jsp").forward(request, response);
             }
         }
     }

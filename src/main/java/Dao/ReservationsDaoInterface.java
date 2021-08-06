@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface ReservationsDaoInterface {
+
+    boolean addReservation(int user_id, int book_id);
     /**
      *
      * @param reservationId int
@@ -33,4 +35,13 @@ public interface ReservationsDaoInterface {
      * @throws SQLException
      */
     public List<Reservation> getReservationByDeadline(Date deadline) throws SQLException;
+
+    /**
+     *
+     * @param deadline Date
+     * @return List of reservations of given user and with given deadline
+     *         null when there are no reservation deadlines for that date
+     * @throws SQLException
+     */
+    public List<Reservation> getReservationByDeadlineAndUser(Date deadline, int userId) throws SQLException;
 }

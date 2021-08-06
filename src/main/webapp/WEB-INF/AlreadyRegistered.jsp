@@ -11,8 +11,13 @@
     <title>Already Registered</title>
 </head>
 <body>
+<form action="/home" method = "post">
+    <button type="submit"> BetterReads </button>
+</form>
+<h4>  <%=request.getAttribute("Error")%> </h4>
+
 <h3>Please Try Again</h3>
-<h4>The specified account already exists.</h4>
+
 <form action="register" method="post">
     <table style="width: 25%">
         <tr>

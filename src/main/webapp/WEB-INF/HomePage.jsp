@@ -1,9 +1,9 @@
 <%@ page import="Constants.SharedConstants" %>
-<%@ page import="Service.bestBooks" %>
 <%@ page import="Model.Book" %>
 <%@ page import="java.util.List" %>
 <%@ page import="Service.AllServices" %>
-<%@ page import="Model.User" %><%--
+<%@ page import="Model.User" %>
+<%@ page import="Service.BookService" %><%--
   Created by IntelliJ IDEA.
   User: etsir
   Date: 8/3/2021
@@ -17,36 +17,19 @@
 </head>
 <body>
     <h1>Welcome to Better Reads!</h1>
-<%
-    HttpSession httpSession = pageContext.getSession();
-    User user = (User) httpSession.getAttribute(SharedConstants.SESSION_ATTRIBUTE);
 
-    if(user == null){
-%>
+    <jsp:include page='Header.jsp'>
+        <jsp:param name="Header" value="Header"/>
+    </jsp:include>
 
-    <a href="/login">Already a member? Sign In</a>
-<br>
-    <a href="/register">Register here!</a>
-    <%
-        } else {
 
-    %>
-    <form action="/logout" method = "post">
-        <button type="submit">Log Out</button>
+    <form action="/catalogue" method = "get">
+        <button type="submit"> Catalogue </button>
     </form>
-    <%
-        }
-    %>
-<br>
-    <form action="/search" method = "post">
-        <label for="stext">Search books:</label>
-        <input type="text" id="stext" name="stext" >
-        <button type="submit">search</button>
-    </form>
-<br>
+ <br>
     <%
         AllServices allServices = (AllServices) pageContext.getServletContext().getAttribute(SharedConstants.ATTRIBUTE);
-        bestBooks bb = allServices.getBestBooks();
+        BookService bb = allServices.getBookService();
         List<Book> list = bb.getBestBooks(1, 5);
     %>
     <ul>
@@ -57,7 +40,7 @@
             request.setAttribute("book", b);
     %>
             <jsp:include page='BookPreview.jsp'>
-                <jsp:param name="bok" value="${b}"/>
+                <jsp:param name="book" value="${b}"/>
             </jsp:include>
     <%
         }

@@ -17,6 +17,38 @@ public class ReservationsDao implements ReservationsDaoInterface{
     }
 
     @Override
+    public boolean addReservation(int user_id, int book_id) {
+        System.out.println("add reservation");
+        boolean exists = false;
+        try {
+            List<Reservation> reservations = getReservationByUser(user_id);
+            for (Reservation reservation : reservations) {
+                if (reservation.getReservedBook().getBook_id() == book_id) {
+                    exists = true;
+                    System.out.println("found same book");
+                    break;
+                }
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        if(exists) return false;
+        try {
+            PreparedStatement statement = connection.prepareStatement("insert into reservations " +
+                    "(user_id, book_id, deadline) values (?, ?, ?)");
+            statement.setInt(1, user_id);
+            statement.setInt(2, book_id);
+            long time = System.currentTimeMillis();
+            Date twoWeeksAfterDate = new Date(time + 8467200 * 1000);
+            statement.setDate(3, Date.valueOf("2022-09-09"));
+            return statement.executeUpdate() != 0;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
     public Reservation getReservationById(int reservationId) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement
                 ("select * from reservations" +
@@ -34,8 +66,9 @@ public class ReservationsDao implements ReservationsDaoInterface{
 
     @Override
     public List<Reservation> getReservationByUser(int userId) throws SQLException {
+        System.out.println("search with user");
         PreparedStatement preparedStatement = connection.prepareStatement
-                ("select * from reservations" +
+                ("select * from reservations " +
                         "join users on reservations.user_id = users.user_id " +
                         "join books on books.book_id = reservations.book_id " +
                         "where reservations.user_id = ?;");
@@ -47,7 +80,7 @@ public class ReservationsDao implements ReservationsDaoInterface{
             result.add(reservationBuilder(resultSet));
         }
 
-        return null;
+        return result;
     }
 
     private Reservation reservationBuilder(ResultSet resultSet) throws SQLException {
@@ -57,7 +90,7 @@ public class ReservationsDao implements ReservationsDaoInterface{
         book.setAuthor_id(resultSet.getInt("author_id"));
         book.setBook_rating(resultSet.getDouble("book_rating"));
         book.setBook_description(resultSet.getString("book_description"));
-        book.setRelease_year(resultSet.getInt("realise_year"));
+        book.setRelease_year(resultSet.getInt("release_year"));
 
         User user = new User();
         user.setUser_id(resultSet.getInt("user_id"));
@@ -74,11 +107,11 @@ public class ReservationsDao implements ReservationsDaoInterface{
     @Override
     public List<Reservation> getReservationByDeadline(Date deadline) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement
-                ("select * from reservations" +
+                ("select * from reservations " +
                         "join users on reservations.user_id = users.user_id " +
                         "join books on books.book_id = reservations.book_id " +
-                        "where reservations.deadline = '?';");
-        preparedStatement.setString(1, deadline.toString());
+                        "where reservations.deadline = ?;");
+        preparedStatement.setDate(1, deadline);
 
         ResultSet resultSet = preparedStatement.executeQuery();
         List<Reservation> result = new ArrayList<>();
@@ -86,6 +119,26 @@ public class ReservationsDao implements ReservationsDaoInterface{
             result.add(reservationBuilder(resultSet));
         }
 
-        return null;
+        return result;
+    }
+
+    @Override
+    public List<Reservation> getReservationByDeadlineAndUser(Date deadline, int userId) throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement
+                ("select * from reservations " +
+                        "join users on reservations.user_id = users.user_id " +
+                        "join books on books.book_id = reservations.book_id " +
+                        "where reservations.deadline > ?" +
+                        "and reservations.user_id = ?;");
+        preparedStatement.setDate(1, deadline);
+        preparedStatement.setInt(2, userId);
+
+        ResultSet resultSet = preparedStatement.executeQuery();
+        List<Reservation> result = new ArrayList<>();
+        while(resultSet.next()){
+            result.add(reservationBuilder(resultSet));
+        }
+
+        return result;
     }
 }
