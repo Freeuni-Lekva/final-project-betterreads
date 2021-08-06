@@ -33,6 +33,7 @@ public class LoginServlet extends HttpServlet {
         if(userService.checkUsernameExists(username) && userService.checkPassword(userService.getUserByUsername(username),password)){
             if(adminService.isAdmin(userService.getUserByUsername(username))){
                 session.setAttribute(SharedConstants.ADMIN_SESSION,userService.getUserByUsername(username));
+                session.setAttribute(SharedConstants.SESSION_ATTRIBUTE,userService.getUserByUsername(username));
                 request.getRequestDispatcher("WEB-INF/AdminHomePage.jsp").forward(request,response);
                 return;
             }
@@ -43,6 +44,7 @@ public class LoginServlet extends HttpServlet {
         } else if(userService.checkMailExists(username) && userService.checkPassword(userService.getUserByMail(username),password)){
             if(adminService.isAdmin(userService.getUserByMail(username))){
                 session.setAttribute(SharedConstants.ADMIN_SESSION,userService.getUserByMail(username));
+                session.setAttribute(SharedConstants.SESSION_ATTRIBUTE,userService.getUserByMail(username));
                 request.getRequestDispatcher("WEB-INF/AdminHomePage.jsp").forward(request,response);
                 return;
             }

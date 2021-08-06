@@ -13,6 +13,9 @@
 </head>
 <body>
 
+<jsp:include page='AdminHeader.jsp'>
+    <jsp:param name="AdminHeader" value="AdminHeader"/>
+</jsp:include>
 
 <%
     HttpSession httpSession = pageContext.getSession();
