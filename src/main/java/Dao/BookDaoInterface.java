@@ -17,7 +17,6 @@ public interface BookDaoInterface {
      */
     public boolean AddBook(Book book, List<String> genres) throws SQLException;
 
-    public List<Book> filterBooks(String name);
 
     /**
      *
