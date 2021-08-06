@@ -35,8 +35,6 @@
     <ul>
     <%
         for(Book b : list){
-            String url = b.getBook_photo();
-            System.out.println(url);
             request.setAttribute("book", b);
     %>
             <jsp:include page='BookPreview.jsp'>

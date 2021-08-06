@@ -9,8 +9,8 @@ import java.util.List;
 public class ReviewDao implements ReviewDaoInterface{
     private final Connection conn;
 
-    public ReviewDao(String dbName) throws SQLException {
-        conn = Connector.getConnection(dbName);
+    public ReviewDao(Connection connection) {
+        this.conn = connection;
     }
 
     @Override
@@ -25,7 +25,7 @@ public class ReviewDao implements ReviewDaoInterface{
             st.setDate(5, Date.valueOf(date));
             st.setInt(6, num_likes);
             if (st.executeUpdate() == 0)
-                throw new SQLException("something went wrong while inserting a pair of exam and a lecturer");
+                throw new SQLException();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

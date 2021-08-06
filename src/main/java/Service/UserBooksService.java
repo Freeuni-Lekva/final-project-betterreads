@@ -3,6 +3,7 @@ package Service;
 import Constants.SharedConstants;
 import Dao.BookDao;
 import Dao.BookShelfDao;
+import Dao.Connector;
 import Dao.ReservationsDao;
 import Model.Book;
 import Model.Reservation;
@@ -13,13 +14,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserBooksService implements UserBooksServiceInterface{
-    private static BookShelfDao bookShelfDao = new BookShelfDao(SharedConstants.DATA_BASE_NAME);
+    private static BookShelfDao bookShelfDao;
+
+    static {
+        try {
+            bookShelfDao = new BookShelfDao(Connector.getConnection(SharedConstants.DATA_BASE_NAME));
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
 
     private static ReservationsDao reservationsDao;
 
     static {
         try {
-            reservationsDao = new ReservationsDao(SharedConstants.DATA_BASE_NAME);
+            reservationsDao = new ReservationsDao(Connector.getConnection(SharedConstants.DATA_BASE_NAME));
 
         } catch (SQLException throwables) {
             throwables.printStackTrace();

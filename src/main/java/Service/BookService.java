@@ -4,6 +4,7 @@ import Constants.SharedConstants;
 import Dao.BookDao;
 import java.sql.SQLException;
 
+import Dao.Connector;
 import Dao.UserDao;
 import Model.Book;
 import Model.Genre;
@@ -15,7 +16,11 @@ public class BookService implements BookServiceInterface{
     private BookDao bookDao;
 
     public BookService()  {
-        bookDao = new BookDao(SharedConstants.DATA_BASE_NAME);
+        try {
+            bookDao = new BookDao(Connector.getConnection(SharedConstants.DATA_BASE_NAME));
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
     @Override
@@ -24,7 +29,12 @@ public class BookService implements BookServiceInterface{
     }
 
     public List<Book> getBestBooks(int from, int to)  {
-        BookDao bd = new BookDao(SharedConstants.DATA_BASE_NAME);
+        BookDao bd = null;
+        try {
+            bd = new BookDao(Connector.getConnection(SharedConstants.DATA_BASE_NAME));
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
         List<Book> bookList = bd.getAllBooks();
         List<Book> retList = new ArrayList<>();
         Collections.sort(bookList, new Comparator<Book>() {
@@ -52,7 +62,11 @@ public class BookService implements BookServiceInterface{
     }
 
     public List<Book> oldToNew(List<Book> bookList) {
-        BookDao bd = new BookDao(SharedConstants.DATA_BASE_NAME);
+        try {
+            BookDao bd = new BookDao(Connector.getConnection(SharedConstants.DATA_BASE_NAME));
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
         Collections.sort(bookList, new Comparator<Book>() {
             @Override
             public int compare(Book o1, Book o2) {
@@ -97,7 +111,12 @@ public class BookService implements BookServiceInterface{
 
     @Override
     public List<Book> getBooksByGanres(String[] genres){
-        BookDao bd = new BookDao(SharedConstants.DATA_BASE_NAME);
+        BookDao bd = null;
+        try {
+            bd = new BookDao(Connector.getConnection(SharedConstants.DATA_BASE_NAME));
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
         List<Book> result = new ArrayList<Book>();
         for(int i = 0; i < genres.length; i++){
             List<Book> tmp = bd.getBookByGenre(genres[i]);

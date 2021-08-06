@@ -13,12 +13,8 @@ import java.util.List;
 public class BookDao implements BookDaoInterface{
     Connection connection;
 
-    public BookDao(String dataBaseName){
-        try {
-            connection = Connector.getConnection(dataBaseName);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+    public BookDao(Connection connection){
+        this.connection = connection;
     }
 
 

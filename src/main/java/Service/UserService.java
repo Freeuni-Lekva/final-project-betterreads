@@ -1,14 +1,21 @@
 package Service;
 
 import Constants.SharedConstants;
+import Dao.Connector;
 import Dao.UserDao;
 import Model.User;
+
+import java.sql.SQLException;
 
 public class UserService implements UserServiceInterface{
     private UserDao userDao;
     private HashService hashService;
     public UserService(){
-        userDao = new UserDao(SharedConstants.DATA_BASE_NAME);
+        try {
+            userDao = new UserDao(Connector.getConnection(SharedConstants.DATA_BASE_NAME));
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
         hashService = new HashService();
     }
     @Override

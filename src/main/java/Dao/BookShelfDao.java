@@ -11,16 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BookShelfDao implements BookShelfDaoInterface{
-    private String dbName;
-    private Connection connection;
-    public BookShelfDao(String dbName){
-        this.dbName = dbName;
-        try {
-            connection = Connector.getConnection(dbName);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
 
+    private Connection connection;
+    public BookShelfDao(Connection connection){
+        this.connection = connection;
     }
     @Override
     public List<Book> getAllBooksInBookShelf(int user_id) {

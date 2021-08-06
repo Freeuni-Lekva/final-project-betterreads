@@ -42,7 +42,7 @@ public class BookShelfDaoTest extends TestCase {
     public void testgetMarkedBooks() throws SQLException {
         addUser1();
         addBook1();
-        BookShelfDao bsd = new BookShelfDao("testLibrary");
+        BookShelfDao bsd = new BookShelfDao(Connector.getConnection("testLibrary"));
         List<Book> list = bsd.getMarkedBooks(1);
 
         assertEquals(1, list.size());
@@ -52,7 +52,7 @@ public class BookShelfDaoTest extends TestCase {
     public void testgetAlreadyReadBooks() throws SQLException {
         addUser2();
         addBook2();
-        BookShelfDao bsd = new BookShelfDao("testLibrary");
+        BookShelfDao bsd = new BookShelfDao(Connector.getConnection("testLibrary"));
         List<Book> list = bsd.getAlreadyReadBooks(2);
 
         assertEquals(1, list.size());
@@ -62,7 +62,7 @@ public class BookShelfDaoTest extends TestCase {
 
     @Test
     public void test1getAllBooksInBookShelfTest() throws SQLException {
-        BookShelfDao bsd = new BookShelfDao("testLibrary");
+        BookShelfDao bsd = new BookShelfDao(Connector.getConnection("testLibrary"));
         List<Book> list = bsd.getAllBooksInBookShelf(1);
 
         assertEquals(0, list.size());

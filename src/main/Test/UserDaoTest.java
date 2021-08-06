@@ -18,8 +18,13 @@ public class UserDaoTest extends TestCase {
     }
 
     @Test
-    public void testCreateUser() throws SQLException {
-        UserDao dao = new UserDao(dbName);
+    public void testCreateUser() {
+        UserDao dao = null;
+        try {
+            dao = new UserDao(Connector.getConnection(dbName));
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
         User user = new User();
         user.setFirst_name("test_name");
         user.setLast_name("test_lastname");
@@ -57,7 +62,12 @@ public class UserDaoTest extends TestCase {
         statement.executeUpdate();
 
         String mail = "etsir19@gmail.com";
-        UserDao dao = new UserDao(dbName);
+        UserDao dao = null;
+        try {
+            dao = new UserDao(Connector.getConnection(dbName));
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
         User user = dao.getUserByMail(mail);
         assertEquals(mail,user.getEmail());
         assertEquals( "Elene",user.getFirst_name());
@@ -77,7 +87,12 @@ public class UserDaoTest extends TestCase {
         statement.executeUpdate();
 
         String mail = "tjije19@gmail.com";
-        UserDao dao = new UserDao(dbName);
+        UserDao dao = null;
+        try {
+            dao = new UserDao(Connector.getConnection(dbName));
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
         User user = dao.getUserByMail(mail);
         assertEquals(mail,user.getEmail());
         assertEquals( "Jiji",user.getFirst_name());
@@ -93,7 +108,12 @@ public class UserDaoTest extends TestCase {
         newUser.setUsername("ninikh");
         newUser.setPassword_hash("12");
 
-        UserDao dao = new UserDao(dbName);
+        UserDao dao = null;
+        try {
+            dao = new UserDao(Connector.getConnection(dbName));
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
         dao.create(newUser);
         int user_id = dao.getUserByUsername(newUser.getUsername()).getUser_id();
 
@@ -108,7 +128,12 @@ public class UserDaoTest extends TestCase {
         newUser.setEmail("1@");
         newUser.setUsername("1");
         newUser.setPassword_hash("1");
-        UserDao dao = new UserDao(dbName);
+        UserDao dao = null;
+        try {
+            dao = new UserDao(Connector.getConnection(dbName));
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
         dao.create(newUser);
         assertTrue(dao.containsUserByMail(newUser.getEmail()));
         assertFalse(dao.containsUserByUserName("2@"));
