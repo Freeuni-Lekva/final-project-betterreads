@@ -35,6 +35,7 @@ public class UserBooksService implements UserBooksServiceInterface{
             List<Reservation> reservations = reservationsDao.getReservationByDeadlineAndUser(currDate,user_id);
             System.out.println(reservations.size());
             for(Reservation reservation : reservations){
+                System.out.println(reservation.getDeadline().toString() + "   " + currDate.toString());
                 if(reservation.getDeadline().after(currDate)){
                     books.add(reservation.getReservedBook());
                 }
@@ -74,5 +75,30 @@ public class UserBooksService implements UserBooksServiceInterface{
     public void addBooksForFuture(int user_id, int book_id) {
         System.out.println("notnull in service");
         bookShelfDao.addMarkedBook(user_id, book_id);
+    }
+
+    @Override
+    public boolean hasBookForFuture(int user_id, int book_id) {
+        List<Book> lst = getBooksForFuture(user_id);
+        for(Book b : lst){
+            if(b.getBook_id() == book_id)
+                return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean hasBookReserved(int user_id, int book_id) {
+        List<Book> lst = getReservedBooks(user_id);
+        for(Book b : lst){
+            if(b.getBook_id() == book_id)
+                return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void removeBookFromFuture(int user_id, int book_id) {
+        bookShelfDao.removeBook(user_id, book_id);
     }
 }

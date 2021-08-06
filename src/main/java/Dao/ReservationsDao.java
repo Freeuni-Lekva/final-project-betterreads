@@ -23,8 +23,9 @@ public class ReservationsDao implements ReservationsDaoInterface{
         try {
             List<Reservation> reservations = getReservationByUser(user_id);
             for (Reservation reservation : reservations) {
-                if (reservation.getUser().getUser_id() == user_id) {
+                if (reservation.getReservedBook().getBook_id() == book_id) {
                     exists = true;
+                    System.out.println("found same book");
                     break;
                 }
             }
@@ -39,7 +40,7 @@ public class ReservationsDao implements ReservationsDaoInterface{
             statement.setInt(2, book_id);
             long time = System.currentTimeMillis();
             Date twoWeeksAfterDate = new Date(time + 8467200 * 1000);
-            statement.setDate(3, twoWeeksAfterDate);
+            statement.setDate(3, Date.valueOf("2022-09-09"));
             return statement.executeUpdate() != 0;
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -65,8 +66,9 @@ public class ReservationsDao implements ReservationsDaoInterface{
 
     @Override
     public List<Reservation> getReservationByUser(int userId) throws SQLException {
+        System.out.println("search with user");
         PreparedStatement preparedStatement = connection.prepareStatement
-                ("select * from reservations" +
+                ("select * from reservations " +
                         "join users on reservations.user_id = users.user_id " +
                         "join books on books.book_id = reservations.book_id " +
                         "where reservations.user_id = ?;");
@@ -78,7 +80,7 @@ public class ReservationsDao implements ReservationsDaoInterface{
             result.add(reservationBuilder(resultSet));
         }
 
-        return null;
+        return result;
     }
 
     private Reservation reservationBuilder(ResultSet resultSet) throws SQLException {
@@ -88,7 +90,7 @@ public class ReservationsDao implements ReservationsDaoInterface{
         book.setAuthor_id(resultSet.getInt("author_id"));
         book.setBook_rating(resultSet.getDouble("book_rating"));
         book.setBook_description(resultSet.getString("book_description"));
-        book.setRelease_year(resultSet.getInt("realise_year"));
+        book.setRelease_year(resultSet.getInt("release_year"));
 
         User user = new User();
         user.setUser_id(resultSet.getInt("user_id"));
@@ -126,7 +128,7 @@ public class ReservationsDao implements ReservationsDaoInterface{
                 ("select * from reservations " +
                         "join users on reservations.user_id = users.user_id " +
                         "join books on books.book_id = reservations.book_id " +
-                        "where reservations.deadline = ?" +
+                        "where reservations.deadline > ?" +
                         "and reservations.user_id = ?;");
         preparedStatement.setDate(1, deadline);
         preparedStatement.setInt(2, userId);
