@@ -131,4 +131,24 @@
     <servlet-name>AdminRemoveRes</servlet-name>
     <url-pattern>/adminReservations</url-pattern>
   </servlet-mapping>
+
+  <servlet>
+    <servlet-name>AdminAddAuthor</servlet-name>
+    <servlet-class>Servlets.AdminAddAuthorServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>AdminAddAuthor</servlet-name>
+    <url-pattern>/adminAuthors</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>AdminAddGenre</servlet-name>
+    <servlet-class>Servlets.AdminAddGenreServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>AdminAddGenre</servlet-name>
+    <url-pattern>/adminGenres</url-pattern>
+  </servlet-mapping>
 </web-app>

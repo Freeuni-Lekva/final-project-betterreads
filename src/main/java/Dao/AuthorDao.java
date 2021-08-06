@@ -50,6 +50,20 @@ public class AuthorDao implements AuthorDaoInterface{
         return null;
     }
 
+    @Override
+    public boolean addAuthor(String author_name) {
+        try {
+            PreparedStatement statement = connection.prepareStatement("insert into authors " +
+                    "(author_name) values (?);");
+            statement.setString(1, author_name);
+            return statement.executeUpdate() != 0;
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
+    }
+
     private Book getBookByRS(ResultSet rs) throws SQLException {
         Book book = new Book();
         book.setBook_id(rs.getInt(1));

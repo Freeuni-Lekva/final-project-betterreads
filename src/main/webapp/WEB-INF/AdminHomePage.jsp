@@ -30,11 +30,11 @@
 <br>
 <a href="/adminReservations">View all reservations from here</a>
 <br>
-<h4>Add author from here</h4>
+<a href="/adminAuthors">Add author from here</a>
 <br>
-<h4>Add genre from here</h4>
+<a href="/adminGenres">Add genre from here</a>
 <br>
-<h4>Add book from here</h4>
+<a href="/adminBooks">Add book from here</a>
 <%
     }
 %>

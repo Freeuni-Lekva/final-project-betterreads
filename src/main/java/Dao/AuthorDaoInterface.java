@@ -11,13 +11,15 @@ public interface AuthorDaoInterface {
      * @param book_id
      * @return Author
      */
-    public Author getAuthor(int book_id);
+    Author getAuthor(int book_id);
 
     /**
      *
      * @param author_id
      * @return List of books by given author
      */
-    public List<Book> getBooksByAuthor(int author_id);
+    List<Book> getBooksByAuthor(int author_id);
+
+    boolean addAuthor(String author_name);
 
 }

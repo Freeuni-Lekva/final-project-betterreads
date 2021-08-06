@@ -5,7 +5,7 @@
 </head>
 
 <body>
-   <form action="/addAuthor" method = "post">
+   <form action="/adminAuthors" method = "post">
        <label for="authorName">Author Name</label>
        <input type="text" id="authorName" name="authorName" >
        <button type="submit">Add Author</button>
