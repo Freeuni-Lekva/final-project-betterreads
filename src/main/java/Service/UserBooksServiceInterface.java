@@ -29,4 +29,10 @@ public interface UserBooksServiceInterface {
     void addReservedBook(int user_id, int book_id);
 
     void addBooksForFuture(int user_id, int book_id);
+
+    boolean hasBookForFuture(int user_id, int book_id);
+
+    boolean hasBookReserved(int user_id, int book_id);
+
+    void removeBookFromFuture(int user_id, int book_id);
 }

@@ -115,6 +115,20 @@ public class BookShelfDao implements BookShelfDaoInterface{
         return false;
     }
 
+    @Override
+    public void removeBook(int user_id, int book_id) {
+        try {
+            PreparedStatement statement = connection.prepareStatement("delete from book_shelf " +
+                    "where user_id = ? and book_id = ?;");
+            statement.setInt(1, user_id);
+            statement.setInt(2, book_id);
+            statement.executeUpdate();
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
     private Book createBook(int book_id, String book_name, String book_description, int release_year,int author_id,double book_rating, int available_count){
         Book book = new Book();
         book.setBook_id(book_id);

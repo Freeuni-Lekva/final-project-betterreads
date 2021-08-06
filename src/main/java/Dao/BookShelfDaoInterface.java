@@ -34,5 +34,7 @@ public interface BookShelfDaoInterface {
      */
     boolean addMarkedBook(int user_id, int book_id);
 
+    void removeBook(int user_id, int book_id);
+
 
 }

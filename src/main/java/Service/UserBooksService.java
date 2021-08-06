@@ -76,4 +76,29 @@ public class UserBooksService implements UserBooksServiceInterface{
         System.out.println("notnull in service");
         bookShelfDao.addMarkedBook(user_id, book_id);
     }
+
+    @Override
+    public boolean hasBookForFuture(int user_id, int book_id) {
+        List<Book> lst = getBooksForFuture(user_id);
+        for(Book b : lst){
+            if(b.getBook_id() == book_id)
+                return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean hasBookReserved(int user_id, int book_id) {
+        List<Book> lst = getReservedBooks(user_id);
+        for(Book b : lst){
+            if(b.getBook_id() == book_id)
+                return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void removeBookFromFuture(int user_id, int book_id) {
+        bookShelfDao.removeBook(user_id, book_id);
+    }
 }
