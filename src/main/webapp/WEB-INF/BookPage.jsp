@@ -55,12 +55,6 @@
     <label><input type="submit" name="unmark" value="Remove Book"></label>
     <%
            }
-       } else {
-    %>
-    <a href="/login">Already a member? Sign In</a>
-    <br>
-    <a href="/register">Register here!</a>
-    <%
        }
     %>
 
