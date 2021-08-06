@@ -4,7 +4,8 @@
 <%@ page import="java.util.List" %>
 <%@ page import="Constants.SharedConstants" %>
 <%@ page import="Service.BookService" %>
-<%@ page import="java.util.Collections" %><%--
+<%@ page import="java.util.Collections" %>
+<%@ page import="Model.User" %><%--
   Created by IntelliJ IDEA.
   User: GG
   Date: 8/5/2021
@@ -18,10 +19,25 @@
 </head>
 <body>
 
+<%
+    HttpSession httpSession = pageContext.getSession();
+    User admin = (User) httpSession.getAttribute(SharedConstants.ADMIN_SESSION);
+    if(admin == null){
+%>
+
 <jsp:include page='Header.jsp'>
     <jsp:param name="Header" value="Header"/>
 </jsp:include>
 
+<%
+    } else {
+%>
+<jsp:include page='AdminHeader.jsp'>
+    <jsp:param name="AdminHeader" value="AdminHeader"/>
+</jsp:include>
+<%
+    }
+%>
 
 <%
     AllServices allServices = (AllServices) pageContext.getServletContext().getAttribute(SharedConstants.ATTRIBUTE);
