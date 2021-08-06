@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.sql.SQLException;
 
-public class GenreService {
+public class GenreService implements GenreServiceInterface{
 
 
     private GenreDao genreDao;

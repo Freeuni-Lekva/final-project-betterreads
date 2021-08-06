@@ -42,6 +42,7 @@ public class GenreDao implements GenreDaoInterface{
         return getGenreByRS(rs);
     }
 
+    @Override
     public List<String> getAllGenres(){
         PreparedStatement statement;
         List<String> genreList = new ArrayList<>();
