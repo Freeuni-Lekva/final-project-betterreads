@@ -108,4 +108,9 @@ public class UserBooksService implements UserBooksServiceInterface{
     public void removeBookFromFuture(int user_id, int book_id) {
         bookShelfDao.removeBook(user_id, book_id);
     }
+
+    @Override
+    public void markBookAsRead(int user_id, int book_id) {
+        bookShelfDao.markAsAlreadyRead(user_id, book_id);
+    }
 }

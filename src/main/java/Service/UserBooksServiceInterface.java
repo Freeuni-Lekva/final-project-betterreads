@@ -35,4 +35,11 @@ public interface UserBooksServiceInterface {
     boolean hasBookReserved(int user_id, int book_id);
 
     void removeBookFromFuture(int user_id, int book_id);
+
+    /**
+     * marks book as read
+     * @param user_id
+     * @param book_id
+     */
+    void markBookAsRead(int user_id, int book_id);
 }

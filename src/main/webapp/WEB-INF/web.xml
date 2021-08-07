@@ -113,6 +113,16 @@
   </servlet-mapping>
 
   <servlet>
+    <servlet-name>ReviewBookSeervlet</servlet-name>
+    <servlet-class>Servlets.ReviewBookServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>ReviewBookSeervlet</servlet-name>
+    <url-pattern>/reviewBook</url-pattern>
+    </servlet-mapping>
+
+  <servlet>
     <servlet-name>LogoutServletAdmin</servlet-name>
     <servlet-class>Servlets.LogoutServletAdmin</servlet-class>
   </servlet>
@@ -130,6 +140,47 @@
   <servlet-mapping>
     <servlet-name>AdminHomeServlet</servlet-name>
     <url-pattern>/adminHome</url-pattern>
+
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>AddBookServlet</servlet-name>
+    <servlet-class>Servlets.AddBookServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>AddBookServlet</servlet-name>
+    <url-pattern>/addBook</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>AdminRemoveRes</servlet-name>
+    <servlet-class>Servlets.AdminReservationServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>AdminRemoveRes</servlet-name>
+    <url-pattern>/adminReservations</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>AdminAddAuthor</servlet-name>
+    <servlet-class>Servlets.AdminAddAuthorServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>AdminAddAuthor</servlet-name>
+    <url-pattern>/adminAuthors</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>AdminAddGenre</servlet-name>
+    <servlet-class>Servlets.AdminAddGenreServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>AdminAddGenre</servlet-name>
+    <url-pattern>/adminGenres</url-pattern>
   </servlet-mapping>
 
   <servlet>

@@ -39,6 +39,9 @@ public class UserService implements UserServiceInterface{
     }
 
     @Override
+    public User getUserById(int user_id) { return userDao.getUserById(user_id); }
+
+    @Override
     public boolean checkPassword(User user, String password) {
         return hashService.hashPassword(password).equals(user.getPassword_hash());
     }
