@@ -108,11 +108,3 @@ create table admins(
     constraint admin_user_id unique (user_id)    
 );
 
-
-drop table if exists admins;
-create table admins(
-	user_id int,
-    constraint admin_user_id unique (user_id)    
-);
-
-
