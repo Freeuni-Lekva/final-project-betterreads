@@ -101,4 +101,14 @@
     <servlet-name>BookMarkingServlet</servlet-name>
     <url-pattern>/bookMarking</url-pattern>
   </servlet-mapping>
+
+  <servlet>
+    <servlet-name>ReviewBookSeervlet</servlet-name>
+    <servlet-class>Servlets.ReviewBookServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>ReviewBookSeervlet</servlet-name>
+    <url-pattern>/reviewBook</url-pattern>
+  </servlet-mapping>
 </web-app>
