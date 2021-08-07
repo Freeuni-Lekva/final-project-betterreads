@@ -1,5 +1,6 @@
 package Dao;
 
+import Model.Book;
 import Model.Rating;
 import Model.User;
 
@@ -35,12 +36,11 @@ public interface RatingDaoInterface {
     List<User> getAllUsers();
 
     /**
-     * saves given rating by given user for given book
-     * if given book is already rated by this user
-     * replaces previous rating
-     * @param user_id
-     * @param book_id
+     *
+     * @return all books
      */
+    List<Book> getAllBooks();
+
     /**
      * saves given rating by given user for given book
      * if given book is already rated by this user
@@ -51,4 +51,6 @@ public interface RatingDaoInterface {
      * @return true if successfully added to database
      */
     boolean rateBook(int user_id, int book_id, int book_rating);
+
+    boolean updateBookRating(Book book, double book_rating);
 }

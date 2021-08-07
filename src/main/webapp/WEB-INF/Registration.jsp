@@ -8,39 +8,24 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <link href="/Style/RegistrationStyle.css" type="text/css" rel="stylesheet">
     <title>Better Reads</title>
 </head>
 <body>
 
-<form action="/home" method = "post">
-    <button type="submit"> BetterReads </button>
-</form>
+<div class="sing-up-form">
+    <h1> Create account </h1>
+    <form action="register" method="post">
+        <input type="text" class="input-box" placeholder="First name" name="first_name">
+        <input type="text" class="input-box" placeholder="Last name" name="last_name">
+        <input type="text" class="input-box" placeholder="Username " name="username">
+        <input type="text" class="input-box" placeholder="Email" name="email">
+        <input type="password" class="input-box" placeholder="Password" name="password"> <br><br>
+        <button type="submit" class="register"> Sign up</button>
+    </form>
+</div>
 
-<form action="register" method="post">
-    <table style="width: 25%">
-        <tr>
-            <td>First Name:</td>
-            <td><input type="text" name="first_name" /></td>
-        </tr>
-        <tr>
-            <td>Last Name:</td>
-            <td><input type="text" name="last_name" /></td>
-        </tr>
-        <tr>
-            <td>Userame:</td>
-            <td><input type="text" name="username" /></td>
-        </tr>
-        <tr>
-            <td>Email:</td>
-            <td><input type="text" name="email" /></td>
-        </tr>
-        <tr>
-            <td>Password:</td>
-            <td><input type="password" name="password" /></td>
-        </tr>
-    </table>
-    <input type="submit" value="Register" />
-</form>
+
 
 </body>
 </html>

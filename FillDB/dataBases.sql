@@ -108,6 +108,7 @@ create table admins(
     constraint admin_user_id unique (user_id)    
 );
 
+
 drop table if exists likes;
 create table likes(
     like_id int auto_increment primary key,
