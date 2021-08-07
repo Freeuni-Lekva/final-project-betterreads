@@ -18,7 +18,7 @@ public class SearchService implements SearchServiceInterface {
     public List<Book> filterByText(String text){
         try {
             BookDao bd = new BookDao(Connector.getConnection(SharedConstants.DATA_BASE_NAME));
-            AuthorDao ad = new AuthorDao(SharedConstants.DATA_BASE_NAME);
+            AuthorDao ad = new AuthorDao(Connector.getConnection(SharedConstants.DATA_BASE_NAME));
             List<Book> bookList = bd.getAllBooks();
             Collections.sort(bookList, new Comparator<Book>() {
                 @Override
