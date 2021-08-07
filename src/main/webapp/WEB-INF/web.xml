@@ -173,4 +173,34 @@
     <servlet-name>AdminAddGenre</servlet-name>
     <url-pattern>/adminGenres</url-pattern>
   </servlet-mapping>
+
+  <servlet>
+    <servlet-name>UserReviewsServlet</servlet-name>
+    <servlet-class>Servlets.UserReviewsServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>UserReviewsServlet</servlet-name>
+    <url-pattern>/showReviews</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>LikeReviewServlet</servlet-name>
+    <servlet-class>Servlets.LikeReviewServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>LikeReviewServlet</servlet-name>
+    <url-pattern>/likeReview</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>DeleteReviewServlet</servlet-name>
+    <servlet-class>Servlets.DeleteReviewServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>DeleteReviewServlet</servlet-name>
+    <url-pattern>/deleteReview</url-pattern>
+  </servlet-mapping>
 </web-app>
