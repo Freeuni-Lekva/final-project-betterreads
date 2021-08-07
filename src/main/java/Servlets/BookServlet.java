@@ -27,6 +27,7 @@ public class BookServlet extends HttpServlet {
             httpServletRequest.setAttribute("count",b.getAvailable_count());
             httpServletRequest.setAttribute("year", b.getRelease_year());
             httpServletRequest.setAttribute("photo",b.getBook_photo());
+            httpServletRequest.setAttribute("USER_REVIEWS_ONLY", (Boolean)false);
             httpServletRequest.getRequestDispatcher("/WEB-INF/BookPage.jsp").forward(httpServletRequest, httpServletResponse);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
