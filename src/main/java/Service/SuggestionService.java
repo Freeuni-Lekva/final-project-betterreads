@@ -51,7 +51,7 @@ public class SuggestionService implements SuggestionServiceInterface {
         return null;
     }
 
-    private double countSimilarity(User u1, User u2){
+    private double countSimilarity(User u1, User u2) throws SQLException {
         RatingDao ratingDao = null;
         try {
             ratingDao = new RatingDao(Connector.getConnection(SharedConstants.DATA_BASE_NAME));
