@@ -35,14 +35,12 @@ public class ReservationsDao implements ReservationsDaoInterface{
 
     @Override
     public boolean addReservation(int user_id, int book_id) {
-        System.out.println("add reservation");
         boolean exists = false;
         try {
             List<Reservation> reservations = getReservationByUser(user_id);
             for (Reservation reservation : reservations) {
                 if (reservation.getReservedBook().getBook_id() == book_id) {
                     exists = true;
-                    System.out.println("found same book");
                     break;
                 }
             }
@@ -68,7 +66,7 @@ public class ReservationsDao implements ReservationsDaoInterface{
     @Override
     public Reservation getReservationById(int reservationId) throws SQLException {
         PreparedStatement preparedStatement = connection.prepareStatement
-                ("select * from reservations" +
+                ("select * from reservations " +
                         "join users on reservations.user_id = users.user_id " +
                         "join books on books.book_id = reservations.book_id " +
                         "where reservations.reservation_id = ?;");
@@ -83,7 +81,6 @@ public class ReservationsDao implements ReservationsDaoInterface{
 
     @Override
     public List<Reservation> getReservationByUser(int userId) throws SQLException {
-        System.out.println("search with user");
         PreparedStatement preparedStatement = connection.prepareStatement
                 ("select * from reservations " +
                         "join users on reservations.user_id = users.user_id " +
@@ -162,7 +159,6 @@ public class ReservationsDao implements ReservationsDaoInterface{
     @Override
     public void removeReservation(int reservation_id) {
         try {
-            System.out.println("aqvar");
             PreparedStatement statement = connection.prepareStatement("delete from reservations " +
                     "where reservation_id = ?;");
             statement.setInt(1, reservation_id);
