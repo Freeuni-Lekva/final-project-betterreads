@@ -10,6 +10,7 @@ public class AllServices {
     private DescriptionShortener descriptionShortener;
     private BookService bookService;
     public GenreService genreService;
+    private ReviewService reviewService;
 
     public AllServices() throws SQLException {
         hashService = new HashService();
@@ -19,6 +20,8 @@ public class AllServices {
         descriptionShortener = new DescriptionShortener();
         bookService = new BookService();
         genreService = new GenreService();
+        reviewService = new ReviewService();
+
     }
     public HashService getHashService(){
         return hashService;
@@ -31,5 +34,6 @@ public class AllServices {
     public DescriptionShortener getDescriptionShortener() {return descriptionShortener;}
     public BookService getBookService(){return bookService;}
     public GenreService getGenreService(){return genreService;}
+    public ReviewService getReviewService() { return reviewService; }
 }
 
