@@ -1,11 +1,13 @@
 package Service;
 
 import Constants.SharedConstants;
+import Dao.AuthorDao;
 import Dao.BookDao;
 import java.sql.SQLException;
 
 import Dao.Connector;
 import Dao.UserDao;
+import Model.Author;
 import Model.Book;
 import Model.Genre;
 
@@ -14,10 +16,12 @@ import java.util.*;
 
 public class BookService implements BookServiceInterface{
     private BookDao bookDao;
+    private AuthorDao authorDao;
 
     public BookService()  {
         try {
             bookDao = new BookDao(Connector.getConnection(SharedConstants.DATA_BASE_NAME));
+            authorDao = new AuthorDao(Connector.getConnection(SharedConstants.DATA_BASE_NAME));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -91,6 +95,11 @@ public class BookService implements BookServiceInterface{
     @Override
     public Book getBookById(int id) throws SQLException {
         return bookDao.getBookById(id);
+    }
+
+    @Override
+    public Author getAuthorById(int book_id) {
+        return authorDao.getAuthor(book_id);
     }
 
     @Override

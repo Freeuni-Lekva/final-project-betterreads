@@ -1,5 +1,6 @@
 package Service;
 
+import Model.Author;
 import Model.Book;
 
 import java.sql.SQLException;
@@ -48,6 +49,13 @@ public interface BookServiceInterface {
      * @return
      */
     Book getBookById(int id) throws SQLException;
+
+    /**
+     *
+     * @param book_id
+     * @return
+     */
+    Author getAuthorById(int book_id);
 
     /**
      *

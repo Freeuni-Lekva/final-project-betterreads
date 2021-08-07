@@ -45,6 +45,7 @@
         <label for="${genre}"> ${genre} </label><br>
     </c:forEach>
 
+    <label for="book_description">Book Description: </label>
     <textarea id="book_description" name="book_description" rows="4" cols="50"></textarea>
 
     <br>
