@@ -162,11 +162,27 @@ public class RatingDao implements RatingDaoInterface {
                 deleteStatement.setInt(1, user_id);
                 deleteStatement.setInt(2, book_id);
                 if(deleteStatement.executeUpdate() == 0) return false;
+
                 return rateBook(user_id, book_id, book_rating);
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
             return false;
         }
+    }
+
+    @Override
+    public boolean updateBookRating(Book book, double book_rating) {
+        try {
+            PreparedStatement statement = connection.prepareStatement("UPDATE books SET book_rating = ? WHERE book_id = ?;");
+            statement.setDouble(1, book_rating);
+            statement.setInt(2, book.getBook_id());
+            statement.executeUpdate();
+            return true;
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return false;
     }
 }

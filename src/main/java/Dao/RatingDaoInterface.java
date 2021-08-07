@@ -51,4 +51,6 @@ public interface RatingDaoInterface {
      * @return true if successfully added to database
      */
     boolean rateBook(int user_id, int book_id, int book_rating);
+
+    boolean updateBookRating(Book book, double book_rating);
 }

@@ -42,7 +42,7 @@
 <h1>${bookName}</h1>
 <form action="bookMarking?bookId=${bookID}" method="post">
     <input name="bookID" type="hidden" value="${bookID}"/>
-    <label>Author - ${authorId}</label>
+    <label>Author - ${authorName}</label>
     <label>Rating - ${rating}</label>
     <label>Release year - ${year}</label>
     <label>Available - ${count}</label><br>
@@ -53,7 +53,7 @@
         httpSession = pageContext.getSession();
         User user = (User) httpSession.getAttribute(SharedConstants.SESSION_ATTRIBUTE);
         Integer book_ID = (Integer)request.getAttribute("bookID");
-        if(user != null){
+        if(user != null && admin == null){
            AllServices allServices = (AllServices) pageContext.getServletContext().getAttribute(SharedConstants.ATTRIBUTE);
            UserBooksService ubs = allServices.getUserBooksService();
            if(!ubs.hasBookReserved(user.getUser_id(), book_ID )){
@@ -87,7 +87,7 @@
             <p><%=currReview.getComment()%></p><br>
 <%
         }
-        if(user != null){
+        if(user != null && admin == null){
             %>
             <form action = "reviewBook?bookId${bookID}" method="post">
                 <input name="bookID" type="hidden" value="${bookID}"/>
@@ -101,7 +101,7 @@
 </form>
 
 <%
-    if(user != null){
+    if(user != null && admin == null){
 %>
 <form action="/rating" method="post">
     <input name="book_id" type="hidden" value="${bookID}">
