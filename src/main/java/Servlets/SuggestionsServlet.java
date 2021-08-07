@@ -30,7 +30,6 @@ public class SuggestionsServlet extends HttpServlet {
         AllServices allServices = (AllServices) getServletContext().getAttribute(SharedConstants.ATTRIBUTE);
         SuggestionService suggestionService = allServices.getSuggestionService();
         List<Book> suggest = suggestionService.suggestByUser(user);
-        System.out.println(suggest.get(1));
         httpServletRequest.setAttribute("list", suggest);
         httpServletRequest.getRequestDispatcher("WEB-INF/Suggestions.jsp")
                 .forward(httpServletRequest,httpServletResponse);

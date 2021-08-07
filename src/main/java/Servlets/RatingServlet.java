@@ -22,7 +22,6 @@ public class RatingServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
-        System.out.println(1234);
         AllServices allServices = (AllServices) getServletContext().getAttribute(SharedConstants.ATTRIBUTE);
         RatingService ratingService = allServices.getRatingService();
         HttpSession httpSession = httpServletRequest.getSession();

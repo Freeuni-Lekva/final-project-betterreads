@@ -18,22 +18,19 @@
 
 <%
     List<Book> list =(List<Book>) request.getAttribute("list");
-    System.out.println(list.size());
 %>
 
 <ol>
-    <li>
-        <%
-            for(Book b : list){
-                request.setAttribute("book", b);
-        %>
+    <%
+    for(Book b : list){
+        request.setAttribute("book", b);
+    %>
         <jsp:include page='BookPreview.jsp'>
             <jsp:param name="book" value="${b}"/>
         </jsp:include>
-        <%
-            }
-        %>
-    </li>
+    <%
+        }
+    %>
 </ol>
 </body>
 </html>

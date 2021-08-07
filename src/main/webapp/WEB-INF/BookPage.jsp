@@ -75,6 +75,9 @@
     %>
 </form>
 
+<%
+    if(user != null){
+%>
 <form action="/rating" method="post">
     <input name="book_id" type="hidden" value="${bookID}">
     <input type="radio" name="rating" value="1">
@@ -84,5 +87,8 @@
     <input type="radio" name="rating" value="5">
     <input type="submit" value="Submit">
 </form>
+<%
+    }
+%>
 </body>
 </html>
