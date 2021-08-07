@@ -4,9 +4,9 @@ import java.sql.Date;
 import java.util.Objects;
 
 public class Review {
+    private int review_id;
     private int user_id;
     private int book_id;
-    private double rating;
     private String comment;
     private Date date;
     private int num_likes;
@@ -23,16 +23,10 @@ public class Review {
         return book_id;
     }
 
+    private int getReview_id(){ return review_id; }
+
     public void setBook_id(int book_id) {
         this.book_id = book_id;
-    }
-
-    public double getRating() {
-        return rating;
-    }
-
-    public void setRating(double rating) {
-        this.rating = rating;
     }
 
     public String getComment() {
@@ -59,6 +53,8 @@ public class Review {
         this.num_likes = num_likes;
     }
 
+    public void setReview_id(int review_id){ this.review_id = review_id; }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -66,5 +62,4 @@ public class Review {
         Review review = (Review) o;
         return getUser_id() == review.getUser_id() && getBook_id() == review.getBook_id() && getDate().equals(review.getDate());
     }
-
 }
