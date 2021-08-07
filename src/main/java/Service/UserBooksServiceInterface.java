@@ -34,6 +34,8 @@ public interface UserBooksServiceInterface {
 
     boolean hasBookReserved(int user_id, int book_id);
 
+    boolean hasReadBook(int user_id, int book_id);
+
     void removeBookFromFuture(int user_id, int book_id);
 
     /**
