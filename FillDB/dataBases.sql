@@ -108,4 +108,3 @@ create table admins(
     constraint admin_user_id unique (user_id)    
 );
 
-

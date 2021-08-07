@@ -9,6 +9,10 @@
 <html>
 <head>
    <title>${bookName}</title>
+
+    <link rel="stylesheet" href="jquery.rating.css">
+    <script src="jquery.js"></script>
+    <script src="jquery.rating.js"></script>
 </head>
 
 <body>
@@ -49,7 +53,6 @@
         httpSession = pageContext.getSession();
         User user = (User) httpSession.getAttribute(SharedConstants.SESSION_ATTRIBUTE);
         Integer book_ID = (Integer)request.getAttribute("bookID");
-        System.out.println("in jsp " + book_ID);
         if(user != null){
            AllServices allServices = (AllServices) pageContext.getServletContext().getAttribute(SharedConstants.ATTRIBUTE);
            UserBooksService ubs = allServices.getUserBooksService();
@@ -95,6 +98,22 @@
 <%
         }
     %>
+</form>
 
+<%
+    if(user != null){
+%>
+<form action="/rating" method="post">
+    <input name="book_id" type="hidden" value="${bookID}">
+    <input type="radio" name="rating" value="1">
+    <input type="radio" name="rating" value="2">
+    <input type="radio" name="rating" value="3">
+    <input type="radio" name="rating" value="4">
+    <input type="radio" name="rating" value="5">
+    <input type="submit" value="Submit">
+</form>
+<%
+    }
+%>
 </body>
 </html>
