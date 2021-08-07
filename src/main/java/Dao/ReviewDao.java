@@ -33,24 +33,24 @@ public class ReviewDao implements ReviewDaoInterface{
 
     @Override
     public List<Review> getReviews(int book_id) {
-        try {
-            PreparedStatement st = conn.prepareStatement("SELECT * FROM reviews WHERE book_id = ?;");
-            st.setInt(1, book_id);
-            ResultSet rs = st.executeQuery();
-            List<Review> retList = new ArrayList<>();
-            while(rs.next()){
-                Review r = new Review();
-                r.setUser_id(rs.getInt("user_id"));
-                r.setBook_id(rs.getInt("book_id"));
-                r.setComment(rs.getString("user_comment"));
-                r.setDate(rs.getDate("date_posted"));
-                r.setNum_likes(rs.getInt("num_likes"));
-                retList.add(r);
-            }
-            return retList;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+//        try {
+//            PreparedStatement st = conn.prepareStatement("SELECT * FROM reviews WHERE book_id = ?;");
+//            st.setInt(1, book_id);
+//            ResultSet rs = st.executeQuery();
+//            List<Review> retList = new ArrayList<>();
+//            while(rs.next()){
+//                Review r = new Review();
+//                r.setUser_id(rs.getInt("user_id"));
+//                r.setBook_id(rs.getInt("book_id"));
+//                r.setComment(rs.getString("user_comment"));
+//                r.setDate(rs.getDate("date_posted"));
+//                r.setNum_likes(rs.getInt("num_likes"));
+//                retList.add(r);
+//            }
+//            return retList;
+//        } catch (SQLException throwables) {
+//            throwables.printStackTrace();
+//        }
         return null;
     }
 

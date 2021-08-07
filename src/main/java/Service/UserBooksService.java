@@ -55,13 +55,13 @@ public class UserBooksService implements UserBooksServiceInterface{
     }
 
     @Override
-    public List<Book> getAlreadyReadBooks(int user_id) {
+    public List<Book> getAlreadyReadBooks(int user_id) throws SQLException {
         List<Book> books = bookShelfDao.getAlreadyReadBooks(user_id);
         return books;
     }
 
     @Override
-    public List<Book> getBooksForFuture(int user_id) {
+    public List<Book> getBooksForFuture(int user_id) throws SQLException {
         List<Book> books = getReservedBooks(user_id);
         List<Book> forFuture = bookShelfDao.getMarkedBooks(user_id);
         List<Book> result = new ArrayList<>();
@@ -79,13 +79,13 @@ public class UserBooksService implements UserBooksServiceInterface{
     }
 
     @Override
-    public void addBooksForFuture(int user_id, int book_id) {
+    public void addBooksForFuture(int user_id, int book_id) throws SQLException {
         System.out.println("notnull in service");
         bookShelfDao.addMarkedBook(user_id, book_id);
     }
 
     @Override
-    public boolean hasBookForFuture(int user_id, int book_id) {
+    public boolean hasBookForFuture(int user_id, int book_id) throws SQLException {
         List<Book> lst = getBooksForFuture(user_id);
         for(Book b : lst){
             if(b.getBook_id() == book_id)
@@ -105,12 +105,12 @@ public class UserBooksService implements UserBooksServiceInterface{
     }
 
     @Override
-    public void removeBookFromFuture(int user_id, int book_id) {
+    public void removeBookFromFuture(int user_id, int book_id) throws SQLException {
         bookShelfDao.removeBook(user_id, book_id);
     }
 
     @Override
-    public void markBookAsRead(int user_id, int book_id) {
+    public void markBookAsRead(int user_id, int book_id) throws SQLException {
         bookShelfDao.markAsAlreadyRead(user_id, book_id);
     }
 }

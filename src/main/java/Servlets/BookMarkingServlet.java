@@ -25,12 +25,22 @@ public class BookMarkingServlet extends HttpServlet {
         User user = (User) httpSession.getAttribute(SharedConstants.SESSION_ATTRIBUTE);
         String book_ID = httpServletRequest.getParameter("bookID");
         if(book_ID != null) {
-            if(httpServletRequest.getParameter("mark") != null)
-                ubs.addBooksForFuture(user.getUser_id(), Integer.parseInt(book_ID));
+            if(httpServletRequest.getParameter("mark") != null) {
+                try {
+                    ubs.addBooksForFuture(user.getUser_id(), Integer.parseInt(book_ID));
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
             else if(httpServletRequest.getParameter("reserve") != null)
                 ubs.addReservedBook(user.getUser_id(), Integer.parseInt(book_ID));
-            else if(httpServletRequest.getParameter("unmark") != null)
-                ubs.removeBookFromFuture(user.getUser_id(), Integer.parseInt(book_ID));
+            else if(httpServletRequest.getParameter("unmark") != null) {
+                try {
+                    ubs.removeBookFromFuture(user.getUser_id(), Integer.parseInt(book_ID));
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
         }
         String bookId = httpServletRequest.getParameter("bookId");
         try {
