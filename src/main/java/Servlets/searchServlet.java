@@ -18,11 +18,13 @@ import java.util.List;
 public class searchServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String text = request.getParameter("stext");
-        System.out.println(text);
         AllServices allServices = (AllServices) getServletContext().getAttribute(SharedConstants.ATTRIBUTE);
         SearchService searchService = allServices.getSearchService();
         List<Book> bookList = searchService.filterByText(text);
         request.setAttribute("list", bookList);
+        GenreService genreService = allServices.getGenreService();
+        List<String> genres = genreService.getGenres();
+        request.setAttribute("genres", genres);
         request.getRequestDispatcher("WEB-INF/Catalogue.jsp").forward(request,response);
     }
 

@@ -1,5 +1,6 @@
 package Dao;
 
+import Model.Book;
 import Model.Rating;
 import Model.User;
 
@@ -96,15 +97,41 @@ public class RatingDao implements RatingDaoInterface {
         return u;
     }
 
+    private Book getBook(ResultSet resultSet){
+        Book b = new Book();
+        try {
+            b.setBook_id(resultSet.getInt("book_id"));
+            b.setBook_name(resultSet.getString("book_name"));
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return b;
+    }
+
     @Override
     public List<User> getAllUsers() {
         List<User> res = new ArrayList<>();
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM ratings r " +
-                    "JOIN users u ON u.user_id = r.user_id; ");
+            PreparedStatement preparedStatement = connection.prepareStatement("select distinct r.user_id, first_name, last_name, username, email, password_hash from ratings r join users u on u.user_id = r.user_id; ");
             ResultSet resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
                 res.add(getUser(resultSet));
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return res;
+    }
+
+    @Override
+    public List<Book> getAllBooks() {
+        List<Book> res = new ArrayList<>();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT distinct b.book_id, book_name FROM ratings r " +
+                    "JOIN books b ON b.book_id = r.book_id; ");
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()){
+                res.add(getBook(resultSet));
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();

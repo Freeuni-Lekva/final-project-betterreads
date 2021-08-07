@@ -1,3 +1,5 @@
+<%@ page import="java.util.List" %>
+<%@ page import="Model.Book" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
@@ -14,12 +16,24 @@
     <jsp:param name="Header" value="Header"/>
 </jsp:include>
 
-<ul>
+<%
+    List<Book> list =(List<Book>) request.getAttribute("list");
+    System.out.println(list.size());
+%>
+
+<ol>
     <li>
-        <c:forEach items="${list}" var="book">
-            <jsp:include page="BookPreview.jsp"/>
-        </c:forEach>
+        <%
+            for(Book b : list){
+                request.setAttribute("book", b);
+        %>
+        <jsp:include page='BookPreview.jsp'>
+            <jsp:param name="book" value="${b}"/>
+        </jsp:include>
+        <%
+            }
+        %>
     </li>
-</ul>
+</ol>
 </body>
 </html>

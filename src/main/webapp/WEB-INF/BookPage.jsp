@@ -73,16 +73,16 @@
            }
        }
     %>
+</form>
 
-    <form action="/rating" method="post">
-        <input type="radio" name="rating" value="1" class="star">
-        <input type="radio" name="rating" value="2" class="star">
-        <input type="radio" name="rating" value="3" class="star">
-        <input type="radio" name="rating" value="4" class="star">
-        <input type="radio" name="rating" value="5" class="star">
-        <input type="submit" name="rate" value="rate">
-    </form>
-
+<form action="/rating" method="post">
+    <input name="book_id" type="hidden" value="${bookID}">
+    <input type="radio" name="rating" value="1">
+    <input type="radio" name="rating" value="2">
+    <input type="radio" name="rating" value="3">
+    <input type="radio" name="rating" value="4">
+    <input type="radio" name="rating" value="5">
+    <input type="submit" value="Submit">
 </form>
 </body>
 </html>

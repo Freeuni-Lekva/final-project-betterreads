@@ -5,6 +5,7 @@ import Model.Book;
 import Model.User;
 import Service.AllServices;
 import Service.BookService;
+import Service.SuggestionService;
 import Service.UserBooksService;
 
 import javax.servlet.ServletException;
@@ -27,9 +28,9 @@ public class SuggestionsServlet extends HttpServlet {
         HttpSession httpSession = httpServletRequest.getSession();
         User user = (User) httpSession.getAttribute(SharedConstants.SESSION_ATTRIBUTE);
         AllServices allServices = (AllServices) getServletContext().getAttribute(SharedConstants.ATTRIBUTE);
-        UserBooksService ubs = allServices.getUserBooksService();
-        List<Book> myBooks = ubs.getAlreadyReadBooks(user.getUser_id());
-        List<Book> suggest = myBooks;
+        SuggestionService suggestionService = allServices.getSuggestionService();
+        List<Book> suggest = suggestionService.suggestByUser(user);
+        System.out.println(suggest.get(1));
         httpServletRequest.setAttribute("list", suggest);
         httpServletRequest.getRequestDispatcher("WEB-INF/Suggestions.jsp")
                 .forward(httpServletRequest,httpServletResponse);
