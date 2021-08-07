@@ -123,7 +123,8 @@ public class BookShelfDao implements BookShelfDaoInterface{
         }
     }
 
-    private Book createBook(int book_id, String book_name, String book_description, int release_year,int author_id,double book_rating, int available_count){
+
+    private Book createBook(int book_id, String book_name, String book_description, int release_year, int author_id, double book_rating, int available_count){
         Book book = new Book();
         book.setBook_id(book_id);
         book.setBook_name(book_name);
@@ -133,5 +134,26 @@ public class BookShelfDao implements BookShelfDaoInterface{
         book.setBook_rating(book_rating);
         book.setAvailable_count(available_count);
         return book;
+    }
+
+    @Override
+    public void markAsAlreadyRead(int user_id, int book_id) {
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("delete from book_shelf " +
+                    "where user_id = ? and book_id = ?;");
+            preparedStatement.setInt(1, user_id);
+            preparedStatement.setInt(2, book_id);
+            preparedStatement.executeUpdate();
+            System.out.println("movediii");
+            PreparedStatement addStatement = connection.prepareStatement("insert into book_shelf(user_id, book_id, already_read) " +
+                    "values(?, ?, ?);");
+            addStatement.setInt(1, user_id);
+            addStatement.setInt(2, book_id);
+            addStatement.setInt(3, SharedConstants.ALREADY_READ);
+            addStatement.executeUpdate();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
     }
 }
