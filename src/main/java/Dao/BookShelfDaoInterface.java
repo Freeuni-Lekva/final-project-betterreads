@@ -40,4 +40,12 @@ public interface BookShelfDaoInterface {
      * @param book_id
      */
     void removeBook(int user_id, int book_id);
+
+    /**
+     * marks book as read
+     * @param user_id
+     * @param book_id
+     */
+    void markAsAlreadyRead(int user_id, int book_id);
+
 }

@@ -2,9 +2,8 @@
 <%@ page import="Constants.SharedConstants" %>
 <%@ page import="Model.Book" %>
 <%@ page import="java.util.List" %>
-<%@ page import="Service.AllServices" %>
-<%@ page import="Service.BookService" %>
-<%@ page import="Service.UserBooksService" %>
+<%@ page import="Model.Review" %>
+<%@ page import="Service.*" %>
 
 
 <html>
@@ -42,7 +41,8 @@
     <label>Author - ${authorId}</label>
     <label>Rating - ${rating}</label>
     <label>Release year - ${year}</label>
-    <label>Available - ${count}</label>
+    <label>Available - ${count}</label><br>
+    <img src="${photo}" alt="${bookName}" width="200" height="300">
     <p>${description}</p>
 
     <%
@@ -68,9 +68,33 @@
     <label><input type="submit" name="unmark" value="Remove Book"></label>
     <%
            }
-       }
+        }
+    %>
+</form><br>
+    <%
+        AllServices allServices = (AllServices) pageContext.getServletContext().getAttribute(SharedConstants.ATTRIBUTE);
+        ReviewService reviewService = allServices.getReviewService();
+        UserService userService = allServices.getUserService();
+        List<Review> allReviews = reviewService.getReviewsByBookId(book_ID);
+        for(int i = 0; i < allReviews.size(); i++){
+            Review currReview = allReviews.get(i); %>
+            <p><%=userService.getUserById(currReview.getUser_id()).getUsername()%></p>
+            <p><%=currReview.getDate().toString()%></p>
+            <p>likes: <%=currReview.getNum_likes()%></p>
+            <p><%=currReview.getComment()%></p><br>
+<%
+        }
+        if(user != null){
+            %>
+            <form action = "reviewBook?bookId${bookID}" method="post">
+                <input name="bookID" type="hidden" value="${bookID}"/>
+                <textarea id="review" name="review" rows="4" cols="50"></textarea><br>
+                <input type="submit" value = "Submit Review">
+            </form>
+
+<%
+        }
     %>
 
-</form>
 </body>
 </html>
