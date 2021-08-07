@@ -44,4 +44,6 @@ public interface UserBooksServiceInterface {
      * @param book_id
      */
     void markBookAsRead(int user_id, int book_id) throws SQLException;
+
+    boolean hasReadBook(int user_id, int book_id) throws SQLException;
 }

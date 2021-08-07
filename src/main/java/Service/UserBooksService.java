@@ -115,7 +115,7 @@ public class UserBooksService implements UserBooksServiceInterface{
     }
 
     @Override
-    public boolean hasReadBook(int user_id, int book_id) {
+    public boolean hasReadBook(int user_id, int book_id) throws SQLException {
         List<Book> read = bookShelfDao.getAlreadyReadBooks(user_id);
         for(int i = 0; i < read.size(); i++){
             if(read.get(i).getBook_id() == book_id)
