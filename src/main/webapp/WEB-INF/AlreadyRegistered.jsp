@@ -9,40 +9,24 @@
 <html>
 <head>
     <title>Already Registered</title>
+    <link href="/Style/RegistrationStyle.css" type="text/css" rel="stylesheet">
 </head>
 <body>
-<form action="/home" method = "post">
-    <button type="submit"> BetterReads </button>
-</form>
-<h4>  <%=request.getAttribute("Error")%> </h4>
 
-<h3>Please Try Again</h3>
 
-<form action="register" method="post">
-    <table style="width: 25%">
-        <tr>
-            <td>First Name:</td>
-            <td><input type="text" name="first_name" /></td>
-        </tr>
-        <tr>
-            <td>Last Name:</td>
-            <td><input type="text" name="last_name" /></td>
-        </tr>
-        <tr>
-            <td>Userame:</td>
-            <td><input type="text" name="username" /></td>
-        </tr>
-        <tr>
-            <td>Email:</td>
-            <td><input type="text" name="email" /></td>
-        </tr>
-        <tr>
-            <td>Password:</td>
-            <td><input type="password" name="password" /></td>
-        </tr>
-    </table>
-    <input type="submit" value="Register" />
-</form>
+
+<div class="sing-up-form">
+    <h3>  <%=request.getAttribute("Error")%> </h3>
+    <h3>Please Try Again</h3>
+    <form action="register" method="post">
+        <input type="text" class="input-box" placeholder="First name" name="first_name">
+        <input type="text" class="input-box" placeholder="Last name" name="last_name">
+        <input type="text" class="input-box" placeholder="Username " name="username">
+        <input type="text" class="input-box" placeholder="Email" name="email">
+        <input type="password" class="input-box" placeholder="Password" name="password"> <br><br>
+        <button type="submit" class="register"> Sign up</button>
+    </form>
+</div>
 
 </body>
 </html>

@@ -36,7 +36,7 @@ public class VallidationService implements VallidationServiceInterface{
         } else if(isUsernameEmpty(username)){
             return "Username can't be empty";
         } else if(!isMailCorrect(mail)){
-            return "Mail is not correct";
+            return "Email isn't correct";
         } else if(!isPasswordCorrect(password)){
             return "The password must be at least 7 characters long";
         }
