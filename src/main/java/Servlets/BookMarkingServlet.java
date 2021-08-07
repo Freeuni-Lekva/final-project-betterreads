@@ -5,8 +5,10 @@ import Model.Book;
 import Model.User;
 import Service.AllServices;
 import Service.BookService;
+import Service.SendMailService;
 import Service.UserBooksService;
 
+import javax.mail.MessagingException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,15 +23,24 @@ public class BookMarkingServlet extends HttpServlet {
     protected void doPost(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
         AllServices allServices = (AllServices) getServletContext().getAttribute(SharedConstants.ATTRIBUTE);
         UserBooksService ubs = allServices.getUserBooksService();
+        SendMailService mailService = allServices.getMailService();
         HttpSession httpSession = httpServletRequest.getSession();
         User user = (User) httpSession.getAttribute(SharedConstants.SESSION_ATTRIBUTE);
         String book_ID = httpServletRequest.getParameter("bookID");
         if(book_ID != null) {
             if(httpServletRequest.getParameter("mark") != null)
                 ubs.addBooksForFuture(user.getUser_id(), Integer.parseInt(book_ID));
-            else if(httpServletRequest.getParameter("reserve") != null)
+            else if(httpServletRequest.getParameter("reserve") != null){
                 ubs.addReservedBook(user.getUser_id(), Integer.parseInt(book_ID));
-            else if(httpServletRequest.getParameter("unmark") != null)
+                Book book;
+                try {
+                    book = allServices.getBookService().getBookById(Integer.parseInt(book_ID));
+                    String mailText = mailService.reservedBookText(book,user);
+                    mailService.sendMail(user.getEmail(),"Book Reservation",mailText);
+                } catch (MessagingException  | SQLException e) {
+                    e.printStackTrace();
+                }
+            } else if(httpServletRequest.getParameter("unmark") != null)
                 ubs.removeBookFromFuture(user.getUser_id(), Integer.parseInt(book_ID));
         }
         String bookId = httpServletRequest.getParameter("bookId");
