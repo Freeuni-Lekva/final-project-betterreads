@@ -32,6 +32,13 @@ public interface UserServiceInterface {
 
     /**
      *
+     * @param user_id
+     * @return user with given id
+     */
+    User getUserById(int user_id);
+
+    /**
+     *
      * @param user
      * @return true if password for this user is correct
      */
