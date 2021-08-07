@@ -113,4 +113,14 @@ public class UserBooksService implements UserBooksServiceInterface{
     public void markBookAsRead(int user_id, int book_id) {
         bookShelfDao.markAsAlreadyRead(user_id, book_id);
     }
+
+    @Override
+    public boolean hasReadBook(int user_id, int book_id) {
+        List<Book> read = bookShelfDao.getAlreadyReadBooks(user_id);
+        for(int i = 0; i < read.size(); i++){
+            if(read.get(i).getBook_id() == book_id)
+                return true;
+        }
+        return false;
+    }
 }

@@ -23,7 +23,7 @@ public class Review {
         return book_id;
     }
 
-    private int getReview_id(){ return review_id; }
+    public int getReview_id(){ return review_id; }
 
     public void setBook_id(int book_id) {
         this.book_id = book_id;
