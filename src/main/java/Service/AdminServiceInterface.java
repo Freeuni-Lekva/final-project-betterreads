@@ -12,8 +12,8 @@ public interface AdminServiceInterface {
     void addAuthor(String author_name);
 
     void addGenre(String genre_name);
-  
-    public Author getAuthorByName(String author_name);
 
-    public boolean addBook(String book_name,Author author,int release_year,int count, String photo, String description, String[] genres);
+    boolean addBook(String book_name, Author author, int release_year, int count, String photo, String description, String[] genres);
+  
+    Author getAuthorByName(String author_name);
 }

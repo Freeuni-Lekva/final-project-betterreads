@@ -26,7 +26,7 @@ public class AdminService implements AdminServiceInterface{
         }
 
         try {
-            authorDao = new AuthorDao(SharedConstants.DATA_BASE_NAME);
+            authorDao = new AuthorDao(Connector.getConnection(SharedConstants.DATA_BASE_NAME));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -52,6 +52,7 @@ public class AdminService implements AdminServiceInterface{
         Genre genre = new Genre();
         genre.setGenre_name(genre_name);
         genreDao.addGenre(genre);
+    }
 
     public Author getAuthorByName(String author_name) {
         return authorDao.getAuthorByName(author_name);
@@ -68,6 +69,5 @@ public class AdminService implements AdminServiceInterface{
         newBook.setBook_description(description);
         newBook.setBook_photo(photo);
         return adminDao.addBook(newBook,genres);
-
     }
 }
