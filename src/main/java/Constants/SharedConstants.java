@@ -7,4 +7,5 @@ public class SharedConstants {
     public static final String ATTRIBUTE = "SERVICES";
     public static final String SESSION_ATTRIBUTE = "SESSION";
     public static final String ADMIN_SESSION = "ADMIN";
+    public static final String USER_REVIEWS = "USER_REVIEWS_ONLY";
 }

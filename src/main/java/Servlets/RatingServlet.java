@@ -44,7 +44,9 @@ public class RatingServlet extends HttpServlet {
         httpServletRequest.setAttribute("rating", b.getBook_rating());
         httpServletRequest.setAttribute("photo",b.getBook_photo());
         httpServletRequest.setAttribute("count",b.getAvailable_count());
-        httpServletRequest.setAttribute("year", b.getRelease_year());  httpServletRequest.getRequestDispatcher("WEB-INF/BookPage.jsp")
+        httpServletRequest.setAttribute("year", b.getRelease_year());
+        httpServletRequest.setAttribute(SharedConstants.USER_REVIEWS, false);
+        httpServletRequest.getRequestDispatcher("WEB-INF/BookPage.jsp")
                 .forward(httpServletRequest,httpServletResponse);
     }
 }

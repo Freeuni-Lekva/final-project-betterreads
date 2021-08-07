@@ -34,8 +34,9 @@ public interface UserBooksServiceInterface {
     boolean hasBookForFuture(int user_id, int book_id) throws SQLException;
 
     boolean hasBookReserved(int user_id, int book_id);
+  
+   void removeBookFromFuture(int user_id, int book_id) throws SQLException;
 
-    void removeBookFromFuture(int user_id, int book_id) throws SQLException;
 
     /**
      * marks book as read

@@ -31,7 +31,11 @@ public class ReviewBookServlet extends HttpServlet {
         User user = (User) request.getSession().getAttribute(SharedConstants.SESSION_ATTRIBUTE);
         AllServices allServices = (AllServices) getServletContext().getAttribute(SharedConstants.ATTRIBUTE);
         ReviewService reviewService = allServices.getReviewService();
-        reviewService.addReview(user.getUser_id(), book_id, user_comment, LocalDate.now().toString(), 0);
+        try {
+            reviewService.addReview(user.getUser_id(), book_id, user_comment, LocalDate.now().toString(), 0);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
         UserBooksService userBooksService = allServices.getUserBooksService();
         try {
             userBooksService.markBookAsRead(user.getUser_id(), book_id);
@@ -52,6 +56,7 @@ public class ReviewBookServlet extends HttpServlet {
             request.setAttribute("count", book.getAvailable_count());
             request.setAttribute("year", book.getRelease_year());
             request.setAttribute("photo", book.getBook_photo());
+            request.setAttribute("USER_REVIEWS_ONLY", false);
             request.getRequestDispatcher("/WEB-INF/BookPage.jsp").forward(request, response);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
