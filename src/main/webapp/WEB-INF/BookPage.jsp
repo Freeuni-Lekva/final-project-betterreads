@@ -42,10 +42,9 @@
 <h1>${bookName}</h1>
 <form action="bookMarking?bookId=${bookID}" method="post">
     <input name="bookID" type="hidden" value="${bookID}"/>
-    <label>Author - ${authorName}</label>
-    <label>Rating - ${rating}</label>
-    <label>Release year - ${year}</label>
-    <label>Available - ${count}</label><br>
+    <label><h3>By ${authorName}  (${year})</h3></label><br>
+    <label>Rating - ${rating}</label><br>
+    <label> Available - ${count}</label><br>
     <img src="${photo}" alt="${bookName}" width="200" height="300">
     <p>${description}</p>
 
