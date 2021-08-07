@@ -20,4 +20,11 @@ public interface AuthorDaoInterface {
      */
     public List<Book> getBooksByAuthor(int author_id);
 
+    /**
+     *
+     * @param author_name
+     * @return Author
+     */
+    public Author getAuthorByName(String author_name);
+
 }
