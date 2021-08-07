@@ -22,4 +22,11 @@ public interface AuthorDaoInterface {
 
     boolean addAuthor(String author_name);
 
+    /**
+     *
+     * @param author_name
+     * @return Author
+     */
+    public Author getAuthorByName(String author_name);
+
 }

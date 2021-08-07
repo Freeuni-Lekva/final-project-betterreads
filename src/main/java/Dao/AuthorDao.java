@@ -12,8 +12,8 @@ import java.util.List;
 public class AuthorDao implements AuthorDaoInterface{
     private Connection connection;
 
-    public AuthorDao(String dataBaseName) throws SQLException {
-        connection = Connector.getConnection(dataBaseName);
+    public AuthorDao(Connection connection) throws SQLException {
+        this.connection = connection;
     }
     @Override
     public Author getAuthor(int book_id) {
@@ -64,6 +64,22 @@ public class AuthorDao implements AuthorDaoInterface{
         return false;
     }
 
+    public Author getAuthorByName(String author_name){
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("select * from authors where author_name = ?");
+            preparedStatement.setString(1,author_name);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if(resultSet.next()){
+                Author author = new Author(resultSet.getInt("author_id"),resultSet.getString("author_name"));
+                return author;
+            } else {
+                return null;
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
+    }
     private Book getBookByRS(ResultSet rs) throws SQLException {
         Book book = new Book();
         book.setBook_id(rs.getInt(1));

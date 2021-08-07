@@ -1,13 +1,17 @@
 package Dao;
 
+import Constants.SharedConstants;
 import Model.Book;
 import Model.Genre;
+import Service.SearchService;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class BookDao implements BookDaoInterface{
@@ -41,10 +45,6 @@ public class BookDao implements BookDaoInterface{
         return getBookByRS(rs);
     }
 
-    @Override
-    public List<Book> filterBooks(String name) {
-        return null;
-    }
 
     @Override
     public List<Book> getAllBooks() {

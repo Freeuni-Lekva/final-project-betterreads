@@ -103,6 +103,17 @@
   </servlet-mapping>
 
   <servlet>
+
+    <servlet-name>ReviewBookSeervlet</servlet-name>
+    <servlet-class>Servlets.ReviewBookServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>ReviewBookSeervlet</servlet-name>
+    <url-pattern>/reviewBook</url-pattern>
+    </servlet-mapping>
+
+      <servlet>
     <servlet-name>LogoutServletAdmin</servlet-name>
     <servlet-class>Servlets.LogoutServletAdmin</servlet-class>
   </servlet>
@@ -120,6 +131,17 @@
   <servlet-mapping>
     <servlet-name>AdminHomeServlet</servlet-name>
     <url-pattern>/adminHome</url-pattern>
+
+  </servlet-mapping>
+
+  <servlet>
+    <servlet-name>AddBookServlet</servlet-name>
+    <servlet-class>Servlets.AddBookServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>AddBookServlet</servlet-name>
+    <url-pattern>/addBook</url-pattern>
   </servlet-mapping>
 
   <servlet>

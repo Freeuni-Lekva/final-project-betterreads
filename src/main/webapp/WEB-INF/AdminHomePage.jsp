@@ -28,13 +28,13 @@
 %>
 <h2>Here are admin functions:</h2>
 <br>
-<a href="/adminReservations">View all reservations from here</a>
+<h4><a href="/adminReservations">View all reservations from here</a></h4>
 <br>
-<a href="/adminAuthors">Add author from here</a>
+<h4><a href="/adminAuthors">Add author from here</a></h4>
 <br>
-<a href="/adminGenres">Add genre from here</a>
+<h4><a href="/adminGenres">Add genre from here</a></h4>
 <br>
-<a href="/adminBooks">Add book from here</a>
+<h4><a href="/addBook">Add new book </a></h4>
 <%
     }
 %>
