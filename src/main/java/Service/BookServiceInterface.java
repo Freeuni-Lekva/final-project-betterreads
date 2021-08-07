@@ -55,7 +55,7 @@ public interface BookServiceInterface {
      * @param book_id
      * @return
      */
-    Author getAuthorById(int book_id);
+    Author getAuthorById(int book_id) throws SQLException;
 
     /**
      *
