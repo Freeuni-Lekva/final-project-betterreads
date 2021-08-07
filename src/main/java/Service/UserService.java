@@ -19,27 +19,27 @@ public class UserService implements UserServiceInterface{
         hashService = new HashService();
     }
     @Override
-    public boolean checkMailExists(String email) {
+    public boolean checkMailExists(String email) throws SQLException {
         return userDao.containsUserByMail(email);
     }
 
     @Override
-    public boolean checkUsernameExists(String username) {
+    public boolean checkUsernameExists(String username) throws SQLException {
         return userDao.containsUserByUserName(username);
     }
 
     @Override
-    public User getUserByMail(String email) {
+    public User getUserByMail(String email) throws SQLException {
         return userDao.getUserByMail(email);
     }
 
     @Override
-    public User getUserByUsername(String username) {
+    public User getUserByUsername(String username) throws SQLException {
         return userDao.getUserByUsername(username);
     }
 
     @Override
-    public User getUserById(int user_id) { return userDao.getUserById(user_id); }
+    public User getUserById(int user_id) throws SQLException { return userDao.getUserById(user_id); }
 
     @Override
     public boolean checkPassword(User user, String password) {
@@ -48,7 +48,7 @@ public class UserService implements UserServiceInterface{
 
 
     @Override
-    public boolean addUser(String first_name, String last_name, String username, String password, String email) {
+    public boolean addUser(String first_name, String last_name, String username, String password, String email) throws SQLException {
         User newUser = new User();
         newUser.setPassword_hash(password);
         newUser.setUsername(username);

@@ -26,8 +26,7 @@ public class ReviewDao implements ReviewDaoInterface{
         st.executeUpdate();
     }
 
-    @Override
-    public List<Review> getReviews(int book_id) throws SQLException {
+ public List<Review> getReviews(int book_id) throws SQLException {
         PreparedStatement st = conn.prepareStatement("SELECT * FROM reviews WHERE book_id = ?" +
                 " ORDER BY num_likes DESC;");
         st.setInt(1, book_id);
@@ -44,8 +43,6 @@ public class ReviewDao implements ReviewDaoInterface{
             retList.add(r);
         }
         return retList;
-    }
-
     public List<Review> getReviewsByUserId(int book_id, int user_id) throws SQLException {
         List<Review> res = new ArrayList<>();
 
