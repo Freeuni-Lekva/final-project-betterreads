@@ -46,10 +46,10 @@ public class GenreDao implements GenreDaoInterface{
         PreparedStatement statement;
         List<String> genreList = new ArrayList<>();
         try {
-            statement = connection.prepareStatement("select genre_name from genres;");
+            statement = connection.prepareStatement("select * from genres;");
             ResultSet rs = statement.executeQuery();
             while(rs.next()){
-                genreList.add((rs.getString(1)));
+                genreList.add((rs.getString(2)));
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();

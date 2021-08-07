@@ -16,6 +16,7 @@ public class BookShelfDao implements BookShelfDaoInterface{
     public BookShelfDao(Connection connection){
         this.connection = connection;
     }
+
     @Override
     public List<Book> getAllBooksInBookShelf(int user_id) {
         List<Book> resultList = new ArrayList<>();
@@ -144,7 +145,7 @@ public class BookShelfDao implements BookShelfDaoInterface{
             preparedStatement.setInt(1, user_id);
             preparedStatement.setInt(2, book_id);
             preparedStatement.executeUpdate();
-            System.out.println("movediii");
+
             PreparedStatement addStatement = connection.prepareStatement("insert into book_shelf(user_id, book_id, already_read) " +
                     "values(?, ?, ?);");
             addStatement.setInt(1, user_id);

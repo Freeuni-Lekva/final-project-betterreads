@@ -49,7 +49,7 @@ public class RegisterServlet extends HttpServlet {
                 if(currUser == null) {
                     request.getSession().setAttribute(SharedConstants.SESSION_ATTRIBUTE, user);
                 }
-                request.getRequestDispatcher("WEB-INF/HomePage.jsp").forward(request, response);
+                response.sendRedirect("http://localhost:8088");
             }
         }
     }

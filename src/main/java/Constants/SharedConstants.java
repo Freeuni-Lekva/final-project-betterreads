@@ -6,4 +6,5 @@ public class SharedConstants {
     public static final String DATA_BASE_NAME = "LIBRARY";
     public static final String ATTRIBUTE = "SERVICES";
     public static final String SESSION_ATTRIBUTE = "SESSION";
+    public static final String ADMIN_SESSION = "ADMIN";
 }

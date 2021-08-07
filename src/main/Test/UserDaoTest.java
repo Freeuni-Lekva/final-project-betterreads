@@ -1,3 +1,4 @@
+import Dao.CDB;
 import Dao.Connector;
 import Dao.UserDao;
 import Model.User;
@@ -11,14 +12,14 @@ public class UserDaoTest extends TestCase {
     private Connection connection;
 
     protected void setUp() throws SQLException {
-
+        CDB cdb = new CDB();
         this.dbName = "testLibrary";
         Connection connection = Connector.getConnection(dbName);
         this.connection = connection;
     }
 
     @Test
-    public void testCreateUser() {
+    public void testCreateUser() throws SQLException {
         UserDao dao = null;
         try {
             dao = new UserDao(Connector.getConnection(dbName));
@@ -121,7 +122,7 @@ public class UserDaoTest extends TestCase {
         assertEquals(newUser,userById);
     }
 
-    public void testContainsUserByMail(){
+    public void testContainsUserByMail() throws SQLException {
         User newUser = new User();
         newUser.setFirst_name("1");
         newUser.setLast_name("1");
@@ -139,7 +140,24 @@ public class UserDaoTest extends TestCase {
         assertFalse(dao.containsUserByUserName("2@"));
     }
 
-    private User createUser(ResultSet resultSet) {
+    public void testContainsUserByUserName() throws SQLException {
+        User newUser = new User();
+        newUser.setFirst_name("1");
+        newUser.setLast_name("1");
+        newUser.setEmail("1@");
+        newUser.setUsername("1");
+        newUser.setPassword_hash("1");
+        UserDao dao = null;
+        try {
+            dao = new UserDao(Connector.getConnection(dbName));
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        dao.create(newUser);
+        assertTrue(dao.containsUserByUserName(newUser.getUsername()));
+    }
+
+    private User createUser(ResultSet resultSet) throws SQLException {
         try {
             User user = new User();
             resultSet.next();
