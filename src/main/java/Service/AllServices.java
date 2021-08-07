@@ -14,6 +14,8 @@ public class AllServices {
     private AdminService adminService;
     private ReservationService reservationService;
     private SearchService searchService;
+    private SuggestionService suggestionService;
+    private RatingService ratingService;
 
     public AllServices() throws SQLException {
         hashService = new HashService();
@@ -27,6 +29,8 @@ public class AllServices {
         adminService = new AdminService();
         reservationService = new ReservationService();
         searchService = new SearchService();
+        suggestionService = new SuggestionService();
+        ratingService = new RatingService();
 
     }
     public HashService getHashService(){
@@ -47,6 +51,7 @@ public class AllServices {
     public ReservationService getReservationService(){ return reservationService; }
 
     public SearchService getSearchService() {return searchService;}
-
+    public SuggestionService getSuggestionService() {return suggestionService;}
+    public RatingService getRatingService() {return ratingService;}
 }
 

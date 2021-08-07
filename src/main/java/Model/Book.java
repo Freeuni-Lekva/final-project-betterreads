@@ -61,4 +61,18 @@ public class Book {
         Book book = (Book) o;
         return book_name.equals(book.book_name) && author_id == book.author_id && release_year == book.release_year && book_description.equals(book.book_description);
     }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "book_id=" + book_id +
+                ", book_name='" + book_name + '\'' +
+                ", book_description='" + book_description + '\'' +
+                ", release_year=" + release_year +
+                ", author_id=" + author_id +
+                ", book_rating=" + book_rating +
+                ", available_count=" + available_count +
+                ", book_photo='" + book_photo + '\'' +
+                '}';
+    }
 }

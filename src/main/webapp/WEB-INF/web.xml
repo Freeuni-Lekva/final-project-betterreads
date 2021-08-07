@@ -103,7 +103,16 @@
   </servlet-mapping>
 
   <servlet>
+    <servlet-name>SuggestionsServlet</servlet-name>
+    <servlet-class>Servlets.SuggestionsServlet</servlet-class>
+  </servlet>
 
+  <servlet-mapping>
+    <servlet-name>SuggestionsServlet</servlet-name>
+    <url-pattern>/suggestions</url-pattern>
+  </servlet-mapping>
+
+  <servlet>
     <servlet-name>ReviewBookSeervlet</servlet-name>
     <servlet-class>Servlets.ReviewBookServlet</servlet-class>
   </servlet>
@@ -113,7 +122,7 @@
     <url-pattern>/reviewBook</url-pattern>
     </servlet-mapping>
 
-      <servlet>
+  <servlet>
     <servlet-name>LogoutServletAdmin</servlet-name>
     <servlet-class>Servlets.LogoutServletAdmin</servlet-class>
   </servlet>
@@ -173,4 +182,15 @@
     <servlet-name>AdminAddGenre</servlet-name>
     <url-pattern>/adminGenres</url-pattern>
   </servlet-mapping>
+
+  <servlet>
+    <servlet-name>RatingServlet</servlet-name>
+    <servlet-class>Servlets.RatingServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>RatingServlet</servlet-name>
+    <url-pattern>/rating</url-pattern>
+  </servlet-mapping>
+
 </web-app>
