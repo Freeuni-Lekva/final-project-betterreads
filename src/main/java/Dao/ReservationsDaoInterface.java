@@ -8,6 +8,8 @@ import java.util.List;
 
 public interface ReservationsDaoInterface {
 
+    List<Reservation> getAllReservations();
+
     boolean addReservation(int user_id, int book_id);
     /**
      *
@@ -16,7 +18,7 @@ public interface ReservationsDaoInterface {
      *         null when there's no reservation with given reservationId
      * @throws SQLException
      */
-    public Reservation getReservationById(int reservationId) throws SQLException;
+    Reservation getReservationById(int reservationId) throws SQLException;
 
     /**
      *
@@ -25,7 +27,7 @@ public interface ReservationsDaoInterface {
      *         null when there are no reservations for this user
      * @throws SQLException
      */
-    public List<Reservation> getReservationByUser(int userId) throws SQLException;
+    List<Reservation> getReservationByUser(int userId) throws SQLException;
 
     /**
      *
@@ -34,7 +36,7 @@ public interface ReservationsDaoInterface {
      *         null when there are no reservation deadlines for that date
      * @throws SQLException
      */
-    public List<Reservation> getReservationByDeadline(Date deadline) throws SQLException;
+    List<Reservation> getReservationByDeadline(Date deadline) throws SQLException;
 
     /**
      *
@@ -43,5 +45,7 @@ public interface ReservationsDaoInterface {
      *         null when there are no reservation deadlines for that date
      * @throws SQLException
      */
-    public List<Reservation> getReservationByDeadlineAndUser(Date deadline, int userId) throws SQLException;
+    List<Reservation> getReservationByDeadlineAndUser(Date deadline, int userId) throws SQLException;
+
+    void removeReservation(int reservation_id);
 }

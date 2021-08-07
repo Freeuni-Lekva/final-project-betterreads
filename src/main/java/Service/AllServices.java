@@ -12,6 +12,7 @@ public class AllServices {
     public GenreService genreService;
     private ReviewService reviewService;
     private AdminService adminService;
+    private ReservationService reservationService;
     private SearchService searchService;
 
     public AllServices() throws SQLException {
@@ -24,6 +25,7 @@ public class AllServices {
         genreService = new GenreService();
         reviewService = new ReviewService();
         adminService = new AdminService();
+        reservationService = new ReservationService();
         searchService = new SearchService();
 
     }
@@ -42,6 +44,7 @@ public class AllServices {
     public ReviewService getReviewService() { return reviewService; }
 
     public AdminService getAdminService(){ return adminService; }
+    public ReservationService getReservationService(){ return reservationService; }
 
     public SearchService getSearchService() {return searchService;}
 
