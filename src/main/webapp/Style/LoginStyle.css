@@ -1,4 +1,6 @@
-
+body{
+    background-color: Wheat;
+}
 
 body{
     margin: 0;
@@ -75,3 +77,4 @@ a
 .signup_link a{
     text-decoration: underline;
 }
+

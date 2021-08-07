@@ -16,6 +16,7 @@
 <html>
 <head>
     <title>Catalogue</title>
+    <link href="/Style/CatalogueStyle.css" type="text/css" rel="stylesheet">
 </head>
 <body>
 

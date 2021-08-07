@@ -40,7 +40,7 @@ nav ul li{
 
 nav ul li a{
     text-decoration: none;
-    color: #fff;
+    color: #FFFFF0;
     font-size: 16px;
 }
 
@@ -55,7 +55,7 @@ nav ul li a{
 }
 
 h1{
-    color: #fff;
+    color: #FFFFF0;
     font-size: 80px;
 }
 
@@ -66,11 +66,12 @@ p{
 }
 
 button{
-    width: 180px;
+    height: 40px;
+    width: 50px;
     color: #000;
     font-size: 12px;
     padding: 12px 0;
-    background: #fff;
+    background: #FFFFF0;
     border: 0;
     border-radius: 20px;
     outline: none;
@@ -92,7 +93,7 @@ h5{
     color: #ffffff;
     font-family: 'Roboto', sans-serif;
     margin: 10px;
-    font-size: 20px;
+    font-size: 15px;
 }
 
 .logo{
@@ -100,5 +101,26 @@ h5{
     cursor: pointer;
 }
 
+a {
+    color: #FFFFF0;
+    text-decoration:none;
+}
+
+input[type="text"]
+{
+    background: transparent;
+    color: white;
+    font-size: 20px;
+}
 
 
+.round{
+    height: 35px;
+    border-radius: 15px;
+    z-index: 5;
+}
+
+::placeholder {
+    color:  #FFFFF0;
+    opacity: 1;
+}
