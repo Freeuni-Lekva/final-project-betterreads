@@ -70,4 +70,7 @@ public interface BookDaoInterface {
      * @return list of books of this genre
      */
     List<Book> getBookByGenre(String genre);
+
+    int getBookCount(int bookId) throws SQLException;
+    void setBookCount(int bookId, int count) throws SQLException;
 }

@@ -48,14 +48,14 @@ public interface BookServiceInterface {
      * @param id
      * @return
      */
-    Book getBookById(int id) throws SQLException;
+    Book getBookById(int id);
 
     /**
      *
      * @param book_id
      * @return
      */
-    Author getAuthorById(int book_id) throws SQLException;
+    Author getAuthorById(int book_id);
 
     /**
      *
@@ -92,5 +92,7 @@ public interface BookServiceInterface {
      */
     List<Book> sortLowToHigh(List<Book> bookList);
 
+    int getBookCount(int book_id);
 
+    void setBookCOunt(int book_id, int count);
 }

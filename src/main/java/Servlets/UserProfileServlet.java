@@ -25,12 +25,8 @@ public class UserProfileServlet extends HttpServlet {
         request.setAttribute("username",user.getUsername());
         request.setAttribute("email",user.getEmail());
         request.setAttribute("reserved",booksService.getReservedBooks(user_id));
-        try {
-            request.setAttribute("read",booksService.getAlreadyReadBooks(user_id));
-            request.setAttribute("marked",booksService.getBooksForFuture(user_id));
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        request.setAttribute("read",booksService.getAlreadyReadBooks(user_id));
+        request.setAttribute("marked",booksService.getBooksForFuture(user_id));
         request.getRequestDispatcher("WEB-INF/UserProfile.jsp").forward(request,response);
 
     }

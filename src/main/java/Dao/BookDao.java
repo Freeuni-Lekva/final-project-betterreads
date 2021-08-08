@@ -147,6 +147,26 @@ public class BookDao implements BookDaoInterface{
         return result;
     }
 
+    @Override
+    public int getBookCount(int bookId) throws SQLException {
+        PreparedStatement statement = connection.prepareStatement("select available_count " +
+                    "from books where book_id = ?;");
+        statement.setInt(1, bookId);
+        ResultSet rs = statement.executeQuery();
+        if(rs.next())
+            System.out.println(rs.getInt(1) + "caliii");
+        return rs.getInt(1);
+    }
+
+    @Override
+    public void setBookCount(int bookId, int count) throws SQLException {
+        PreparedStatement statement = connection.prepareStatement("update books set available_count " +
+                "= ? where book_id = ?;");
+        statement.setInt(1, count);
+        statement.setInt(2, bookId);
+        statement.execute();
+    }
+
     private Book getBookByRow(ResultSet rs) throws SQLException {
         Book res = new Book();
         res.setBook_id(rs.getInt(1));
