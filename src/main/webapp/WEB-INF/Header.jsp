@@ -9,53 +9,51 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <link href="/Style/Header.css" type="text/css" rel="stylesheet">
 
 </head>
 <body>
 
-<form action="/search" method = "post">
-    <label for="stext">Search books:</label>
-    <input type="text" id="stext" name="stext" >
-    <button type="submit">search</button>
-</form>
-
-<form action="/catalogue" method = "get">
-    <button type="submit"> Catalogue </button>
-</form>
-
-<form action="/home" method = "post">
-    <button type="submit"> BetterReads </button>
-</form>
-
 <%
     HttpSession httpSession = pageContext.getSession();
     User user = (User) httpSession.getAttribute(SharedConstants.SESSION_ATTRIBUTE);
-    if(user == null){
 %>
+<div class="topNav">
+    <div class="upper">
+        <form action="/home" method = "post" class="item">
+            <button type="submit" class="btn-link"> BetterReads </button>
+        </form>
 
-<a href="/login">Already a member? Sign In</a>
-<br>
-<a href="/register">Register here!</a>
-<%
-} else {
+<%--        <form id="catalogue" action="/catalogue" method="post">--%>
+<%--            <a href="javascript:;" onclick="document.getElementById('catalogue').submit();" class="item">Catalogue</a>--%>
+<%--        </form>--%>
 
-%>
+        <form action="/catalogue" method = "get" class="item">
+            <button type="submit" class="btn-link"> Catalogue </button>
+        </form>
 
-<a href="userProfile?userId=<%= user.getUser_id()%>"><p>visit your profile</p>
-</a>
-<form action="/logout" method = "post">
-    <button type="submit">Log Out</button>
-</form>
-
-<form action="/suggestions" method = "post">
-    <button type="submit">Suggest me a book</button>
-</form>
+        <%if(user == null){%>
+            <a href="/login" class="item">Sign In</a>
+            <a href="/register" class="item">Register</a>
+        <%} else {%>
+            <form action="/suggestions" method = "post" class="item">
+                <button type="submit" class="btn-link">Suggest me a book</button>
+            </form>
 
 
-<%
-    }
-%>
-<br><br>
+            <a href="userProfile?userId=<%= user.getUser_id()%>" class="item">Your Profile</a>
 
+            <form action="/logout" method = "post" class="item">
+                <button type="submit" class="btn-link">Log Out</button>
+            </form>
+        <%}%>
+    </div>
+    <div class="lower">
+        <form action="/search" method = "post">
+            <input type="text" id="stext" name="stext" placeholder="Search books/authors...">
+            <button type="submit">search</button>
+        </form>
+    </div>
+</div>
 </body>
 </html>
