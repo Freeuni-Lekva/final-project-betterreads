@@ -98,7 +98,7 @@ public class BookService implements BookServiceInterface{
     }
 
     @Override
-    public Author getAuthorById(int book_id) {
+    public Author getAuthorById(int book_id) throws SQLException {
         return authorDao.getAuthor(book_id);
     }
 

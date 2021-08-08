@@ -28,4 +28,14 @@ public class ReservationService implements ReservationServiceInterface{
     public void removeReservation(int reservation_id) {
         rd.removeReservation(reservation_id);
     }
+
+    @Override
+    public Reservation getReservationById(int reservation_id)   {
+        try {
+            return rd.getReservationById(reservation_id);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
+    }
 }

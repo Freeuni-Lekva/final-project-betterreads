@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class AdminAddAuthorServlet extends HttpServlet {
     @Override
@@ -21,7 +22,11 @@ public class AdminAddAuthorServlet extends HttpServlet {
         String name = httpServletRequest.getParameter("authorName");
         AllServices allServices = (AllServices) getServletContext().getAttribute(SharedConstants.ATTRIBUTE);
         AdminService adminService = allServices.getAdminService();
-        adminService.addAuthor(name);
+        try {
+            adminService.addAuthor(name);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
         httpServletRequest.getRequestDispatcher("WEB-INF/AdminHomePage.jsp").forward(httpServletRequest, httpServletResponse);
     }
 }

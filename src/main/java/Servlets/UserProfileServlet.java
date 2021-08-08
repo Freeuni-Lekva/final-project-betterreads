@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class UserProfileServlet extends HttpServlet {
     @Override
@@ -24,9 +25,12 @@ public class UserProfileServlet extends HttpServlet {
         request.setAttribute("username",user.getUsername());
         request.setAttribute("email",user.getEmail());
         request.setAttribute("reserved",booksService.getReservedBooks(user_id));
-        request.setAttribute("read",booksService.getAlreadyReadBooks(user_id));
-        request.setAttribute("marked",booksService.getBooksForFuture(user_id));
-
+        try {
+            request.setAttribute("read",booksService.getAlreadyReadBooks(user_id));
+            request.setAttribute("marked",booksService.getBooksForFuture(user_id));
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
         request.getRequestDispatcher("WEB-INF/UserProfile.jsp").forward(request,response);
 
     }

@@ -18,9 +18,8 @@ public class BookShelfDao implements BookShelfDaoInterface{
     }
 
     @Override
-    public List<Book> getAllBooksInBookShelf(int user_id) {
+    public List<Book> getAllBooksInBookShelf(int user_id) throws SQLException {
         List<Book> resultList = new ArrayList<>();
-        try {
             PreparedStatement preparedStatement = connection.prepareStatement("select * from book_shelf join books on book_shelf.book_id = books.book_id where book_shelf.user_id = ?;");
             preparedStatement.setInt(1,user_id);
             ResultSet resultSet = preparedStatement.executeQuery();
@@ -28,20 +27,14 @@ public class BookShelfDao implements BookShelfDaoInterface{
                 Book book = createBook(resultSet.getInt("book_id"),resultSet.getString("book_name"),
                         resultSet.getString("book_description"),resultSet.getInt("release_year"),resultSet.getInt("author_id"),
                         resultSet.getDouble("book_rating"),resultSet.getInt("available_count"));
-
                 resultList.add(book);
             }
             return resultList;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return resultList;
     }
 
     @Override
-    public List<Book> getAlreadyReadBooks(int user_id) {
+    public List<Book> getAlreadyReadBooks(int user_id) throws SQLException {
         List<Book> resultList = new ArrayList<>();
-        try {
             PreparedStatement preparedStatement = connection.prepareStatement("select * from book_shelf " +
                     "join books on book_shelf.book_id = books.book_id where  book_shelf.user_id = ? and book_shelf.already_read = ?;");
             preparedStatement.setInt(1,user_id);
@@ -54,17 +47,12 @@ public class BookShelfDao implements BookShelfDaoInterface{
 
                 resultList.add(book);
             }
-            return resultList;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
         return resultList;
     }
 
     @Override
-    public List<Book> getMarkedBooks(int user_id) {
+    public List<Book> getMarkedBooks(int user_id) throws SQLException {
         List<Book> resultList = new ArrayList<>();
-        try {
             PreparedStatement preparedStatement = connection.prepareStatement("select * from book_shelf " +
                     "join books on book_shelf.book_id = books.book_id where  book_shelf.user_id = ? and book_shelf.already_read = ?;");
             preparedStatement.setInt(1,user_id);
@@ -78,14 +66,10 @@ public class BookShelfDao implements BookShelfDaoInterface{
                 resultList.add(book);
             }
             return resultList;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return resultList;
     }
 
     @Override
-    public boolean addMarkedBook(int user_id, int book_id) {
+    public boolean addMarkedBook(int user_id, int book_id) throws SQLException {
         boolean exists = false;
         List<Book> markedBooks = getMarkedBooks(user_id);
         for(Book b : markedBooks){
@@ -96,32 +80,21 @@ public class BookShelfDao implements BookShelfDaoInterface{
         }
 
         if(exists) return false;
-
-        try {
             PreparedStatement statement = connection.prepareStatement("insert into book_shelf " +
                     "(user_id, book_id, already_read) values(?,?,?);");
             statement.setInt(1, user_id);
             statement.setInt(2, book_id);
             statement.setInt(3, SharedConstants.MARKED_FOR_FUTURE);
             return statement.executeUpdate() != 0;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return false;
     }
 
     @Override
-    public void removeBook(int user_id, int book_id) {
-        try {
+    public void removeBook(int user_id, int book_id) throws SQLException {
             PreparedStatement statement = connection.prepareStatement("delete from book_shelf " +
                     "where user_id = ? and book_id = ?;");
             statement.setInt(1, user_id);
             statement.setInt(2, book_id);
             statement.executeUpdate();
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
     }
 
 
@@ -138,8 +111,7 @@ public class BookShelfDao implements BookShelfDaoInterface{
     }
 
     @Override
-    public void markAsAlreadyRead(int user_id, int book_id) {
-        try {
+    public void markAsAlreadyRead(int user_id, int book_id) throws SQLException {
             PreparedStatement preparedStatement = connection.prepareStatement("delete from book_shelf " +
                     "where user_id = ? and book_id = ?;");
             preparedStatement.setInt(1, user_id);
@@ -152,9 +124,5 @@ public class BookShelfDao implements BookShelfDaoInterface{
             addStatement.setInt(2, book_id);
             addStatement.setInt(3, SharedConstants.ALREADY_READ);
             addStatement.executeUpdate();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-
     }
 }

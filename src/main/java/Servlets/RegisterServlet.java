@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
 
 
 public class RegisterServlet extends HttpServlet {
@@ -36,20 +38,26 @@ public class RegisterServlet extends HttpServlet {
         if(!errorMessage.isEmpty()){
             request.setAttribute("Error", errorMessage);
             request.getRequestDispatcher("WEB-INF/AlreadyRegistered.jsp").forward(request, response);
-        } else  if(userService.checkUsernameExists(username) || userService.checkMailExists(email)){
-            errorMessage = "The specified account already exists";
-            request.setAttribute("Error", errorMessage);
-            request.getRequestDispatcher("WEB-INF/AlreadyRegistered.jsp").forward(request, response);
         } else {
-            String hashedPassword = allServices.getHashService().hashPassword(password);
-            if(userService.addUser(first_name, last_name, username, hashedPassword, email)){
-                User user = userService.getUserByMail(email);
-                HttpSession session = request.getSession();
-                User currUser = (User)session.getAttribute(SharedConstants.SESSION_ATTRIBUTE);
-                if(currUser == null) {
-                    request.getSession().setAttribute(SharedConstants.SESSION_ATTRIBUTE, user);
+            try {
+                if(userService.checkUsernameExists(username) || userService.checkMailExists(email)){
+                    errorMessage = "The specified account already exists";
+                    request.setAttribute("Error", errorMessage);
+                    request.getRequestDispatcher("WEB-INF/AlreadyRegistered.jsp").forward(request, response);
+                } else {
+                    String hashedPassword = allServices.getHashService().hashPassword(password);
+                    if(userService.addUser(first_name, last_name, username, hashedPassword, email)){
+                        User user = userService.getUserByMail(email);
+                        HttpSession session = request.getSession();
+                        User currUser = (User)session.getAttribute(SharedConstants.SESSION_ATTRIBUTE);
+                        if(currUser == null) {
+                            request.getSession().setAttribute(SharedConstants.SESSION_ATTRIBUTE, user);
+                        }
+                        response.sendRedirect("http://localhost:8088");
+                    }
                 }
-                response.sendRedirect("http://localhost:8088");
+            } catch (SQLException | NoSuchAlgorithmException throwables) {
+                throwables.printStackTrace();
             }
         }
     }

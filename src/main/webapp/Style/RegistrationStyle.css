@@ -1,4 +1,9 @@
 body{
+    background-color: PapayaWhip;
+}
+
+
+body{
     margin: 0;
     padding: 0;
     font-family: sans-serif;
@@ -18,7 +23,7 @@ body{
 
 .sing-up-form h1
 {
-    color: #800080;
+    color: SaddleBrown;
     margin-bottom: 30px;
 }
 
@@ -47,11 +52,11 @@ button
 
 .register
 {
-    background-color: #970fff;
+    background-color: Sienna;
 }
 
 .sing-up-form h3
 {
-    color: #800080;
+    color: SaddleBrown;
     margin-bottom: 30px;
 }

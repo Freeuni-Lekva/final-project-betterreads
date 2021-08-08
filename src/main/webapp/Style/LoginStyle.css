@@ -1,4 +1,6 @@
-
+body{
+    background-color: PapayaWhip;
+}
 
 body{
     margin: 0;
@@ -21,13 +23,13 @@ body{
 
 .sing-up-form h1
 {
-    color: #800080;
+    color: SaddleBrown;
     margin-bottom: 30px;
 }
 
 .sing-up-form h3
 {
-    color: #800080;
+    color: SaddleBrown;
     margin-bottom: 30px;
 }
 
@@ -56,7 +58,7 @@ button
 
 .login
 {
-    background-color: #970fff;
+    background-color: Sienna;
 }
 
 a
@@ -75,3 +77,4 @@ a
 .signup_link a{
     text-decoration: underline;
 }
+
