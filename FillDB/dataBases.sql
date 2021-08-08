@@ -108,3 +108,15 @@ create table admins(
     constraint admin_user_id unique (user_id)    
 );
 
+
+drop table if exists likes;
+create table likes(
+    like_id int auto_increment primary key,
+    user_id int not null,
+    review_id int not null,
+    constraint likes_user_fk
+        foreign key (user_id) references users(user_id),
+    constraint likes_review_fk
+        foreign key (review_id) references reviews(review_id)
+);
+

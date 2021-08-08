@@ -27,20 +27,26 @@ public class RatingServlet extends HttpServlet {
         HttpSession httpSession = httpServletRequest.getSession();
         User user = (User) httpSession.getAttribute(SharedConstants.SESSION_ATTRIBUTE);
         int rating = Integer.parseInt(httpServletRequest.getParameter("rating"));
-        ratingService.rateBook(user.getUser_id(), Integer.parseInt(httpServletRequest.getParameter("book_id")), rating);
+
         Book b = null;
         try {
             b = allServices.getBookService().getBookById(Integer.parseInt(httpServletRequest.getParameter("book_id")));
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        ratingService.updateBookRating(user.getUser_id(),b,rating);
+        ratingService.rateBook(user.getUser_id(), Integer.parseInt(httpServletRequest.getParameter("book_id")), rating);
+//        ratingService.updateBookRating(user.getUser_id(),b,rating);
         httpServletRequest.setAttribute("bookID", b.getBook_id());
         httpServletRequest.setAttribute("bookName", b.getBook_name());
-        httpServletRequest.setAttribute("authorId", b.getAuthor_id());
+        httpServletRequest.setAttribute("authorName", allServices.getBookService().getAuthorById(b.getBook_id()).getAuthor_name());
         httpServletRequest.setAttribute("description", b.getBook_description());
         httpServletRequest.setAttribute("rating", b.getBook_rating());
+        httpServletRequest.setAttribute("photo",b.getBook_photo());
         httpServletRequest.setAttribute("count",b.getAvailable_count());
-        httpServletRequest.setAttribute("year", b.getRelease_year());  httpServletRequest.getRequestDispatcher("WEB-INF/BookPage.jsp")
+        httpServletRequest.setAttribute("year", b.getRelease_year());
+        httpServletRequest.setAttribute(SharedConstants.USER_REVIEWS, false);
+        httpServletRequest.getRequestDispatcher("WEB-INF/BookPage.jsp")
                 .forward(httpServletRequest,httpServletResponse);
     }
 }
