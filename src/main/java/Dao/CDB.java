@@ -18,7 +18,8 @@ public class CDB {
         createReservationsTable();
         createBookShelfTable();
         createReviewsTable();
-        createLikesTable();
+        createRatingTable();
+        createAdminsTable();
     }
 
     public void createDatabase() throws SQLException {
@@ -112,6 +113,7 @@ public class CDB {
                 "\t\tforeign key (book_id) references books(book_id)  );");
     }
 
+
     public void createReviewsTable() throws SQLException {
         Statement statement = connection.createStatement();
         statement.execute("drop table if exists reviews;");
@@ -140,6 +142,30 @@ public class CDB {
                 "        foreign key (user_id) references users(user_id),\n" +
                 "    constraint likes_review_fk\n" +
                 "        foreign key (review_id) references reviews(review_id)\n" +
+                          ");");
+    }
+
+    private void createRatingTable() throws SQLException {
+        Statement statement = connection.createStatement();
+        statement.execute("drop table if exists ratings");
+        statement.execute("create table ratings(\n" +
+                "    rating_id int auto_increment primary key,\n" +
+                "    user_id int not null,\n" +
+                "    book_id int not null,\n" +
+                "    book_rating int not null,\n" +
+                "    constraint ratings_user_fk\n" +
+                "        foreign key (user_id) references users(user_id),\n" +
+                "    constraint ratings_book_fk\n" +
+                "        foreign key (book_id) references books(book_id)\n" +
+                          ");");
+    }
+  
+    private void createAdminsTable()throws SQLException{
+        Statement statement = connection.createStatement();
+        statement.execute("drop table if exists admins");
+        statement.execute("create table admins(\n" +
+                "\tuser_id int,\n" +
+                "    constraint admin_user_id unique (user_id)    \n" +
                 ");");
     }
 

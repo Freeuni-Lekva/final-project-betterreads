@@ -25,8 +25,14 @@ public class SearchService implements SearchServiceInterface {
                 public int compare(Book o1, Book o2) {
                     double d1 = (double)levDistance(o1.getBook_name(), text) / o1.getBook_name().length();
                     double d2 = (double)levDistance(o2.getBook_name(), text) / o2.getBook_name().length();
-                    String a1 = ad.getAuthor(o1.getBook_id()).getAuthor_name();
-                    String a2 = ad.getAuthor(o2.getBook_id()).getAuthor_name();
+                    String a1 = null;
+                    String a2 = null;
+                    try {
+                        a1 = ad.getAuthor(o1.getBook_id()).getAuthor_name();
+                        a2 = ad.getAuthor(o2.getBook_id()).getAuthor_name();
+                    } catch (SQLException throwables) {
+                        throwables.printStackTrace();
+                    }
                     double d3 = (double)levDistance(a1, text) / a1.length();
                     double d4 = (double)levDistance(a2, text) / a2.length();
                     double m1 = Math.min(d1, d3);

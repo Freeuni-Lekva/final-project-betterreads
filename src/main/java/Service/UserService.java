@@ -5,6 +5,7 @@ import Dao.Connector;
 import Dao.UserDao;
 import Model.User;
 
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 
 public class UserService implements UserServiceInterface{
@@ -42,7 +43,7 @@ public class UserService implements UserServiceInterface{
     public User getUserById(int user_id) throws SQLException { return userDao.getUserById(user_id); }
 
     @Override
-    public boolean checkPassword(User user, String password) {
+    public boolean checkPassword(User user, String password) throws NoSuchAlgorithmException {
         return hashService.hashPassword(password).equals(user.getPassword_hash());
     }
 
