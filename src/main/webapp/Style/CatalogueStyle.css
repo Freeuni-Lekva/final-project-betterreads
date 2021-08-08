@@ -1,0 +1,45 @@
+.wrapper {
+    display: grid;
+    grid-template-columns: 400px auto auto auto auto;
+    grid-gap: 10px;
+    background-color: white;
+    padding: 10px;
+}
+
+.wrapper .filters{
+    grid-column-start: 1;
+    grid-column-end: 2;
+    grid-auto-rows: max-content;
+}
+
+.wrapper .elem {
+    background-color: rgba(133, 161, 148, 0.8);
+    text-align: center;
+    padding: 20px 0;
+    font-size: 30px;
+}
+
+ul.demo {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    width: 200px;
+    max-font-size: 8;
+    min-height: 300px;
+    max-height: 300px;
+    border: 1px groove #000;
+    display: -moz-inline-stack;
+    display: inline-block;
+    vertical-align: top;
+    margin: 5px;
+    zoom: 1;
+    *display: inline;
+    _height: 300px;
+}
+
+.preview{
+    font-size: 20px;
+}

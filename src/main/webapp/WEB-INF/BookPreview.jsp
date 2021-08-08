@@ -16,13 +16,12 @@
     AllServices allServices = (AllServices) pageContext.getServletContext().getAttribute(SharedConstants.ATTRIBUTE);
     DescriptionShortener ds = allServices.getDescriptionShortener();
 %>
-<li>
-    <a href="showBook?bookId=<%= book.getBook_id()%>"><%= book.getBook_name() %>
-        </a>
-    <br>
+    <div class="preview">
+        <a href="showBook?bookId=<%= book.getBook_id()%>">
 
-    <br>
-    <img src=<%= book.getBook_photo()%> width="100" height="150">
-</li>
+        <img src=<%= book.getBook_photo()%> width="120" height="180">
+            <br><br>
+                <%= book.getBook_name() %>
+    </div>
 </body>
 </html>

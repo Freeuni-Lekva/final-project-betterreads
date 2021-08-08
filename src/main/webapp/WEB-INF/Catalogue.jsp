@@ -49,43 +49,44 @@
     }
 %>
 
-<fieldset> <legend>Choose your interests</legend>
-<form action="/catalogue" method= "post">
-    <label for="SortBooks">Sort books:</label>
-    <select id="SortBooks" name="SortBooks">
-        <option value="High -> Low">Rating: High -> Low</option>
-        <option value="Low -> High">Rating: Low -> High</option>
-        <option value="old to new">Release year: Old -> New</option>
-        <option value="new to old">Release year: New -> Old</option>
-    </select><br><br>
-    <input type="checkbox" id="Available" name="Available" value="Available">
-    <label for="Available"> Get available books </label><br>
-    <h2> Choose genres: </h2>
+<div class="wrapper">
+    <div class="filters">
+        <fieldset>
+            <legend>Choose your interests</legend>
+            <form action="/catalogue" method= "post">
+                <label for="SortBooks">Sort books:</label>
+                <select id="SortBooks" name="SortBooks">
+                    <option value="High -> Low">Rating: High -> Low</option>
+                    <option value="Low -> High">Rating: Low -> High</option>
+                    <option value="old to new">Release year: Old -> New</option>
+                    <option value="new to old">Release year: New -> Old</option>
+                </select><br><br>
+                <input type="checkbox" id="Available" name="Available" value="Available">
+                <label for="Available"> Get available books </label><br>
+                <h2> Choose genres: </h2>
 
-    <c:forEach items="${genres}" var="genre">
-        <input type="checkbox" id="${genre}" name="genre" value="${genre}">
-        <label for="${genre}"> ${genre} </label><br>
-    </c:forEach>
+                <c:forEach items="${genres}" var="genre">
+                    <input type="checkbox" id="${genre}" name="genre" value="${genre}">
+                    <label for="${genre}"> ${genre} </label><br>
+                </c:forEach>
 
-    <input type="submit" Submit ="Sort"/>
-</form>
-</fieldset>
+                <input type="submit" Submit ="Sort"/>
+            </form>
+        </fieldset>
+    </div>
 
-
-
-<ul>
-    <%
-        for(Book b : list){
-            String url = b.getBook_photo();
-            request.setAttribute("book", b);
-    %>
-    <jsp:include page='BookPreview.jsp'>
-        <jsp:param name="bok" value="${b}"/>
-    </jsp:include>
-    <%
-        }
-    %>
-</ul>
-
+    <ul class="demo">
+        <%for(Book b : list){
+                request.setAttribute("book", b);%>
+            <li class="elem">
+                <div>
+                    <jsp:include page='BookPreview.jsp'>
+                        <jsp:param name="bok" value="${b}"/>
+                    </jsp:include>
+                </div>
+            </li>
+        <%}%>
+    </ul>
+</div>
 </body>
 </html>
