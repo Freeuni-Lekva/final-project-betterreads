@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 
 public class LoginServlet extends HttpServlet {
@@ -57,7 +58,7 @@ public class LoginServlet extends HttpServlet {
             } else {
                 request.getRequestDispatcher("WEB-INF/IncorrectData.jsp").forward(request,response);
             }
-        } catch (SQLException throwables) {
+        } catch (SQLException | NoSuchAlgorithmException throwables) {
             throwables.printStackTrace();
         }
     }

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 
 
@@ -55,7 +56,7 @@ public class RegisterServlet extends HttpServlet {
                         response.sendRedirect("http://localhost:8088");
                     }
                 }
-            } catch (SQLException throwables) {
+            } catch (SQLException | NoSuchAlgorithmException throwables) {
                 throwables.printStackTrace();
             }
         }

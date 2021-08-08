@@ -2,6 +2,7 @@ package Service;
 
 import Model.User;
 
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 
 public interface UserServiceInterface {
@@ -44,7 +45,7 @@ public interface UserServiceInterface {
      * @param user
      * @return true if password for this user is correct
      */
-    boolean checkPassword(User user,String password);
+    boolean checkPassword(User user,String password) throws NoSuchAlgorithmException;
 
     /**
      *
