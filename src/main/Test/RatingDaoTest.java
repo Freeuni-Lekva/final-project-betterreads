@@ -2,13 +2,12 @@ import Dao.CDB;
 import Dao.Connector;
 import Dao.RatingDao;
 import Dao.UserDao;
+import Model.Book;
 import Model.Rating;
+import Model.User;
 import junit.framework.TestCase;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.List;
 
 public class RatingDaoTest extends TestCase {
@@ -101,4 +100,80 @@ public class RatingDaoTest extends TestCase {
         assertEquals(5, r.getBook_rating());
     }
 
+    public void testGetAllUsers() throws SQLException {
+        RatingDao dao = null;
+        dao = new RatingDao(Connector.getConnection(dbName));
+        List<User> users = dao.getAllUsers();
+        assertEquals(0, users.size());
+
+        Statement stm = connection.createStatement();
+        stm.execute("use " + dbName);
+        PreparedStatement rate = connection.prepareStatement("insert into ratings(user_id,book_id,book_rating) values(?,?,?)");
+        rate.setInt(1,1);
+        rate.setInt(2,1);
+        rate.setInt(3,5);
+        rate.executeUpdate();
+
+        users = dao.getAllUsers();
+        assertEquals(1, users.size());
+    }
+
+    public void testGetAllBooks() throws SQLException {
+        RatingDao dao = null;
+        dao = new RatingDao(Connector.getConnection(dbName));
+        List<Book> books = dao.getAllBooks();
+        assertEquals(0, books.size());
+
+        Statement stm = connection.createStatement();
+        stm.execute("use " + dbName);
+        PreparedStatement rate = connection.prepareStatement("insert into ratings(user_id,book_id,book_rating) values(?,?,?)");
+        rate.setInt(1,1);
+        rate.setInt(2,1);
+        rate.setInt(3,5);
+        rate.executeUpdate();
+
+        books = dao.getAllBooks();
+        assertEquals(1, books.size());
+    }
+
+    public void testRateBook() throws SQLException {
+        RatingDao dao = null;
+        dao = new RatingDao(Connector.getConnection(dbName));
+        boolean b = dao.rateBook(1, 1, 5);
+        assertTrue(b);
+
+        Rating r = dao.getRatingForBookByUser(1,1);
+        assertEquals(5, r.getBook_rating());
+        assertEquals(1, r.getBook_id());
+        assertEquals(1, r.getUser_id());
+
+        b = dao.rateBook(1, 1, 4);
+        assertTrue(b);
+
+        r = dao.getRatingForBookByUser(1,1);
+        assertEquals(4, r.getBook_rating());
+        assertEquals(1, r.getBook_id());
+        assertEquals(1, r.getUser_id());
+    }
+
+    public void testUpdateBookRating() throws SQLException {
+        RatingDao dao = null;
+        dao = new RatingDao(Connector.getConnection(dbName));
+
+        Statement stm = connection.createStatement();
+        stm.execute("use " + dbName);
+        PreparedStatement rate = connection.prepareStatement("insert into ratings(user_id,book_id,book_rating) values(?,?,?)");
+        rate.setInt(1,1);
+        rate.setInt(2,1);
+        rate.setInt(3,5);
+        rate.executeUpdate();
+
+        Book b = dao.getAllBooks().get(0);
+        dao.updateBookRating(b, 5);
+
+        PreparedStatement book = connection.prepareStatement("select * from books;");
+        ResultSet rs = book.executeQuery();
+        rs.next();
+        assertEquals(5, rs.getInt("book_rating"));
+    }
 }
