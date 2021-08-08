@@ -47,9 +47,9 @@ public class    BookService implements BookServiceInterface{
                 if(o1.getBook_rating() == o2.getBook_rating())
                     return 0;
                 if(o1.getBook_rating() > o2.getBook_rating())
-                    return 1;
-                else
                     return -1;
+                else
+                    return 1;
             }
         });
         for(int i = from; i<= to; i++){
