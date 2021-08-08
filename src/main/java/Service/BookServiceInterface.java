@@ -33,18 +33,6 @@ public interface BookServiceInterface {
 
     /**
      *
-     * @return list of books sorted by release year - ascending
-     */
-    List<Book> oldToNew(List<Book> bookList);
-
-    /**
-     *
-     * @return list of books sorted by release year - descending
-     */
-    List<Book> newToOld(List<Book> bookList);
-
-    /**
-     *
      * @param id
      * @return
      */
@@ -62,13 +50,6 @@ public interface BookServiceInterface {
      * @return list of available books
      */
     List<Book> availableBooks();
-
-    /**
-     *
-     * @param list of books
-     * @return only available books from list
-     */
-    List<Book> removeUnavailableBooks(List<Book> list);
 
     /**
      *
