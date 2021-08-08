@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 public class AddBookServlet extends HttpServlet {
@@ -39,7 +40,12 @@ public class AddBookServlet extends HttpServlet {
         }
         String book_name = request.getParameter("book_name");
         String author_name = request.getParameter("author_name");
-        Author author = adminService.getAuthorByName(author_name);
+        Author author = null;
+        try {
+            author = adminService.getAuthorByName(author_name);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
         if(author == null){
             request.getRequestDispatcher("WEB-INF/BookNotAdded.jsp").forward(request,response);
             return;
@@ -50,12 +56,15 @@ public class AddBookServlet extends HttpServlet {
         String desc = request.getParameter("book_description");
         String[] genres = request.getParameterValues("genre");
 
-        if(adminService.addBook(book_name,author,release_year,count,photo,desc,genres)){
-            request.getRequestDispatcher("WEB-INF/BookAdded.jsp").forward(request,response);
-        } else {
-            request.getRequestDispatcher("WEB-INF/BookNotAdded.jsp").forward(request,response);
+        try {
+            if(adminService.addBook(book_name,author,release_year,count,photo,desc,genres)){
+                request.getRequestDispatcher("WEB-INF/BookAdded.jsp").forward(request,response);
+            } else {
+                request.getRequestDispatcher("WEB-INF/BookNotAdded.jsp").forward(request,response);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
-
 
 
     }

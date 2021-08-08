@@ -38,7 +38,7 @@ public class AdminService implements AdminServiceInterface{
         }
     }
     @Override
-    public boolean isAdmin(User user) {
+    public boolean isAdmin(User user) throws SQLException {
         return adminDao.isAdmin(user);
     }
 
@@ -59,7 +59,7 @@ public class AdminService implements AdminServiceInterface{
     }
 
     @Override
-    public boolean addBook(String book_name, Author author, int release_year, int count, String photo, String description, String[] genres) {
+    public boolean addBook(String book_name, Author author, int release_year, int count, String photo, String description, String[] genres) throws SQLException {
         Book newBook = new Book();
         newBook.setBook_name(book_name);
         newBook.setAuthor_id(author.getAuthor_id());
