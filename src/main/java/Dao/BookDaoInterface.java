@@ -8,15 +8,6 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface BookDaoInterface {
-    /**
-     *
-     * @param book
-     * @param genres
-     * @return
-     * @throws SQLException
-     */
-    public boolean AddBook(Book book, List<String> genres) throws SQLException;
-
 
     /**
      *
