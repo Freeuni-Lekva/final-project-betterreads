@@ -1,5 +1,7 @@
 package Service;
 
+import Constants.SharedConstants;
+
 public class VallidationService implements VallidationServiceInterface{
     @Override
     public boolean isFirstNameCorrect(String firstname) {
@@ -13,7 +15,7 @@ public class VallidationService implements VallidationServiceInterface{
 
     @Override
     public boolean isMailCorrect(String mail) {
-        return mail.endsWith("@freeuni.edu.ge") || mail.endsWith("@gmail.com");
+        return mail.endsWith(SharedConstants.FREEUNI_MAIL) || mail.endsWith(SharedConstants.GMAIL);
     }
 
     @Override
@@ -23,22 +25,22 @@ public class VallidationService implements VallidationServiceInterface{
 
     @Override
     public boolean isPasswordCorrect(String password) {
-        return password.length() >= 7;
+        return password.length() >= SharedConstants.MIN_PASSWORD_LENGTH;
     }
 
     @Override
     public String getErrorMessage(String firstname, String lastname, String mail,
                                   String password, String username) {
         if(!isFirstNameCorrect(firstname)){
-            return "First name can't be empty";
+            return SharedConstants.FIRST_NAME_ERROR;
         } else if(!isLastNameCorrect(lastname)){
-            return "Last name can't be empty";
+            return SharedConstants.LAST_NAME_ERROR;
         } else if(isUsernameEmpty(username)){
-            return "Username can't be empty";
+            return SharedConstants.USERNAME_ERROR;
         } else if(!isMailCorrect(mail)){
-            return "Email isn't correct";
+            return SharedConstants.EMAIL_ERROR;
         } else if(!isPasswordCorrect(password)){
-            return "The password must be at least 7 characters long";
+            return SharedConstants.PASSWORD_ERROR;
         }
         return "";
     }
