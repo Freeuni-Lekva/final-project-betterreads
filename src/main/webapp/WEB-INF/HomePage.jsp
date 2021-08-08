@@ -25,7 +25,7 @@
 <%
     AllServices allServices = (AllServices) pageContext.getServletContext().getAttribute(SharedConstants.ATTRIBUTE);
     BookService bb = allServices.getBookService();
-    List<Book> list = bb.getBestBooks(1, 3);
+    List<Book> list = bb.getBestBooks(0, 3);
 %>
     <div class="container">
         <div class="navbar">
@@ -69,20 +69,19 @@
 
 
             <div class="row">
-
                 <div class="column">
-                    <a href="showBook?bookId=<%= list.get(0).getBook_id()%>"><%= list.get(0).getBook_name() %>
                     <img src=<%= list.get(0).getBook_photo()%>  style: width="100" height="150">
+                    <a href="showBook?bookId=<%= list.get(0).getBook_id()%>"><%= list.get(0).getBook_name() %>
                 </div>
 
                 <div class="column">
-                    <a href="showBook?bookId=<%= list.get(1).getBook_id()%>"><%= list.get(1).getBook_name() %>
                         <img src=<%= list.get(1).getBook_photo()%> style: width="100" height="150">
+                        <a href="showBook?bookId=<%= list.get(1).getBook_id()%>"><%= list.get(1).getBook_name() %>
                 </div>
 
                 <div class="column">
-                    <a href="showBook?bookId=<%= list.get(2).getBook_id()%>"><%= list.get(2).getBook_name() %>
                         <img src=<%= list.get(2).getBook_photo()%>  style: width="100" height="150">
+                    <a href="showBook?bookId=<%= list.get(2).getBook_id()%>"><%= list.get(2).getBook_name() %>
                 </div>
             </div>
         </div>
