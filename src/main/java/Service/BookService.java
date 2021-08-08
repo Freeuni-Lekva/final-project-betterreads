@@ -14,7 +14,7 @@ import Model.Genre;
 import java.sql.SQLException;
 import java.util.*;
 
-public class BookService implements BookServiceInterface{
+public class    BookService implements BookServiceInterface{
     private BookDao bookDao;
     private AuthorDao authorDao;
 
@@ -65,32 +65,6 @@ public class BookService implements BookServiceInterface{
         return bookList;
     }
 
-    public List<Book> oldToNew(List<Book> bookList) {
-        try {
-            BookDao bd = new BookDao(Connector.getConnection(SharedConstants.DATA_BASE_NAME));
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        Collections.sort(bookList, new Comparator<Book>() {
-            @Override
-            public int compare(Book o1, Book o2) {
-                if(o1.getRelease_year() == o2.getRelease_year())
-                    return 0;
-                if(o1.getRelease_year() > o2.getRelease_year())
-                    return 1;
-                else
-                    return -1;
-            }
-        });
-        return bookList;
-    }
-
-    @Override
-    public List<Book> newToOld(List<Book> bookList)  {
-        List<Book> result = oldToNew(bookList);
-        Collections.reverse(result);
-        return result;
-    }
 
     @Override
     public Book getBookById(int id) throws SQLException {
@@ -105,40 +79,6 @@ public class BookService implements BookServiceInterface{
     @Override
     public List<Book> availableBooks() {
         return bookDao.getAvailableBooks();
-    }
-
-    @Override
-    public List<Book> removeUnavailableBooks(List<Book> list){
-        List<Book> result = new ArrayList<>();
-        for(int i = 0 ; i < list.size(); i++){
-            if(list.get(i).getAvailable_count() > 0){
-                result.add(list.get(i));
-            }
-        }
-        return result;
-    }
-
-    @Override
-    public  List<Book> sortLowToHigh(List<Book> bookList){
-        Collections.sort(bookList, new Comparator<Book>() {
-            @Override
-            public int compare(Book o1, Book o2) {
-                if(o1.getBook_rating() == o2.getBook_rating())
-                    return 0;
-                if(o1.getBook_rating() > o2.getBook_rating())
-                    return 1;
-                else
-                    return -1;
-            }
-        });
-        return bookList;
-    }
-
-    @Override
-    public List<Book> sortHighToLow(List<Book> bookList){
-        List<Book> result = sortLowToHigh(bookList);
-        Collections.reverse(result);
-        return result;
     }
 
     @Override

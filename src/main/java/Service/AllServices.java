@@ -17,6 +17,7 @@ public class AllServices {
     private SuggestionService suggestionService;
     private RatingService ratingService;
     private SendMailService mailService;
+    private BookServiceSort bookServiceSort;
 
     public AllServices() throws SQLException {
         hashService = new HashService();
@@ -33,6 +34,7 @@ public class AllServices {
         suggestionService = new SuggestionService();
         ratingService = new RatingService();
         mailService = new SendMailService();
+        bookServiceSort = new BookServiceSort();
 
     }
     public HashService getHashService(){
@@ -56,5 +58,6 @@ public class AllServices {
     public SuggestionService getSuggestionService() {return suggestionService;}
     public RatingService getRatingService() {return ratingService;}
     public SendMailService getMailService(){ return mailService; }
+    public BookServiceSort getBookServiceSort(){return bookServiceSort;}
 }
 
