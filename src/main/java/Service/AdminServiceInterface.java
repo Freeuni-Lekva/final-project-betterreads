@@ -8,13 +8,13 @@ import java.util.List;
 
 public interface AdminServiceInterface {
 
-    public boolean isAdmin(User user);
+    public boolean isAdmin(User user) throws SQLException;
 
     void addAuthor(String author_name) throws SQLException;
 
     void addGenre(String genre_name);
 
-    boolean addBook(String book_name, Author author, int release_year, int count, String photo, String description, String[] genres);
+    boolean addBook(String book_name, Author author, int release_year, int count, String photo, String description, String[] genres) throws SQLException;
   
     Author getAuthorByName(String author_name) throws SQLException;
 }
