@@ -31,11 +31,15 @@ public class RatingServlet extends HttpServlet {
         Book b = null;
         try {
             b = allServices.getBookService().getBookById(Integer.parseInt(httpServletRequest.getParameter("book_id")));
+            ratingService.updateBookRating(user.getUser_id(),b,rating);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        ratingService.updateBookRating(user.getUser_id(),b,rating);
-        ratingService.rateBook(user.getUser_id(), Integer.parseInt(httpServletRequest.getParameter("book_id")), rating);
+        try {
+            ratingService.rateBook(user.getUser_id(), Integer.parseInt(httpServletRequest.getParameter("book_id")), rating);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 //        ratingService.updateBookRating(user.getUser_id(),b,rating);
         httpServletRequest.setAttribute("bookID", b.getBook_id());
         httpServletRequest.setAttribute("bookName", b.getBook_name());

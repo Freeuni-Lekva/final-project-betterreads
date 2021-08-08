@@ -64,9 +64,9 @@ public class ReviewDaoTest extends TestCase{
 
     public void testAddReview() throws SQLException, ParseException {
         helper();
-        rd.addReview(1, 1, 3.0, "magaria dzn", "2021-07-07", 5);
-        rd.addReview(2, 1, 5, "zaan qul", "2021-07-08", 4);
-        rd.addReview(1, 2, 3, "vauuuuuuuu", "2021-07-09", 2);
+        rd.addReview(1, 1, "magaria dzn", "2021-07-07", 5);
+        rd.addReview(2, 1,"zaan qul", "2021-07-08", 4);
+        rd.addReview(1, 2, "vauuuuuuuu", "2021-07-09", 2);
         PreparedStatement s1 = connection.prepareStatement
                 ("select * from reviews where user_comment = 'magaria dzn';");
         ResultSet rs = s1.executeQuery();

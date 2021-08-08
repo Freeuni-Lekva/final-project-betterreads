@@ -19,18 +19,18 @@ public class RatingService implements RatingServiceInterface{
         }
     }
     @Override
-    public void rateBook(int user_id, int book_id, int book_rating) {
+    public void rateBook(int user_id, int book_id, int book_rating) throws SQLException {
         ratingDao.rateBook(user_id,book_id,book_rating);
     }
 
     @Override
-    public int getBookRatingCount(int book_id) {
+    public int getBookRatingCount(int book_id) throws SQLException {
         List<Rating> ratings = ratingDao.getRatingsByBook(book_id);
         return ratings.size();
     }
 
     @Override
-    public void updateBookRating(int user_id, Book book, int book_rating) {
+    public void updateBookRating(int user_id, Book book, int book_rating) throws SQLException {
         int num_ratings = getBookRatingCount(book.getBook_id());
         Rating oldRating = ratingDao.getRatingForBookByUser(user_id,book.getBook_id());
         double new_rating;
