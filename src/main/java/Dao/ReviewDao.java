@@ -27,22 +27,23 @@ public class ReviewDao implements ReviewDaoInterface{
     }
 
  public List<Review> getReviews(int book_id) throws SQLException {
-        PreparedStatement st = conn.prepareStatement("SELECT * FROM reviews WHERE book_id = ?" +
-                " ORDER BY num_likes DESC;");
-        st.setInt(1, book_id);
-        ResultSet rs = st.executeQuery();
-        List<Review> retList = new ArrayList<>();
-        while(rs.next()){
-            Review r = new Review();
-            r.setReview_id(rs.getInt("review_id"));
-            r.setUser_id(rs.getInt("user_id"));
-            r.setBook_id(rs.getInt("book_id"));
-            r.setComment(rs.getString("user_comment"));
-            r.setDate(rs.getDate("date_posted"));
-            r.setNum_likes(rs.getInt("num_likes"));
-            retList.add(r);
-        }
-        return retList;
+     PreparedStatement st = conn.prepareStatement("SELECT * FROM reviews WHERE book_id = ?" +
+             " ORDER BY num_likes DESC;");
+     st.setInt(1, book_id);
+     ResultSet rs = st.executeQuery();
+     List<Review> retList = new ArrayList<>();
+     while (rs.next()) {
+         Review r = new Review();
+         r.setReview_id(rs.getInt("review_id"));
+         r.setUser_id(rs.getInt("user_id"));
+         r.setBook_id(rs.getInt("book_id"));
+         r.setComment(rs.getString("user_comment"));
+         r.setDate(rs.getDate("date_posted"));
+         r.setNum_likes(rs.getInt("num_likes"));
+         retList.add(r);
+     }
+     return retList;
+ }
     public List<Review> getReviewsByUserId(int book_id, int user_id) throws SQLException {
         List<Review> res = new ArrayList<>();
 

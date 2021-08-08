@@ -17,6 +17,7 @@ public class CDB {
         createUsersTable();
         createReservationsTable();
         createBookShelfTable();
+        createAdminsTable();
     }
 
     public void createDatabase() throws SQLException {
@@ -108,6 +109,15 @@ public class CDB {
                 "\t\tforeign key (user_id) references users(user_id),\n" +
                 "\tconstraint book_shelf_book_fk\n" +
                 "\t\tforeign key (book_id) references books(book_id)  );");
+    }
+
+    private void createAdminsTable()throws SQLException{
+        Statement statement = connection.createStatement();
+        statement.execute("drop table if exists admins");
+        statement.execute("create table admins(\n" +
+                "\tuser_id int,\n" +
+                "    constraint admin_user_id unique (user_id)    \n" +
+                ");");
     }
 
     public Connection getConnection() {
