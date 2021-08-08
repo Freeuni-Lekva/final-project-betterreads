@@ -16,69 +16,54 @@ public class AuthorDao implements AuthorDaoInterface{
         this.connection = connection;
     }
     @Override
-    public Author getAuthor(int book_id) {
-        try {
-            PreparedStatement preparedStatement = connection.prepareStatement("select * from books " +
-                    "join authors on books.author_id = authors.author_id " +
-                    "where books.book_id = ?;");
-            preparedStatement.setInt(1,book_id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            resultSet.next();
+    public Author getAuthor(int book_id) throws SQLException {
+
+        PreparedStatement preparedStatement = connection.prepareStatement("select * from books " +
+                "join authors on books.author_id = authors.author_id " +
+                "where books.book_id = ?;");
+        preparedStatement.setInt(1,book_id);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        resultSet.next();
+        Author author = new Author(resultSet.getInt("author_id"),resultSet.getString("author_name"));
+        return author;
+
+    }
+
+    @Override
+    public List<Book> getBooksByAuthor(int author_id) throws SQLException {
+
+        PreparedStatement preparedStatement = connection.prepareStatement("select * from books where books.author_id = ?;");
+        preparedStatement.setInt(1,author_id);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        List<Book> result = new ArrayList<>();
+        while (resultSet.next()){
+            result.add(getBookByRS(resultSet));
+        }
+        return result;
+
+    }
+
+    @Override
+    public boolean addAuthor(String author_name) throws SQLException {
+        PreparedStatement statement = connection.prepareStatement("insert into authors(author_name)" +
+                " values(?);");
+        statement.setString(1, author_name);
+        return statement.executeUpdate() != 0;
+
+
+    }
+
+    public Author getAuthorByName(String author_name) throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement("select * from authors where author_name = ?");
+        preparedStatement.setString(1,author_name);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if(resultSet.next()){
             Author author = new Author(resultSet.getInt("author_id"),resultSet.getString("author_name"));
             return author;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } else {
+            return null;
         }
-        return null;
-    }
 
-    @Override
-    public List<Book> getBooksByAuthor(int author_id) {
-
-        try {
-            PreparedStatement preparedStatement = connection.prepareStatement("select * from books where books.author_id = ?");
-            preparedStatement.setInt(1,author_id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            List<Book> result = new ArrayList<>();
-            while (resultSet.next()){
-                result.add(getBookByRS(resultSet));
-            }
-            return result;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return null;
-    }
-
-    @Override
-    public boolean addAuthor(String author_name) {
-        try {
-            PreparedStatement statement = connection.prepareStatement("insert into authors " +
-                    "(author_name) values (?);");
-            statement.setString(1, author_name);
-            return statement.executeUpdate() != 0;
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return false;
-    }
-
-    public Author getAuthorByName(String author_name){
-        try {
-            PreparedStatement preparedStatement = connection.prepareStatement("select * from authors where author_name = ?");
-            preparedStatement.setString(1,author_name);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if(resultSet.next()){
-                Author author = new Author(resultSet.getInt("author_id"),resultSet.getString("author_name"));
-                return author;
-            } else {
-                return null;
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return null;
     }
     private Book getBookByRS(ResultSet rs) throws SQLException {
         Book book = new Book();

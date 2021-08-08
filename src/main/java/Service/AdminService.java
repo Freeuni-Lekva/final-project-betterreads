@@ -43,7 +43,7 @@ public class AdminService implements AdminServiceInterface{
     }
 
     @Override
-    public void addAuthor(String author_name) {
+    public void addAuthor(String author_name) throws SQLException {
         authorDao.addAuthor(author_name);
     }
 
@@ -54,7 +54,7 @@ public class AdminService implements AdminServiceInterface{
         genreDao.addGenre(genre);
     }
 
-    public Author getAuthorByName(String author_name) {
+    public Author getAuthorByName(String author_name) throws SQLException {
         return authorDao.getAuthorByName(author_name);
     }
 
