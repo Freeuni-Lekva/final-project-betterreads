@@ -5,6 +5,7 @@ import Model.Book;
 import Model.Genre;
 import Service.AllServices;
 import Service.BookService;
+import Service.BookServiceSort;
 import Service.GenreService;
 
 import javax.servlet.ServletException;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 public class CatalogueServlet extends HttpServlet {
@@ -29,22 +31,31 @@ public class CatalogueServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         AllServices allServices = (AllServices) getServletContext().getAttribute(SharedConstants.ATTRIBUTE);
         BookService bs = allServices.getBookService();
+        BookServiceSort bss = allServices.getBookServiceSort();
         List<Book> list = bs.getAllBooks();
 
         if (request.getParameter("Available") != null){
-            list = bs.removeUnavailableBooks(list);
+            list = bss.removeUnavailableBooks(list);
         }
 
         if(request.getParameter("SortBooks") != null){
             String sortName = request.getParameter("SortBooks");
             if (sortName.equals("old to new")) {
-                list = bs.oldToNew(list);
+                try {
+                    list = bss.oldToNew(list);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
             } else if (sortName.equals("new to old")) {
-                list = bs.newToOld(list);
+                try {
+                    list = bss.newToOld(list);
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
             } else if (sortName.equals("High -> Low")) {
-                list = bs.sortHighToLow(list);
+                list = bss.sortHighToLow(list);
             } else if (sortName.equals("Low -> High")) {
-                list = bs.sortLowToHigh(list);
+                list = bss.sortLowToHigh(list);
             }
         }
 

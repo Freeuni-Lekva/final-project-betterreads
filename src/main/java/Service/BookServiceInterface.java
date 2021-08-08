@@ -33,18 +33,6 @@ public interface BookServiceInterface {
 
     /**
      *
-     * @return list of books sorted by release year - ascending
-     */
-    List<Book> oldToNew(List<Book> bookList);
-
-    /**
-     *
-     * @return list of books sorted by release year - descending
-     */
-    List<Book> newToOld(List<Book> bookList);
-
-    /**
-     *
      * @param id
      * @return
      */
@@ -65,32 +53,11 @@ public interface BookServiceInterface {
 
     /**
      *
-     * @param list of books
-     * @return only available books from list
-     */
-    List<Book> removeUnavailableBooks(List<Book> list);
-
-    /**
-     *
      * @param genres array of genres
      * @param list list of books to filter
      * @return
      */
     List<Book> getBooksByGanres(String[] genres, List<Book> list);
-
-    /**
-     *
-     * @param bookList
-     * @return books sorted by rating - ascending
-     */
-    List<Book> sortHighToLow(List<Book> bookList);
-
-    /**
-     *
-     * @param bookList
-     * @return books sorted by rating - descending
-     */
-    List<Book> sortLowToHigh(List<Book> bookList);
 
 
 }
