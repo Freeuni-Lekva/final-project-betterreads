@@ -17,6 +17,8 @@ public class CDB {
         createUsersTable();
         createReservationsTable();
         createBookShelfTable();
+        createReviewsTable();
+        createLikesTable();
     }
 
     public void createDatabase() throws SQLException {
@@ -26,7 +28,7 @@ public class CDB {
         statement.execute("use testLibrary;");
     }
 
-    private void createAuthorsTable() throws SQLException {
+    public void createAuthorsTable() throws SQLException {
         Statement statement = connection.createStatement();
         statement.execute("drop table if exists authors");
         statement.execute("create table if not exists authors( " +
@@ -35,7 +37,7 @@ public class CDB {
                 ");");
     }
 
-    private void createBooksTable() throws SQLException {
+    public void createBooksTable() throws SQLException {
         Statement statement = connection.createStatement();
         statement.execute("drop table if exists books");
         statement.execute("create table if not exists books(book_id int" +
@@ -51,7 +53,7 @@ public class CDB {
                 "        foreign key (author_id) references authors (author_id) );");
     }
 
-    private void createGenresTable() throws SQLException {
+    public void createGenresTable() throws SQLException {
         Statement statement = connection.createStatement();
         statement.execute("drop table if exists genres");
         statement.execute("create table if not exists genres(genre_id int" +
@@ -59,7 +61,7 @@ public class CDB {
                 "    genre_name varchar(60) not null);");
     }
 
-    private void createBookGenres() throws SQLException {
+    public void createBookGenres() throws SQLException {
         Statement statement = connection.createStatement();
         statement.execute("drop table if exists book_genres");
         statement.execute("create table if not exists book_genres(book_id int not null,\n" +
@@ -70,7 +72,7 @@ public class CDB {
                 "\t\tforeign key (genre_id) references genres(genre_id));");
     }
 
-    private void createUsersTable() throws SQLException {
+    public void createUsersTable() throws SQLException {
         Statement statement = connection.createStatement();
         statement.execute("drop table if exists users");
         statement.execute("create table if not exists users(user_id int auto_increment primary key,\n" +
@@ -85,7 +87,7 @@ public class CDB {
                 "        unique (username));");
     }
 
-    private void createReservationsTable() throws SQLException {
+    public void createReservationsTable() throws SQLException {
         Statement statement = connection.createStatement();
         statement.execute("drop table if exists reservations");
         statement.execute("create table if not exists reservations(reservation_id int auto_increment primary key,\n" +
@@ -98,7 +100,7 @@ public class CDB {
                 "\t\tforeign key (book_id) references books(book_id)  );");
     }
 
-    private void createBookShelfTable() throws SQLException {
+    public void createBookShelfTable() throws SQLException {
         Statement statement = connection.createStatement();
         statement.execute("drop table if exists book_shelf");
         statement.execute("create table if not exists book_shelf(user_id int not null,\n" +
@@ -108,6 +110,37 @@ public class CDB {
                 "\t\tforeign key (user_id) references users(user_id),\n" +
                 "\tconstraint book_shelf_book_fk\n" +
                 "\t\tforeign key (book_id) references books(book_id)  );");
+    }
+
+    public void createReviewsTable() throws SQLException {
+        Statement statement = connection.createStatement();
+        statement.execute("drop table if exists reviews;");
+        statement.execute("create table reviews(\n" +
+                "\treview_id int auto_increment primary key,\n" +
+                "\tuser_id int not null,\n" +
+                "    book_id int not null,\n" +
+                "    user_comment varchar(600),\n" +
+                "    date_posted date not null,\n" +
+                "    num_likes int not null,\n" +
+                "    constraint reviews_user_fk\n" +
+                "\t\tforeign key (user_id) references users(user_id),\n" +
+                "\tconstraint reviews_book_fk\n" +
+                "\t\tforeign key (book_id) references books(book_id)  \n" +
+                ");");
+    }
+
+    public void createLikesTable() throws SQLException {
+        Statement statement = connection.createStatement();
+        statement.execute("drop table if exists likes;");
+        statement.execute("create table likes(\n" +
+                "    like_id int auto_increment primary key,\n" +
+                "    user_id int not null,\n" +
+                "    review_id int not null,\n" +
+                "    constraint likes_user_fk\n" +
+                "        foreign key (user_id) references users(user_id),\n" +
+                "    constraint likes_review_fk\n" +
+                "        foreign key (review_id) references reviews(review_id)\n" +
+                ");");
     }
 
     public Connection getConnection() {
