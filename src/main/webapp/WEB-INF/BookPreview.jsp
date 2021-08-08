@@ -20,7 +20,7 @@
     <a href="showBook?bookId=<%= book.getBook_id()%>"><%= book.getBook_name() %>
         </a>
     <br>
-    <%= ds.shorten(book.getBook_description())%>
+
     <br>
     <img src=<%= book.getBook_photo()%> width="100" height="150">
 </li>
