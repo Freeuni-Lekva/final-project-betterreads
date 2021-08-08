@@ -1,6 +1,6 @@
 drop database if exists testLibrary;
-create database library;
-use library;
+create database testLibrary;
+use testLibrary;
 
 drop table if exists authors;
 create table authors(
