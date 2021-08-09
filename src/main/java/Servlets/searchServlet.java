@@ -21,7 +21,7 @@ public class searchServlet extends HttpServlet {
         AllServices allServices = (AllServices) getServletContext().getAttribute(SharedConstants.ATTRIBUTE);
         SearchService searchService = allServices.getSearchService();
         List<Book> bookList = searchService.filterByText(text);
-        request.setAttribute("list", bookList);
+        request.setAttribute("books", bookList);
         GenreService genreService = allServices.getGenreService();
         List<String> genres = genreService.getGenres();
         request.setAttribute("genres", genres);
