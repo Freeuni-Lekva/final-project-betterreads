@@ -85,12 +85,6 @@ public class BookService implements BookServiceInterface{
         return bookList;
     }
 
-    @Override
-    public List<Book> newToOld(List<Book> bookList)  {
-        List<Book> result = oldToNew(bookList);
-        Collections.reverse(result);
-        return result;
-    }
 
     @Override
     public Book getBookById(int id) {
@@ -117,32 +111,6 @@ public class BookService implements BookServiceInterface{
         return bookDao.getAvailableBooks();
     }
 
-    @Override
-    public List<Book> removeUnavailableBooks(List<Book> list){
-        List<Book> result = new ArrayList<>();
-        for(int i = 0 ; i < list.size(); i++){
-            if(list.get(i).getAvailable_count() > 0){
-                result.add(list.get(i));
-            }
-        }
-        return result;
-    }
-
-    @Override
-    public  List<Book> sortLowToHigh(List<Book> bookList){
-        Collections.sort(bookList, new Comparator<Book>() {
-            @Override
-            public int compare(Book o1, Book o2) {
-                if(o1.getBook_rating() == o2.getBook_rating())
-                    return 0;
-                if(o1.getBook_rating() > o2.getBook_rating())
-                    return 1;
-                else
-                    return -1;
-            }
-        });
-        return bookList;
-    }
 
     @Override
     public int getBookCount(int book_id) {
@@ -163,12 +131,6 @@ public class BookService implements BookServiceInterface{
         }
     }
 
-    @Override
-    public List<Book> sortHighToLow(List<Book> bookList){
-        List<Book> result = sortLowToHigh(bookList);
-        Collections.reverse(result);
-        return result;
-    }
 
     @Override
     public List<Book> getBooksByGanres(String[] genres, List<Book> list) {

@@ -153,9 +153,8 @@ public class BookDao implements BookDaoInterface{
                     "from books where book_id = ?;");
         statement.setInt(1, bookId);
         ResultSet rs = statement.executeQuery();
-        if(rs.next())
-            System.out.println(rs.getInt(1) + "caliii");
-        return rs.getInt(1);
+        if(rs.next()) return rs.getInt(1);
+        return 0;
     }
 
     @Override
