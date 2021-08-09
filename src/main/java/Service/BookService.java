@@ -65,21 +65,51 @@ public class    BookService implements BookServiceInterface{
         return bookList;
     }
 
-
     @Override
-    public Book getBookById(int id) throws SQLException {
-        return bookDao.getBookById(id);
+    public Book getBookById(int id) {
+        try {
+            return bookDao.getBookById(id);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
     }
 
     @Override
-    public Author getAuthorById(int book_id) throws SQLException {
-        return authorDao.getAuthor(book_id);
+    public Author getAuthorById(int book_id) {
+        try {
+            return authorDao.getAuthor(book_id);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
     }
 
     @Override
     public List<Book> availableBooks() {
         return bookDao.getAvailableBooks();
     }
+
+
+    @Override
+    public int getBookCount(int book_id) {
+        try {
+            return bookDao.getBookCount(book_id);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return -1;
+    }
+
+    @Override
+    public void setBookCOunt(int book_id, int count) {
+        try {
+            bookDao.setBookCount(book_id, count);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
 
     @Override
     public List<Book> getBooksByGanres(String[] genres, List<Book> list) {
@@ -90,8 +120,8 @@ public class    BookService implements BookServiceInterface{
             throwables.printStackTrace();
         }
         List<Book> result = new ArrayList<Book>();
-        for (int i = 0; i < genres.length; i++) {
-            List<Book> tmp = bd.getBookByGenre(genres[i]);
+        for (String genre : genres) {
+            List<Book> tmp = bd.getBookByGenre(genre);
             result.addAll(tmp);
         }
         result = removeDuplicates(result);

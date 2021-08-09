@@ -25,17 +25,17 @@ public interface UserBooksServiceInterface {
      * @param user_id
      * @return List of marked, but not reserved books
      */
-    List<Book> getBooksForFuture(int user_id) throws SQLException;
+    List<Book> getBooksForFuture(int user_id) ;
 
     void addReservedBook(int user_id, int book_id);
 
-    void addBooksForFuture(int user_id, int book_id) throws SQLException;
+    void addBooksForFuture(int user_id, int book_id);
 
-    boolean hasBookForFuture(int user_id, int book_id) throws SQLException;
+    boolean hasBookForFuture(int user_id, int book_id);
 
     boolean hasBookReserved(int user_id, int book_id);
   
-   void removeBookFromFuture(int user_id, int book_id) throws SQLException;
+   void removeBookFromFuture(int user_id, int book_id);
 
 
     /**

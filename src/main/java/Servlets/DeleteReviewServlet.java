@@ -36,20 +36,16 @@ public class DeleteReviewServlet extends HttpServlet {
             }
         }
 
-        try {
-            Book b = allServices.getBookService().getBookById(Integer.parseInt(book_id));
-            request.setAttribute("bookID", b.getBook_id());
-            request.setAttribute("bookName", b.getBook_name());
-            request.setAttribute("authorId", b.getAuthor_id());
-            request.setAttribute("description", b.getBook_description());
-            request.setAttribute("rating", b.getBook_rating());
-            request.setAttribute("count",b.getAvailable_count());
-            request.setAttribute("year", b.getRelease_year());
-            request.setAttribute("photo",b.getBook_photo());
-            request.setAttribute("USER_REVIEWS_ONLY", user_reviews);
-            request.getRequestDispatcher("/WEB-INF/BookPage.jsp").forward(request, response);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        Book b = allServices.getBookService().getBookById(Integer.parseInt(book_id));
+        request.setAttribute("bookID", b.getBook_id());
+        request.setAttribute("bookName", b.getBook_name());
+        request.setAttribute("authorId", b.getAuthor_id());
+        request.setAttribute("description", b.getBook_description());
+        request.setAttribute("rating", b.getBook_rating());
+        request.setAttribute("count",b.getAvailable_count());
+        request.setAttribute("year", b.getRelease_year());
+        request.setAttribute("photo",b.getBook_photo());
+        request.setAttribute("USER_REVIEWS_ONLY", user_reviews);
+        request.getRequestDispatcher("/WEB-INF/BookPage.jsp").forward(request, response);
     }
 }

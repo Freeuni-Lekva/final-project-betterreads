@@ -41,22 +41,18 @@ public class ReviewBookServlet extends HttpServlet {
 
         // set attributes and forward same book page
         BookService bookService = allServices.getBookService();
-        try {
-            Book book = bookService.getBookById(book_id);
-            request.setAttribute("bookID", book_id);
+        Book book = bookService.getBookById(book_id);
+        request.setAttribute("bookID", book_id);
 
-            request.setAttribute("bookName", book.getBook_name());
-            request.setAttribute("authorId", book.getAuthor_id());
-            request.setAttribute("description", book.getBook_description());
-            request.setAttribute("rating", book.getBook_rating());
-            request.setAttribute("count", book.getAvailable_count());
-            request.setAttribute("year", book.getRelease_year());
-            request.setAttribute("photo", book.getBook_photo());
-            request.setAttribute("USER_REVIEWS_ONLY", false);
-            request.getRequestDispatcher("/WEB-INF/BookPage.jsp").forward(request, response);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        request.setAttribute("bookName", book.getBook_name());
+        request.setAttribute("authorId", book.getAuthor_id());
+        request.setAttribute("description", book.getBook_description());
+        request.setAttribute("rating", book.getBook_rating());
+        request.setAttribute("count", book.getAvailable_count());
+        request.setAttribute("year", book.getRelease_year());
+        request.setAttribute("photo", book.getBook_photo());
+        request.setAttribute("USER_REVIEWS_ONLY", false);
+        request.getRequestDispatcher("/WEB-INF/BookPage.jsp").forward(request, response);
 
     }
 }
