@@ -51,7 +51,11 @@ public class AdminService implements AdminServiceInterface{
     public void addGenre(String genre_name) {
         Genre genre = new Genre();
         genre.setGenre_name(genre_name);
-        genreDao.addGenre(genre);
+        try {
+            genreDao.addGenre(genre);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
     public Author getAuthorByName(String author_name) throws SQLException {

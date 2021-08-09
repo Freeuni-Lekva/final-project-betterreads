@@ -1,0 +1,69 @@
+.book {
+    display: flex;
+    background-color: #ffffff;
+    flex-wrap: nowrap;
+    height: auto;
+    border: 12px none #ffffff;
+    border-radius: 10px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.book > div.leftSide {
+    margin: 25px;
+    text-align: center;
+    background-color: #ffffff;
+    width: 300px;
+    height: 450px ;
+}
+
+.book .img{
+    border-radius: 0 6% 6% 0/4%;
+}
+
+.book > div.bookInfo {
+    margin-left: 10px;
+    font-family: Copernicus,"Libre Baskerville",Georgia,serif;
+    padding: 20px;
+    text-align: left;
+    background-color: #ffffff;
+    flex: 1;
+}
+
+.button{
+    height: 40px;
+    margin-left: 25px;
+    margin-bottom: 10px;
+    color: white;
+    border: none;
+    width: 300px;
+    background-color: #3f8363;
+    border-radius: 3rem;
+}
+
+.button:hover, .button:focus {
+    background-color: #063d1f;
+    cursor: pointer;
+}
+
+.rate{
+    margin-left: 25px;
+}
+
+.reservedLabel{
+    height: 40px;
+    width: 300px;
+    border: none;
+    border-radius: 3rem;
+    margin-left: 25px;
+    margin-bottom: 10px;
+    background-color: #1e1f1f;
+    color: white;
+    text-decoration-thickness: 5px;
+    margin-left: 25px;
+}
+
+.notAvailable{
+    color: #f60606;
+    margin-left: 25px;
+}

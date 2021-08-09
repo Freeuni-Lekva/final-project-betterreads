@@ -1,9 +1,7 @@
 package Dao;
 
-import Model.Book;
 import Model.Genre;
 
-import java.awt.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,16 +15,10 @@ public class GenreDao implements GenreDaoInterface{
     }
 
     @Override
-    public boolean addGenre(Genre genre) {
-        PreparedStatement statement;
-        try {
-            statement = connection.prepareStatement("insert into genres(genre_name) values(?);");
-            statement.setString(1, genre.getGenre_name());
-            return statement.executeUpdate() != 0;
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        return false;
+    public boolean addGenre(Genre genre) throws SQLException {
+        PreparedStatement statement = connection.prepareStatement("insert into genres(genre_name) values(?);");
+        statement.setString(1, genre.getGenre_name());
+        return statement.executeUpdate() != 0;
     }
 
     private Genre getGenreByRS(ResultSet rs) throws SQLException {
@@ -42,22 +34,18 @@ public class GenreDao implements GenreDaoInterface{
         statement = connection.prepareStatement("select * from genres where genre_id = ?;");
         statement.setInt(1, id);
         ResultSet rs = statement.executeQuery();
-        if(!rs.first()) return null;
+        if(!rs.next()) return null;
         return getGenreByRS(rs);
     }
 
     @Override
-    public List<String> getAllGenres(){
+    public List<String> getAllGenres() throws SQLException {
         PreparedStatement statement;
         List<String> genreList = new ArrayList<>();
-        try {
-            statement = connection.prepareStatement("select * from genres;");
-            ResultSet rs = statement.executeQuery();
-            while(rs.next()){
-                genreList.add((rs.getString(2)));
-            }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        statement = connection.prepareStatement("select * from genres;");
+        ResultSet rs = statement.executeQuery();
+        while(rs.next()){
+            genreList.add((rs.getString(2)));
         }
         return genreList;
     }
