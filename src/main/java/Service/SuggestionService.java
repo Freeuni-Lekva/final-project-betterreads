@@ -26,15 +26,18 @@ public class SuggestionService implements SuggestionServiceInterface {
                 double d = countSimilarity(user, u);
                 similarity.add(d);
             }
-            List<Book> bookList = ratingDao.getAllBooks();
+            List<Book> bookList = bookDao.getAllBooks();
+            System.out.println(bookList.size());
             List<Book> books = new ArrayList<>();
             for(Book b : bookList){
                 Book book = bookDao.getBookById(b.getBook_id());
                 double p = projectedRating(user, book);
-                for(int i = 0; i < (int)(10 * p); i++){
+                System.out.println(p);
+                for(int i = 0; i < (int)(10 * p + 1); i++){
                     books.add(book);
                 }
             }
+            System.out.println(books.size());
             Random rand = new Random();
             List<Book> ret = new ArrayList<>();
             for(int i = 0; i < 3; i++){
@@ -86,7 +89,10 @@ public class SuggestionService implements SuggestionServiceInterface {
                 projectedRating += c * r.getBook_rating();
                 sum += c;
             }
-            return projectedRating / sum;
+            if(sum == 0)
+                return 0.0;
+            else
+                return projectedRating / sum;
         } catch (SQLException e) {
             e.printStackTrace();
         }

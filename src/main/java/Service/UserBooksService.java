@@ -128,8 +128,12 @@ public class UserBooksService implements UserBooksServiceInterface{
     }
 
     @Override
-    public void markBookAsRead(int user_id, int book_id) throws SQLException {
-        bookShelfDao.markAsAlreadyRead(user_id, book_id);
+    public void markBookAsRead(int user_id, int book_id) {
+        try {
+            bookShelfDao.markAsAlreadyRead(user_id, book_id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

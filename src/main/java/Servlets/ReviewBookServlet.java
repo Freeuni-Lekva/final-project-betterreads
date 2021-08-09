@@ -37,11 +37,7 @@ public class ReviewBookServlet extends HttpServlet {
             throwables.printStackTrace();
         }
         UserBooksService userBooksService = allServices.getUserBooksService();
-        try {
-            userBooksService.markBookAsRead(user.getUser_id(), book_id);
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        userBooksService.markBookAsRead(user.getUser_id(), book_id);
 
         // set attributes and forward same book page
         BookService bookService = allServices.getBookService();
