@@ -22,7 +22,6 @@ public class UserReviewsServlet extends HttpServlet {
         HttpSession httpSession = request.getSession();
         User user = (User) httpSession.getAttribute(SharedConstants.SESSION_ATTRIBUTE);
         String bookId = request.getParameter("bookID");
-        try {
             Book b = allServices.getBookService().getBookById(Integer.parseInt(bookId));
             request.setAttribute("bookID", b.getBook_id());
             request.setAttribute("bookName", b.getBook_name());
@@ -34,9 +33,6 @@ public class UserReviewsServlet extends HttpServlet {
             request.setAttribute("photo",b.getBook_photo());
             request.setAttribute("USER_REVIEWS_ONLY", false);
 
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
         if(user != null){
             if(request.getParameter("user_reviews") != null){
                 request.setAttribute("USER_REVIEWS_ONLY", true);
