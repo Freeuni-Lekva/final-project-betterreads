@@ -5,7 +5,9 @@
 <%@ page import="Constants.SharedConstants" %>
 <%@ page import="Service.BookService" %>
 <%@ page import="java.util.Collections" %>
-<%@ page import="Model.User" %><%--
+<%@ page import="Model.User" %>
+<%@ page import="Service.DescriptionShortener" %>
+<%@ page import="Dao.AuthorDao" %><%--
   Created by IntelliJ IDEA.
   User: GG
   Date: 8/5/2021
@@ -17,6 +19,7 @@
 <head>
     <title>Catalogue</title>
     <link href="/Style/CatalogueStyle.css" type="text/css" rel="stylesheet">
+    <link href="/Style/GeneralStyle.css" type="text/css" rel="stylesheet">
 </head>
 <body>
 
@@ -43,7 +46,7 @@
 <%
     AllServices allServices = (AllServices) pageContext.getServletContext().getAttribute(SharedConstants.ATTRIBUTE);
     BookService bs = allServices.getBookService();
-    List<Book> list = (List<Book>) request.getAttribute("list");
+    List<Book> list = (List<Book>) request.getAttribute("books");
     if(list == null){
         list = bs.getAllBooks();
     }
@@ -75,15 +78,34 @@
         </fieldset>
     </div>
 
+    <script>
+        function myFunction (id) {
+            location.href = "showBook?bookId=" + String(id);
+        };
+    </script>
+
+    <%
+//        AllServices allServices = (AllServices) pageContext.getServletContext().getAttribute(SharedConstants.ATTRIBUTE);
+        DescriptionShortener ds = allServices.getDescriptionShortener();
+        BookService bookService = allServices.getBookService();
+    %>
+
     <ul class="demo">
         <%for(Book b : list){
                 request.setAttribute("book", b);%>
-            <li class="elem">
-                <div>
+            <li id="prev" class="preview" onclick="myFunction(<%= b.getBook_id()%>)">
+<%--                <div>--%>
                     <jsp:include page='BookPreview.jsp'>
                         <jsp:param name="bok" value="${b}"/>
                     </jsp:include>
-                </div>
+<%--                </div>--%>
+                    <span class="tooltiptext">
+                        <%=b.getBook_name()%> <br>
+                        (<%=b.getRelease_year()%>) <br>
+                        author: <%=bookService.getAuthorById(b.getBook_id()).getAuthor_name()%> <br>
+                        rating: <%= b.getBook_rating()%> <br>
+                        description: <%=ds.shorten(b.getBook_description())%>
+                    </span>
             </li>
         <%}%>
     </ul>

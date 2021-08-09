@@ -67,7 +67,6 @@ public class Book {
         return "Book{" +
                 "book_id=" + book_id +
                 ", book_name='" + book_name + '\'' +
-                ", book_description='" + book_description + '\'' +
                 ", release_year=" + release_year +
                 ", author_id=" + author_id +
                 ", book_rating=" + book_rating +
