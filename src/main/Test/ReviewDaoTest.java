@@ -65,6 +65,18 @@ public class ReviewDaoTest extends TestCase{
         ps4.execute();
     }
 
+    public void reviewHelper() throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement("insert into reviews(user_id, " +
+                " book_id, user_comment, date_posted, num_likes) " +
+                "values(?, ?, ?, ?, ?);");
+        preparedStatement.setInt(1, 1);
+        preparedStatement.setInt(2,2);
+        preparedStatement.setString(3, "vauuuuuuuu");
+        preparedStatement.setDate(4, Date.valueOf("2021-07-09"));
+        preparedStatement.setInt(5, 2);
+        preparedStatement.executeUpdate();
+    }
+
     public void testAddReview() throws SQLException, ParseException {
         helper();
 
@@ -82,9 +94,46 @@ public class ReviewDaoTest extends TestCase{
     }
 
     public void testGetReview() throws SQLException {
-        List<Review> lst1 = rd.getReviews(1);
-        Assert.assertEquals(2, lst1.size());
-        List<Review> lst2 = rd.getReviews(2);
-        Assert.assertEquals(1, lst2.size());
+        CDB newDb = new CDB();
+        connection = newDb.getConnection();
+        helper();
+        reviewHelper();
+        List<Review> lst = rd.getReviews(2);
+        Assert.assertEquals(1, lst.size());
+        assertEquals(1, lst.get(0).getUser_id());
+        assertEquals("vauuuuuuuu", lst.get(0).getComment());
+    }
+
+    public void testGetByUser() throws SQLException {
+        CDB newDb = new CDB();
+        connection = newDb.getConnection();
+        helper();
+        reviewHelper();
+        List<Review> lst = rd.getReviewsByUserId(2, 1);
+        Assert.assertEquals(1, lst.size());
+        assertEquals(1, lst.get(0).getUser_id());
+        assertEquals("vauuuuuuuu", lst.get(0).getComment());
+    }
+
+    public void testLike() throws SQLException {
+        CDB newDb = new CDB();
+        connection = newDb.getConnection();
+        helper();
+        reviewHelper();
+        rd.likeReview(1, 1);
+        assertTrue(rd.alreadyLiked(1,1));
+        rd.unlikeReview(1, 1);
+        assertFalse(rd.alreadyLiked(1,1));
+    }
+
+    public void testDeleteReview() throws SQLException {
+        CDB newDb = new CDB();
+        connection = newDb.getConnection();
+        helper();
+        reviewHelper();
+        rd.deleteReview(1);
+        assertEquals(0, rd.getReviews(2).size());
+        assertEquals(0, rd.getReviewsByUserId(2, 1).size());
+        assertEquals(0, rd.getNumLikesById(1));
     }
 }
