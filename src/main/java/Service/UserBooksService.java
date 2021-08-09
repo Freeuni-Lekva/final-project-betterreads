@@ -67,7 +67,6 @@ public class UserBooksService implements UserBooksServiceInterface{
 
     @Override
     public List<Book> getBooksForFuture(int user_id)  {
-        List<Book> books = getReservedBooks(user_id);
         List<Book> forFuture = null;
         try {
             forFuture = bookShelfDao.getMarkedBooks(user_id);
@@ -76,9 +75,7 @@ public class UserBooksService implements UserBooksServiceInterface{
         }
         List<Book> result = new ArrayList<>();
         for(Book book : forFuture){
-            if(!books.contains(book)){
-                result.add(book);
-            }
+            result.add(book);
         }
         return result;
     }
