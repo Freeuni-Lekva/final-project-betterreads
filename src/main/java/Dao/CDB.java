@@ -20,6 +20,7 @@ public class CDB {
         createReviewsTable();
         createRatingTable();
         createAdminsTable();
+        createLikesTable();
     }
 
     public void createDatabase() throws SQLException {
