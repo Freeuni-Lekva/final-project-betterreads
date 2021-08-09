@@ -23,6 +23,12 @@ public class GenreService implements GenreServiceInterface{
     }
 
     public List<String> getGenres(){
-        return genreDao.getAllGenres();
+        List<String> res = new ArrayList<>();
+        try {
+            res = genreDao.getAllGenres();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return res;
     }
 }

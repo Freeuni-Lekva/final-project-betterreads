@@ -44,6 +44,7 @@ public class ReviewDao implements ReviewDaoInterface{
      }
      return retList;
  }
+  
     public List<Review> getReviewsByUserId(int book_id, int user_id) throws SQLException {
         List<Review> res = new ArrayList<>();
 
@@ -98,7 +99,7 @@ public class ReviewDao implements ReviewDaoInterface{
                 "values(?, ?);");
         preparedStatement.setInt(1, user_id);
         preparedStatement.setInt(2, review_id);
-        preparedStatement.execute(); //== 0) return false;
+        preparedStatement.execute();
 
         int num_likes = getNumLikesById(review_id);
         num_likes++;

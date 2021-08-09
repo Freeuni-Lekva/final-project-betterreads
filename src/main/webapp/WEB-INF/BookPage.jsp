@@ -86,7 +86,7 @@
     %>
 </form><br>
 
-<% if (user != null) { %>
+<% if (user != null && admin == null) { %>
 <form action="showReviews?bookId=${bookID}">
     <input name="bookID" type="hidden" value="${bookID}"/>
     <% if(!userReviewsOnly){ %>
@@ -115,7 +115,7 @@
             <p><%=currReview.getDate().toString()%></p>
             <p>likes: <%=currReview.getNum_likes()%></p>
             <p><%=currReview.getComment()%></p><br>
-            <% if(user != null){
+            <% if(user != null && admin == null){
                 if(reviewService.hasUserLikedAlready(currReview.getReview_id(), user.getUser_id())){
             %>
                     <form action="likeReview?reviewId=<%=currReview.getReview_id()%>" method="post">

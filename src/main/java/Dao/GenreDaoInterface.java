@@ -23,5 +23,5 @@ public interface GenreDaoInterface {
      *
      * @return list of all genres
      */
-    List<String> getAllGenres();
+    List<String> getAllGenres() throws SQLException;
 }
