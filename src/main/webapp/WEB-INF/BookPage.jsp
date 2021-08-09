@@ -89,7 +89,7 @@
 <% if (user != null) { %>
 <form action="showReviews?bookId=${bookID}">
     <input name="bookID" type="hidden" value="${bookID}"/>
-    <% if(!userReviewsOnly){ %>
+    <% if(!userReviewsOnly && admin == null){ %>
     <label><input type="submit" name="user_reviews" value="Show only my reviews"></label>
     <% } else { %>
     <label><input type="submit" name="all_reviews" value="Show all reviews"></label>
