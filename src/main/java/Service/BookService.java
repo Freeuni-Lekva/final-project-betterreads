@@ -14,7 +14,7 @@ import Model.Genre;
 import java.sql.SQLException;
 import java.util.*;
 
-public class BookService implements BookServiceInterface{
+public class    BookService implements BookServiceInterface{
     private BookDao bookDao;
     private AuthorDao authorDao;
 
@@ -64,27 +64,6 @@ public class BookService implements BookServiceInterface{
         Collections.reverse(bookList);
         return bookList;
     }
-
-    public List<Book> oldToNew(List<Book> bookList) {
-        try {
-            BookDao bd = new BookDao(Connector.getConnection(SharedConstants.DATA_BASE_NAME));
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        Collections.sort(bookList, new Comparator<Book>() {
-            @Override
-            public int compare(Book o1, Book o2) {
-                if(o1.getRelease_year() == o2.getRelease_year())
-                    return 0;
-                if(o1.getRelease_year() > o2.getRelease_year())
-                    return 1;
-                else
-                    return -1;
-            }
-        });
-        return bookList;
-    }
-
 
     @Override
     public Book getBookById(int id) {
