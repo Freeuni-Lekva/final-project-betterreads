@@ -111,7 +111,8 @@
         <input type="submit" value = "Submit Review">
     </form>
     <%}%>
-    <% if(!userReviewsOnly){ %>
+
+  <% if(!userReviewsOnly && admin == null){ %>
     <label><input type="submit" name="user_reviews" value="Show only my reviews"></label>
     <% } else { %>
     <label><input type="submit" name="all_reviews" value="Show all reviews"></label>
