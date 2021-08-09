@@ -21,21 +21,11 @@ public class AdminService implements AdminServiceInterface{
         try {
             adminDao = new AdminDao(Connector.getConnection(SharedConstants.DATA_BASE_NAME));
             authorDao = new AuthorDao(Connector.getConnection(SharedConstants.DATA_BASE_NAME));
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-
-        try {
-            authorDao = new AuthorDao(Connector.getConnection(SharedConstants.DATA_BASE_NAME));
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-
-        try {
             genreDao = new GenreDao(Connector.getConnection(SharedConstants.DATA_BASE_NAME));
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+
     }
     @Override
     public boolean isAdmin(User user) throws SQLException {
@@ -60,6 +50,11 @@ public class AdminService implements AdminServiceInterface{
 
     public Author getAuthorByName(String author_name) throws SQLException {
         return authorDao.getAuthorByName(author_name);
+    }
+
+    @Override
+    public void changeBookCount(Book book, int count) throws SQLException {
+        adminDao.changeBookCount(book, count);
     }
 
     @Override
