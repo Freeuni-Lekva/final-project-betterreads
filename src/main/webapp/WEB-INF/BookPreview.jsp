@@ -29,8 +29,6 @@
         <img src=<%= book.getBook_photo()%> width="120" height="180">
         <br><br>
         <a href="showBook?bookId=<%= book.getBook_id()%>"><%= book.getBook_name() %></a>
-
-
     </div>
 </body>
 </html>

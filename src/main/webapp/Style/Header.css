@@ -20,6 +20,8 @@ body {
     display: flex;
     justify-content: center;
     background-color: #ffc97b;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
     flex-direction: row;
 }
 
@@ -28,6 +30,7 @@ body {
     flex: 1;
     color: #f2f2f2;
     background-color: #ffc97b;
+    cursor: pointer;
     display: inline-block;
     text-align: center;
     margin: 1px;

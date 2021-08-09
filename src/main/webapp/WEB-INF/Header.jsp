@@ -18,9 +18,19 @@
     HttpSession httpSession = pageContext.getSession();
     User user = (User) httpSession.getAttribute(SharedConstants.SESSION_ATTRIBUTE);
 %>
+
+<script>
+    function toHome () {
+        location.href = "home";
+    };
+    function toCatalogue () {
+        location.href = "catalogue";
+    };
+</script>
+
 <div class="topNav">
     <div class="upper">
-        <form action="/home" method = "post" class="item">
+        <form action="/home" method = "post" class="item" onclick="toHome()">
             <button type="submit" class="btn-link"> BetterReads </button>
         </form>
 
@@ -28,7 +38,7 @@
 <%--            <a href="javascript:;" onclick="document.getElementById('catalogue').submit();" class="item">Catalogue</a>--%>
 <%--        </form>--%>
 
-        <form action="/catalogue" method = "get" class="item">
+        <form action="/catalogue" method = "get" class="item" onclick="toCatalogue()">
             <button type="submit" class="btn-link"> Catalogue </button>
         </form>
 
