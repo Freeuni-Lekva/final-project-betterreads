@@ -10,6 +10,7 @@
 <html>
 <head>
     <link href="/Style/Header.css" type="text/css" rel="stylesheet">
+    <link href="/Style/SearchBarStyle.css" type="text/css" rel="stylesheet">
 
 </head>
 <body>
@@ -33,10 +34,6 @@
         <form action="/home" method = "post" class="item" onclick="toHome()">
             <button type="submit" class="btn-link"> BetterReads </button>
         </form>
-
-<%--        <form id="catalogue" action="/catalogue" method="post">--%>
-<%--            <a href="javascript:;" onclick="document.getElementById('catalogue').submit();" class="item">Catalogue</a>--%>
-<%--        </form>--%>
 
         <form action="/catalogue" method = "get" class="item" onclick="toCatalogue()">
             <button type="submit" class="btn-link"> Catalogue </button>
