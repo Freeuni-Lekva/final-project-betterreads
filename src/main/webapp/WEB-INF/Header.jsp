@@ -10,7 +10,6 @@
 <html>
 <head>
     <link href="/Style/Header.css" type="text/css" rel="stylesheet">
-    <link href="/Style/SearchBarStyle.css" type="text/css" rel="stylesheet">
 
 </head>
 <body>

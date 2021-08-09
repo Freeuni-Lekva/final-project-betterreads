@@ -9,10 +9,9 @@
 <html>
 <head>
    <title>${bookName}</title>
+    <link href="/Style/BookPageStyle.css" type="text/css" rel="stylesheet">
+    <link href="/Style/GeneralStyle.css" type="text/css" rel="stylesheet">
 
-    <link rel="stylesheet" href="jquery.rating.css">
-    <script src="jquery.js"></script>
-    <script src="jquery.rating.js"></script>
 </head>
 
 <body>
@@ -21,6 +20,14 @@
     HttpSession httpSession = pageContext.getSession();
     HttpServletRequest httpRequest = (HttpServletRequest) pageContext.getRequest();
     User admin = (User) httpSession.getAttribute(SharedConstants.ADMIN_SESSION);
+    User user = (User) httpSession.getAttribute(SharedConstants.SESSION_ATTRIBUTE);
+    Integer book_ID = (Integer)request.getAttribute("bookID");
+    AllServices allServices = (AllServices) pageContext.getServletContext().getAttribute(SharedConstants.ATTRIBUTE);
+    UserBooksService ubs = allServices.getUserBooksService();
+    ReviewService reviewService = allServices.getReviewService();
+    UserService userService = allServices.getUserService();
+    List<Review> reviews = reviewService.getReviewsByBookId(book_ID);
+
     if(admin == null){
 %>
 
@@ -28,67 +35,82 @@
     <jsp:param name="Header" value="Header"/>
 </jsp:include>
 
-<%
-} else {
-%>
+<%} else {%>
 <jsp:include page='AdminHeader.jsp'>
     <jsp:param name="AdminHeader" value="AdminHeader"/>
 </jsp:include>
-<%
-    }
-%>
+<%}%>
 
 <br>
 
-<h1>${bookName}</h1>
+<div class="book">
+    <div class="leftSide">
+        <img src="${photo}" alt="${bookName}" width="300" height="450" class="img">
+    </div>
+    <div class="bookInfo">
+        <h1>${bookName}</h1>
+        <h3>By ${authorName}  (${year})</h3><br>
+        <label>Rating - ${rating}</label><br>
+        <label> Available - ${count}</label><br>
+        <p>${description}</p>
+    </div>
+</div>
+
+
 <form action="bookMarking?bookId=${bookID}" method="post">
     <input name="bookID" type="hidden" value="${bookID}"/>
-    <label><h3>By ${authorName}  (${year})</h3></label><br>
-    <label>Rating - ${rating}</label><br>
-    <label> Available - ${count}</label><br>
-    <img src="${photo}" alt="${bookName}" width="200" height="300">
-    <p>${description}</p>
-
     <%
-        httpSession = pageContext.getSession();
-        User user = (User) httpSession.getAttribute(SharedConstants.SESSION_ATTRIBUTE);
-        Integer book_ID = (Integer)request.getAttribute("bookID");
-
         if(user != null && admin == null){
-
-           AllServices allServices = (AllServices) pageContext.getServletContext().getAttribute(SharedConstants.ATTRIBUTE);
-           UserBooksService ubs = allServices.getUserBooksService();
-
            if(!ubs.hasBookReserved(user.getUser_id(), book_ID )){
-              if(allServices.getBookService().getBookCount(book_ID) > 0){
-    %>
-    <label><input type="submit" name="reserve" value="Reserve Book"></label>
-    <%
-              } else {
-    %>
-    <label>"Not available"</label>
-    <%
-              }
-              if(!ubs.hasBookForFuture(user.getUser_id(), book_ID) &&
-                !ubs.hasReadBook(user.getUser_id(), book_ID)){
-    %>
-    <label><input type="submit" name="mark" value="Mark As Interested"></label>
-    <%
-              }
+              if(allServices.getBookService().getBookCount(book_ID) > 0){%>
+                <label><input type="submit" name="reserve" value="Reserve Book" class="button"></label>
+            <%} else {%>
+                <label class="notAvailable">Not available</label>
+            <%}
+            }
+           else{%>
+            <button type="button" class="reservedLabel">Reserved</button>
+            <%
            }
-           else if(ubs.hasBookForFuture(user.getUser_id(), book_ID)) {
-    %>
-    <label><input type="submit" name="unmark" value="Remove Book"></label>
-    <%
-           }
-        }
-        boolean userReviewsOnly = (Boolean) httpRequest.getAttribute(SharedConstants.USER_REVIEWS);
-    %>
-</form><br>
+            if(!ubs.hasBookForFuture(user.getUser_id(), book_ID)){%>
+                <br>
+                <label><input type="submit" name="mark" value="Mark As Interested" class="button"></label>
+            <%}
+            else{%>
+                <br>
+                <label><input type="submit" name="unmark" value="Remove Book" class="button"></label>
+            <%}
+
+    }
+        boolean userReviewsOnly = (Boolean) httpRequest.getAttribute(SharedConstants.USER_REVIEWS);%>
+</form>
+<br>
+
+<%if(user != null && admin == null){%>
+    <div class="rate">
+        <form action="/rating" method="post">
+            <input name="book_id" type="hidden" value="${bookID}">
+            <input type="radio" name="rating" value="1">
+            <input type="radio" name="rating" value="2">
+            <input type="radio" name="rating" value="3">
+            <input type="radio" name="rating" value="4">
+            <input type="radio" name="rating" value="5">
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+<% }%>
+
 
 <% if (user != null) { %>
 <form action="showReviews?bookId=${bookID}">
     <input name="bookID" type="hidden" value="${bookID}"/>
+    <%if(user != null && admin == null){%>
+    <form action = "reviewBook?bookId${bookID}" method="post">
+        <input name="bookID" type="hidden" value="${bookID}"/>
+        <textarea id="review" name="review" rows="4" cols="50"></textarea><br>
+        <input type="submit" value = "Submit Review">
+    </form>
+    <%}%>
     <% if(!userReviewsOnly){ %>
     <label><input type="submit" name="user_reviews" value="Show only my reviews"></label>
     <% } else { %>
@@ -101,10 +123,6 @@
 
 
     <%
-        AllServices allServices = (AllServices) pageContext.getServletContext().getAttribute(SharedConstants.ATTRIBUTE);
-        ReviewService reviewService = allServices.getReviewService();
-        UserService userService = allServices.getUserService();
-        List<Review> reviews = reviewService.getReviewsByBookId(book_ID);
 
         if (userReviewsOnly) {
             reviews = reviewService.getReviewsByBookIdUserId(book_ID, user.getUser_id());
@@ -143,36 +161,10 @@
                         <label><input type="submit" name="delete_review" value="Delete Review"></label>
                     </form>
             <%  }
-            } %>
-<%
-        }
-        if(user != null && admin == null){
-            %>
-            <form action = "reviewBook?bookId${bookID}" method="post">
-                <input name="bookID" type="hidden" value="${bookID}"/>
-                <textarea id="review" name="review" rows="4" cols="50"></textarea><br>
-                <input type="submit" value = "Submit Review">
-            </form>
+            }
+        }%>
 
-<%
-        }
-    %>
 </form>
 
-<%
-    if(user != null && admin == null){
-%>
-<form action="/rating" method="post">
-    <input name="book_id" type="hidden" value="${bookID}">
-    <input type="radio" name="rating" value="1">
-    <input type="radio" name="rating" value="2">
-    <input type="radio" name="rating" value="3">
-    <input type="radio" name="rating" value="4">
-    <input type="radio" name="rating" value="5">
-    <input type="submit" value="Submit">
-</form>
-<%
-    }
-%>
 </body>
 </html>
