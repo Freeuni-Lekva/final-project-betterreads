@@ -55,15 +55,25 @@ public class UserBooksService implements UserBooksServiceInterface{
     }
 
     @Override
-    public List<Book> getAlreadyReadBooks(int user_id) throws SQLException {
-        List<Book> books = bookShelfDao.getAlreadyReadBooks(user_id);
+    public List<Book> getAlreadyReadBooks(int user_id) {
+        List<Book> books = null;
+        try {
+            books = bookShelfDao.getAlreadyReadBooks(user_id);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
         return books;
     }
 
     @Override
-    public List<Book> getBooksForFuture(int user_id) throws SQLException {
+    public List<Book> getBooksForFuture(int user_id)  {
         List<Book> books = getReservedBooks(user_id);
-        List<Book> forFuture = bookShelfDao.getMarkedBooks(user_id);
+        List<Book> forFuture = null;
+        try {
+            forFuture = bookShelfDao.getMarkedBooks(user_id);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
         List<Book> result = new ArrayList<>();
         for(Book book : forFuture){
             if(!books.contains(book)){
@@ -79,13 +89,17 @@ public class UserBooksService implements UserBooksServiceInterface{
     }
 
     @Override
-    public void addBooksForFuture(int user_id, int book_id) throws SQLException {
+    public void addBooksForFuture(int user_id, int book_id) {
         System.out.println("notnull in service");
-        bookShelfDao.addMarkedBook(user_id, book_id);
+        try {
+            bookShelfDao.addMarkedBook(user_id, book_id);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
     @Override
-    public boolean hasBookForFuture(int user_id, int book_id) throws SQLException {
+    public boolean hasBookForFuture(int user_id, int book_id) {
         List<Book> lst = getBooksForFuture(user_id);
         for(Book b : lst){
             if(b.getBook_id() == book_id)
@@ -105,13 +119,21 @@ public class UserBooksService implements UserBooksServiceInterface{
     }
 
     @Override
-    public void removeBookFromFuture(int user_id, int book_id) throws SQLException {
-        bookShelfDao.removeBook(user_id, book_id);
+    public void removeBookFromFuture(int user_id, int book_id){
+        try {
+            bookShelfDao.removeBook(user_id, book_id);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
     @Override
-    public void markBookAsRead(int user_id, int book_id) throws SQLException {
-        bookShelfDao.markAsAlreadyRead(user_id, book_id);
+    public void markBookAsRead(int user_id, int book_id) {
+        try {
+            bookShelfDao.markAsAlreadyRead(user_id, book_id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

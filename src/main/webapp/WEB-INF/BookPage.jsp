@@ -58,18 +58,25 @@
 
            AllServices allServices = (AllServices) pageContext.getServletContext().getAttribute(SharedConstants.ATTRIBUTE);
            UserBooksService ubs = allServices.getUserBooksService();
-           if(!ubs.hasBookReserved(user.getUser_id(), book_ID )){
 
+           if(!ubs.hasBookReserved(user.getUser_id(), book_ID )){
+              if(allServices.getBookService().getBookCount(book_ID) > 0){
     %>
     <label><input type="submit" name="reserve" value="Reserve Book"></label>
     <%
-           }
-           if(!ubs.hasBookForFuture(user.getUser_id(), book_ID) && !ubs.hasReadBook(user.getUser_id(), book_ID)){
+              } else {
+    %>
+    <label>"Not available"</label>
+    <%
+              }
+              if(!ubs.hasBookForFuture(user.getUser_id(), book_ID) &&
+                !ubs.hasReadBook(user.getUser_id(), book_ID)){
     %>
     <label><input type="submit" name="mark" value="Mark As Interested"></label>
     <%
+              }
            }
-           if(ubs.hasBookForFuture(user.getUser_id(), book_ID)) {
+           else if(ubs.hasBookForFuture(user.getUser_id(), book_ID)) {
     %>
     <label><input type="submit" name="unmark" value="Remove Book"></label>
     <%

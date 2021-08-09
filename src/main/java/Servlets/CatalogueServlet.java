@@ -24,6 +24,9 @@ public class CatalogueServlet extends HttpServlet {
         GenreService genreService = allServices.getGenreService();
         List<String> genres = genreService.getGenres();
         request.setAttribute("genres", genres);
+        BookService bs = allServices.getBookService();
+        List<Book> list = bs.getAllBooks();
+        request.setAttribute("books", list);
         request.getRequestDispatcher("WEB-INF/Catalogue.jsp").forward(request,response);
     }
 
@@ -63,7 +66,7 @@ public class CatalogueServlet extends HttpServlet {
             String[] names = request.getParameterValues("genre");
             list = bs.getBooksByGanres(names, list);
         }
-        request.setAttribute("list", list);
+        request.setAttribute("books", list);
         GenreService genreService = allServices.getGenreService();
         List<String> genres = genreService.getGenres();
         request.setAttribute("genres", genres);

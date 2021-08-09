@@ -10,19 +10,25 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
+<head>
+    <link href="/Style/PreviewStyle.css" type="text/css" rel="stylesheet">
+</head>
 <body>
 <% Book book = (Book) request.getAttribute("book"); %>
 <%
     AllServices allServices = (AllServices) pageContext.getServletContext().getAttribute(SharedConstants.ATTRIBUTE);
     DescriptionShortener ds = allServices.getDescriptionShortener();
 %>
-<li>
-    <a href="showBook?bookId=<%= book.getBook_id()%>"><%= book.getBook_name() %>
-        </a>
-    <br>
+<%--    <script>--%>
+<%--        function myFunction (id) {--%>
+<%--            location.href = "showBook?bookId=" + String(id);--%>
+<%--        };--%>
+<%--    </script>--%>
 
-    <br>
-    <img src=<%= book.getBook_photo()%> width="100" height="150">
-</li>
+    <div class="elem">
+        <img src=<%= book.getBook_photo()%> width="120" height="180">
+        <br><br>
+        <a href="showBook?bookId=<%= book.getBook_id()%>"><%= book.getBook_name() %></a>
+    </div>
 </body>
 </html>

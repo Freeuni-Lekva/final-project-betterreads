@@ -5,6 +5,7 @@ import Model.Book;
 import Model.User;
 import Service.AllServices;
 import Service.RatingService;
+import Service.UserBooksService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -40,14 +41,13 @@ public class RatingServlet extends HttpServlet {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        UserBooksService userBooksService = allServices.getUserBooksService();
+        userBooksService.markBookAsRead(user.getUser_id(), Integer.parseInt(httpServletRequest.getParameter("book_id")));
+
 //        ratingService.updateBookRating(user.getUser_id(),b,rating);
         httpServletRequest.setAttribute("bookID", b.getBook_id());
         httpServletRequest.setAttribute("bookName", b.getBook_name());
-        try {
-            httpServletRequest.setAttribute("authorName", allServices.getBookService().getAuthorById(b.getBook_id()).getAuthor_name());
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+        httpServletRequest.setAttribute("authorName", allServices.getBookService().getAuthorById(b.getBook_id()).getAuthor_name());
         httpServletRequest.setAttribute("description", b.getBook_description());
         httpServletRequest.setAttribute("rating", b.getBook_rating());
         httpServletRequest.setAttribute("photo",b.getBook_photo());

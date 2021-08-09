@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,8 +56,11 @@ public class AdminReservationServlet extends HttpServlet {
         int delete = Integer.parseInt(httpServletRequest.getParameter("resId"));
         for(Reservation r : reservations){
             if(delete == r.getReservationId()){
-                reservationService.removeReservation
-                        (Integer.parseInt(httpServletRequest.getParameter("resId")));
+                    int bookID = allServices.getReservationService().
+                            getReservationById(r.getReservationId()).getReservedBook().getBook_id();
+                    allServices.getBookService().setBookCOunt(bookID, allServices.getBookService().getBookCount(bookID) + 1);
+                    reservationService.removeReservation(Integer.parseInt(httpServletRequest.getParameter("resId")));
+
             }
         }
         reservations = allServices.getReservationService().getAllReservations();
