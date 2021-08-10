@@ -85,7 +85,11 @@ public class UserBooksService implements UserBooksServiceInterface{
 
     @Override
     public void addReservedBook(int user_id, int book_id) {
-        reservationsDao.addReservation(user_id, book_id);
+        try {
+            reservationsDao.addReservation(user_id, book_id);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
     @Override

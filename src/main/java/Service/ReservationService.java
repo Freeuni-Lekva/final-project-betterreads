@@ -27,7 +27,12 @@ public class ReservationService implements ReservationServiceInterface{
 
     @Override
     public List<Reservation> getAllReservations() {
-        return rd.getAllReservations();
+        try {
+            return rd.getAllReservations();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
     }
 
     @Override
