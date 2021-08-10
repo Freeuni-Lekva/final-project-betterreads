@@ -35,7 +35,6 @@ public class BookMarkingServlet extends HttpServlet {
                 currCount = allServices.getBookService().getBookCount(Integer.parseInt(book_ID));
                 if (currCount > 0) {
                     allServices.getBookService().setBookCOunt(Integer.parseInt(book_ID), currCount - 1);
-                    System.out.println("ari wigni");
                     try {
                         ubs.addReservedBook(user.getUser_id(), Integer.parseInt(book_ID));
                         Book book;
@@ -47,7 +46,6 @@ public class BookMarkingServlet extends HttpServlet {
                         e.printStackTrace();
                     }
                 } else {
-                    System.out.println("agaraa es wigni jigaro");
                 }
             } else if (httpServletRequest.getParameter("unmark") != null) {
                 ubs.removeBookFromFuture(user.getUser_id(), Integer.parseInt(book_ID));
