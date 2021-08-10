@@ -35,30 +35,18 @@ public class BookDao implements BookDaoInterface{
 
 
     @Override
-    public List<Book> getAllBooks() {
+    public List<Book> getAllBooks() throws SQLException {
         PreparedStatement statement;
         List<Book> bookList = new ArrayList<>();
-        try {
             statement = connection.prepareStatement("select * from books;");
             ResultSet rs = statement.executeQuery();
             while(rs.next()){
                 bookList.add(getBookByRS(rs));
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+
         return bookList;
     }
 
-    @Override
-    public Book getBook(int bookID) throws SQLException {
-        PreparedStatement statement;
-        statement = connection.prepareStatement("select * from books where book_id = ?;");
-        statement.setInt(1, bookID);
-        ResultSet rs = statement.executeQuery();
-        if(!rs.next()) return null;
-        return getBookByRS(rs);
-    }
 
     private Book getBookByRS(ResultSet rs) throws SQLException {
         Book res = new Book();
@@ -73,65 +61,12 @@ public class BookDao implements BookDaoInterface{
         return res;
     }
 
-    @Override
-    public List<Book> getBookByAuthor(int authorID) throws SQLException {
-        PreparedStatement statement;
-        statement = connection.prepareStatement("select * from books where author_id = ?;");
-        statement.setInt(1, authorID);
-        ResultSet rs = statement.executeQuery();
-        List<Book> result = new ArrayList<>();
-        while(rs.next()){
-            result.add(getBookByRS(rs));
-        }
-        return result;
-    }
+
 
     @Override
-    public List<Book> getBookByName(String name) throws SQLException {
-        PreparedStatement statement;
-        statement = connection.prepareStatement("select * from books where book_name = ?;");
-        statement.setString(1, name);
-        ResultSet rs = statement.executeQuery();
-        List<Book> result = new ArrayList<>();
-        while(rs.next()){
-            result.add(getBookByRS(rs));
-        }
-        return result;
-    }
-
-    @Override
-    public List<Book> getBookByYear(int from, int to) throws SQLException {
-        PreparedStatement statement;
-        statement = connection.prepareStatement("select * from books where release_year between ? and ?;");
-        statement.setInt(1, from);
-        statement.setInt(2, to);
-        ResultSet rs = statement.executeQuery();
-        List<Book> result = new ArrayList<>();
-        while(rs.next()){
-            result.add(getBookByRS(rs));
-        }
-        return result;
-    }
-
-    @Override
-    public List<Book> getBookByGenre(Genre genre) throws SQLException {
-        PreparedStatement statement;
-        statement = connection.prepareStatement("select * from books b"+
-                "join book_genres bg on b.book_id = bg.book_id " +
-                "where bg.genre_id = " + genre.getGenre_id() + ";");
-        ResultSet rs = statement.executeQuery();
-        List<Book> result = new ArrayList<>();
-        while(rs.next()){
-            result.add(getBookByRS(rs));
-        }
-        return result;
-    }
-
-    @Override
-    public List<Book> getBookByGenre(String genre)  {
+    public List<Book> getBookByGenre(String genre) throws SQLException {
         PreparedStatement statement;
         List<Book> result = new ArrayList<>();
-        try {
             statement = connection.prepareStatement("select * from book_genres bg "+
                     " join books b on b.book_id = bg.book_id " +
                     " join genres g on g.genre_id = bg.genre_id "+
@@ -141,9 +76,7 @@ public class BookDao implements BookDaoInterface{
             while(rs.next()){
                 result.add(getBookByRow(rs));
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+
         return result;
     }
 
@@ -180,18 +113,15 @@ public class BookDao implements BookDaoInterface{
     }
 
     @Override
-    public List<Book> getAvailableBooks() {
+    public List<Book> getAvailableBooks() throws SQLException {
         PreparedStatement statement;
         List<Book> bookList = new ArrayList<>();
-        try {
             statement = connection.prepareStatement("select * from books where available_count > 0;");
             ResultSet rs = statement.executeQuery();
             while(rs.next()){
                 bookList.add(getBookByRS(rs));
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
+
         return bookList;
     }
 }
