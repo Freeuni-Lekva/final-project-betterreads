@@ -9,7 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <link href="/Style/Header.css" type="text/css" rel="stylesheet">
+    <link href="/Style/AdminHeader.css" type="text/css" rel="stylesheet">
     <link href="/Style/SearchBarStyle.css" type="text/css" rel="stylesheet">
 
 </head>
@@ -21,6 +21,9 @@
     function toCatalogue () {
         location.href = "catalogue";
     };
+    function logOut () {
+        location.href = "logoutAdmin";
+    };
 </script>
 <%
     HttpSession httpSession = pageContext.getSession();
@@ -30,7 +33,7 @@
 
 <div class="topNav">
     <div class="upper">
-        <form action="/adminHome" method = "post" class="item" onclick="toHome()">
+        <form action="/adminHome" method = "get" class="item" onclick="toHome()">
             <button type="submit" class="btn-link"> BetterReadsAdmin </button>
         </form>
 
@@ -38,7 +41,7 @@
             <button type="submit" class="btn-link"> Catalogue </button>
         </form>
 
-        <form action="/logoutAdmin" method = "post" class="item">
+        <form action="/logoutAdmin" method = "get" class="item" onclick="logOut()">
             <button type="submit" class="btn-link">Log Out</button>
         </form>
     </div>

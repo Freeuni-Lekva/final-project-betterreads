@@ -224,4 +224,15 @@
     <url-pattern>/rating</url-pattern>
   </servlet-mapping>
 
+  <servlet>
+    <servlet-name>BookCount</servlet-name>
+    <servlet-class>Servlets.ChangeCountServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>BookCount</servlet-name>
+    <url-pattern>/changeBookCount</url-pattern>
+  </servlet-mapping>
+
+
 </web-app>
