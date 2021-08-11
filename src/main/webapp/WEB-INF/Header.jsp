@@ -38,28 +38,34 @@
             <button type="submit" class="btn-link"> Catalogue </button>
         </form>
 
-        <%if(user == null){%>
-            <a href="/login" class="item">Sign In</a>
-            <a href="/register" class="item">Register</a>
-        <%} else {%>
+        <div class="search-container">
+            <form action="/search" method="post">
+                <input type="text" placeholder="Search books/authors..." name="stext">
+<%--                <button type="submit"><i class="fa fa-search"></i></button>--%>
+            </form>
+        </div>
+
+
+        <div class="user">
+            <%if(user == null){%>
+            <a href="/login" class="item" id="sign_in">Sign In</a>
+            <a href="/register" class="item" id="register">Register</a>
+            <%} else {%>
             <form action="/suggestions" method = "post" class="item">
                 <button type="submit" class="btn-link">Suggest me a book</button>
             </form>
 
+            <a href="userProfile?userId=<%= user.getUser_id()%>" class="item" id="profile">Your Profile</a>
 
-            <a href="userProfile?userId=<%= user.getUser_id()%>" class="item">Your Profile</a>
-
-            <form action="/logout" method = "post" class="item">
+            <form action="/logout" method = "post" class="item" id="logout">
                 <button type="submit" class="btn-link">Log Out</button>
             </form>
-        <%}%>
+            <%}%>
+
+        </div>
     </div>
-    <div class="lower">
-        <form action="/search" method = "post">
-            <input type="text" id="stext" name="stext" placeholder="Search books/authors...">
-            <button type="submit">search</button>
-        </form>
-    </div>
+<%--    <div class="lower">--%>
+<%--    </div>--%>
 </div>
 </body>
 </html>
