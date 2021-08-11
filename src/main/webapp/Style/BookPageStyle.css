@@ -78,7 +78,6 @@
 .container{
     position: relative;
     width: 300px;
-    margin-left: 25px;
     border: 1px none #444;
     border-radius: 5px;
     display: flex;
@@ -150,7 +149,24 @@ form .btn button:hover{
     font-size: 15px;
 }
 
-.review_panel > form{}
+.review_panel input{
+    color: white;
+    background-color: #3f8363;
+    width: 150px;
+    height: 45px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 3rem;
+}
+
+.review_panel input:hover, input:focus{
+    cursor: pointer;
+    background-color: #063d1f;
+}
+
+.review_panel textarea{
+    border-bottom-right-radius: 2rem;
+}
 
 .review{
     border-bottom: #888888;
@@ -190,21 +206,21 @@ form .btn button:hover{
 }
 
 .heading_buttons #like{
-    background-color: #ffc97b;
+    background-color: #3f8363;
 }
 
 .heading_buttons #unlike{
     background-color: #999999;
 }
 
-.heading_buttons #delete:hover{
+.heading_buttons #delete:hover, #delete:focus{
     background-color: #420000;
 }
 
-.heading_buttons #like:hover{
-    background-color: #ffb03d;
+.heading_buttons #like:hover, #like:focus{
+    background-color: #063d1f;
 }
 
-.heading_buttons #unlike:hover{
+.heading_buttons #unlike:hover, #unlike:focus{
     background-color: #545454;
 }

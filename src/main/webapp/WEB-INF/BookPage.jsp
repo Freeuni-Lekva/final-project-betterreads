@@ -74,6 +74,24 @@
 
             }%>
         </form>
+        <%if(user != null && admin == null){%>
+        <div class="container">
+            <label>Rate this book:</label>
+            <div class="star-widget">
+                <input id="book" name="book_id" type="hidden" value="${bookID}">
+                <input type="radio" name="rate" id="rate-5">
+                <label for="rate-5" class="fas fa-star" onclick="rate(5)"></label>
+                <input type="radio" name="rate" id="rate-4">
+                <label for="rate-4" class="fas fa-star" onclick="rate(4)"></label>
+                <input type="radio" name="rate" id="rate-3">
+                <label for="rate-3" class="fas fa-star" onclick="rate(3)"></label>
+                <input type="radio" name="rate" id="rate-2">
+                <label for="rate-2" class="fas fa-star" onclick="rate(2)"></label>
+                <input type="radio" name="rate" id="rate-1">
+                <label for="rate-1" class="fas fa-star" onclick="rate(1)"></label>
+            </div>
+        </div>
+        <% }%>
     </div>
     <div class="rightSide">
         <div class="bookInfo">
@@ -88,7 +106,7 @@
             <%if(user != null && admin == null){%>
             <form action = "reviewBook?bookId${bookID}" method="post">
                 <input name="bookID" type="hidden" value="${bookID}"/>
-                <textarea id="review" name="review" rows="4" cols="50"></textarea><br>
+                <textarea id="review" name="review" rows="5" cols="60" placeholder="Write review here..."></textarea><br>
                 <input type="submit" value = "Submit Review">
             </form>
             <%}%>
@@ -161,39 +179,26 @@
 
 <br>
 
-<%if(user != null && admin == null){%>
-<%--    <div class="rate">--%>
-<%--        <form action="/rating" method="post">--%>
-<%--            <input name="book_id" type="hidden" value="${bookID}">--%>
-<%--            <input type="radio" name="rating" value="1" class="fas fa-star">--%>
-<%--            <input type="radio" name="rating" value="2" class="fas fa-star">--%>
-<%--            <input type="radio" name="rating" value="3" class="fas fa-star">--%>
-<%--            <input type="radio" name="rating" value="4" class="fas fa-star">--%>
-<%--            <input type="radio" name="rating" value="5" class="fas fa-star">--%>
-<%--            <input type="submit" value="Submit">--%>
-<%--        </form>--%>
-<%--    </div>--%>
-<div class="container">
-    <div class="star-widget">
-        <input id="book" name="book_id" type="hidden" value="${bookID}">
-        <input type="radio" name="rate" id="rate-5">
-        <label for="rate-5" class="fas fa-star" onclick="rate(5)"></label>
-        <input type="radio" name="rate" id="rate-4">
-        <label for="rate-4" class="fas fa-star" onclick="rate(4)"></label>
-        <input type="radio" name="rate" id="rate-3">
-        <label for="rate-3" class="fas fa-star" onclick="rate(3)"></label>
-        <input type="radio" name="rate" id="rate-2">
-        <label for="rate-2" class="fas fa-star" onclick="rate(2)"></label>
-        <input type="radio" name="rate" id="rate-1">
-        <label for="rate-1" class="fas fa-star" onclick="rate(1)"></label>
-    </div>
-</div>
-<% }%>
 
 <script>
     function rate(rating){
         const bookId = document.getElementById("book").getAttribute("value");
-
+        let form = document.createElement('form');
+        form.setAttribute('method', 'post');
+        form.setAttribute('action', '/rating');
+        form.style.display = 'hidden';
+        let input = document.createElement("input");
+        input.setAttribute("type", "hidden");
+        input.setAttribute("name", "book_id");
+        input.setAttribute("value", bookId);
+        form.appendChild(input);
+        let rate = document.createElement("input");
+        rate.setAttribute("type", "hidden");
+        rate.setAttribute("name", "rating");
+        rate.setAttribute("value", rating);
+        form.appendChild(rate);
+        document.body.appendChild(form)
+        form.submit();
     }
 </script>
 
