@@ -100,6 +100,15 @@
             <h3>By ${authorName}  (${year})</h3><br>
             <label>Rating - ${rating}</label><br>
             <label> Available - ${count}</label><br>
+            <% if(admin != null){ %>
+            <form action="changeBookCount?bookId=${bookID}" method="post">
+                <label for="count">Change available number:</label>
+
+                <input type="number" id="count" name="count"
+                       min="0" value="${count}">
+            </form>
+
+            <% } %>
             <p>${description}</p>
         </div>
 

@@ -44,6 +44,14 @@ public class AdminDao implements AdminDaoInterface{
         return true;
     }
 
+    @Override
+    public void changeBookCount(Book book, int count) throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement("UPDATE books SET available_count = ? WHERE book_id = ?;");
+        preparedStatement.setInt(1,count);
+        preparedStatement.setInt(2,book.getBook_id());
+        preparedStatement.executeUpdate();
+    }
+
     private Book getBook(String bookName) throws SQLException {
         PreparedStatement statement;
         statement = connection.prepareStatement("select * from books where book_name = ?;");

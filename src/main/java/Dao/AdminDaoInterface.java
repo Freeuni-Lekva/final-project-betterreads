@@ -28,4 +28,6 @@ public interface AdminDaoInterface {
      */
     public boolean addBook(Book book,String[] genres) throws SQLException;
 
+    public void changeBookCount(Book book, int count) throws SQLException;
+
 }

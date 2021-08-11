@@ -15,4 +15,10 @@ public class LogoutServletAdmin extends HttpServlet {
         request.getSession().removeAttribute(SharedConstants.SESSION_ATTRIBUTE);
         request.getRequestDispatcher("WEB-INF/HomePage.jsp").forward(request,response);
     }
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getSession().removeAttribute(SharedConstants.ADMIN_SESSION);
+        request.getSession().removeAttribute(SharedConstants.SESSION_ATTRIBUTE);
+        request.getRequestDispatcher("WEB-INF/HomePage.jsp").forward(request,response);
+    }
 }
