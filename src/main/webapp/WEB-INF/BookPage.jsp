@@ -93,7 +93,8 @@
         </div>
         <% }%>
     </div>
-    <div class="rightSide">
+
+   <div class="rightSide">
         <div class="bookInfo">
             <h1>${bookName}</h1>
             <h3>By ${authorName}  (${year})</h3><br>
@@ -112,7 +113,7 @@
             <%}%>
 
 
-            <% if (user != null) { %>
+            <% if (user != null && admin == null) { %>
             <form action="showReviews?bookId=${bookID}">
                 <input name="bookID" type="hidden" value="${bookID}"/>
                 <% if(!userReviewsOnly){ %>
@@ -140,7 +141,7 @@
                         </h2>
                     </div>
                     <div class="heading_buttons">
-                        <% if(user != null){
+                        <% if(user != null && admin == null){
                             if(reviewService.hasUserLikedAlready(currReview.getReview_id(), user.getUser_id())){%>
                         <form action="likeReview?reviewId=<%=currReview.getReview_id()%>" method="post">
                             <input name="bookID" type="hidden" value="${bookID}"/>
@@ -201,8 +202,6 @@
         form.submit();
     }
 </script>
-
-
 
 
 </body>

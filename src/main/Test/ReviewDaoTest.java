@@ -1,3 +1,4 @@
+import Dao.CDB;
 import Dao.Connector;
 import Dao.ReviewDao;
 import Model.Review;
@@ -13,7 +14,9 @@ public class ReviewDaoTest extends TestCase{
     ReviewDao rd;
 
     protected void setUp() throws SQLException {
-        rd = new ReviewDao(Connector.getConnection("testLibrary"));
+        CDB db = new CDB();
+        this.connection = db.getConnection();
+        this.rd = new ReviewDao(connection);
     }
 
     private void helper() throws SQLException {
@@ -62,26 +65,75 @@ public class ReviewDaoTest extends TestCase{
         ps4.execute();
     }
 
+    public void reviewHelper() throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement("insert into reviews(user_id, " +
+                " book_id, user_comment, date_posted, num_likes) " +
+                "values(?, ?, ?, ?, ?);");
+        preparedStatement.setInt(1, 1);
+        preparedStatement.setInt(2,2);
+        preparedStatement.setString(3, "vauuuuuuuu");
+        preparedStatement.setDate(4, Date.valueOf("2021-07-09"));
+        preparedStatement.setInt(5, 2);
+        preparedStatement.executeUpdate();
+    }
+
     public void testAddReview() throws SQLException, ParseException {
         helper();
-        rd.addReview(1, 1, "magaria dzn", "2021-07-07", 5);
-        rd.addReview(2, 1,"zaan qul", "2021-07-08", 4);
+
         rd.addReview(1, 2, "vauuuuuuuu", "2021-07-09", 2);
         PreparedStatement s1 = connection.prepareStatement
-                ("select * from reviews where user_comment = 'magaria dzn';");
+                ("select * from reviews where user_comment = 'vauuuuuuuu';");
         ResultSet rs = s1.executeQuery();
         assertTrue(rs.next());
-
-        PreparedStatement s2 = connection.prepareStatement
-                ("select * from reviews where user_comment = 'zaan qul';");
-        ResultSet rs2 = s1.executeQuery();
-        assertTrue(rs2.next());
+        PreparedStatement reviewByBook = connection.prepareStatement("select * from reviews where book_id = 2;");
+        ResultSet resultSet = reviewByBook.executeQuery();
+        assertTrue(resultSet.next());
+        assertEquals(1, resultSet.getInt("user_id"));
+        assertEquals("vauuuuuuuu", resultSet.getString("user_comment"));
+        assertEquals(2, resultSet.getInt("num_likes"));
     }
 
     public void testGetReview() throws SQLException {
-        List<Review> lst1 = rd.getReviews(1);
-        Assert.assertEquals(2, lst1.size());
-        List<Review> lst2 = rd.getReviews(2);
-        Assert.assertEquals(1, lst2.size());
+        CDB newDb = new CDB();
+        connection = newDb.getConnection();
+        helper();
+        reviewHelper();
+        List<Review> lst = rd.getReviews(2);
+        Assert.assertEquals(1, lst.size());
+        assertEquals(1, lst.get(0).getUser_id());
+        assertEquals("vauuuuuuuu", lst.get(0).getComment());
+    }
+
+    public void testGetByUser() throws SQLException {
+        CDB newDb = new CDB();
+        connection = newDb.getConnection();
+        helper();
+        reviewHelper();
+        List<Review> lst = rd.getReviewsByUserId(2, 1);
+        Assert.assertEquals(1, lst.size());
+        assertEquals(1, lst.get(0).getUser_id());
+        assertEquals("vauuuuuuuu", lst.get(0).getComment());
+    }
+
+    public void testLike() throws SQLException {
+        CDB newDb = new CDB();
+        connection = newDb.getConnection();
+        helper();
+        reviewHelper();
+        rd.likeReview(1, 1);
+        assertTrue(rd.alreadyLiked(1,1));
+        rd.unlikeReview(1, 1);
+        assertFalse(rd.alreadyLiked(1,1));
+    }
+
+    public void testDeleteReview() throws SQLException {
+        CDB newDb = new CDB();
+        connection = newDb.getConnection();
+        helper();
+        reviewHelper();
+        rd.deleteReview(1);
+        assertEquals(0, rd.getReviews(2).size());
+        assertEquals(0, rd.getReviewsByUserId(2, 1).size());
+        assertEquals(0, rd.getNumLikesById(1));
     }
 }

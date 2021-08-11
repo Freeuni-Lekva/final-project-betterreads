@@ -29,7 +29,12 @@ public class    BookService implements BookServiceInterface{
 
     @Override
     public List<Book> getAllBooks() {
-        return bookDao.getAllBooks();
+        try {
+            return bookDao.getAllBooks();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
     }
 
     public List<Book> getBestBooks(int from, int to)  {
@@ -39,7 +44,12 @@ public class    BookService implements BookServiceInterface{
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        List<Book> bookList = bd.getAllBooks();
+        List<Book> bookList = null;
+        try {
+            bookList = bd.getAllBooks();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
         List<Book> retList = new ArrayList<>();
         Collections.sort(bookList, new Comparator<Book>() {
             @Override
@@ -87,7 +97,12 @@ public class    BookService implements BookServiceInterface{
 
     @Override
     public List<Book> availableBooks() {
-        return bookDao.getAvailableBooks();
+        try {
+            return bookDao.getAvailableBooks();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
     }
 
 
@@ -121,7 +136,12 @@ public class    BookService implements BookServiceInterface{
         }
         List<Book> result = new ArrayList<Book>();
         for (String genre : genres) {
-            List<Book> tmp = bd.getBookByGenre(genre);
+            List<Book> tmp = null;
+            try {
+                tmp = bd.getBookByGenre(genre);
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
             result.addAll(tmp);
         }
         result = removeDuplicates(result);
