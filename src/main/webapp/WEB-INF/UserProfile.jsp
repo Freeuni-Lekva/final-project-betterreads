@@ -114,6 +114,12 @@
 
 </div>
 
+<script>
+    function myFunction (id) {
+        location.href = "showBook?bookId=" + String(id);
+    };
+</script>
+
 
 </body>
 </html>
