@@ -87,6 +87,7 @@ public class ReservationsDao implements ReservationsDaoInterface{
         book.setBook_id(resultSet.getInt("book_id"));
         book.setBook_name(resultSet.getString("book_name"));
         book.setAuthor_id(resultSet.getInt("author_id"));
+        book.setBook_photo(resultSet.getString("book_photo"));
         book.setBook_rating(resultSet.getDouble("book_rating"));
         book.setBook_description(resultSet.getString("book_description"));
         book.setRelease_year(resultSet.getInt("release_year"));

@@ -24,9 +24,7 @@ public class BookShelfDao implements BookShelfDaoInterface{
             preparedStatement.setInt(1,user_id);
             ResultSet resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
-                Book book = createBook(resultSet.getInt("book_id"),resultSet.getString("book_name"),
-                        resultSet.getString("book_description"),resultSet.getInt("release_year"),resultSet.getInt("author_id"),
-                        resultSet.getDouble("book_rating"),resultSet.getInt("available_count"));
+                Book book = createBook(resultSet);
                 resultList.add(book);
             }
             return resultList;
@@ -41,9 +39,7 @@ public class BookShelfDao implements BookShelfDaoInterface{
             preparedStatement.setInt(2, SharedConstants.ALREADY_READ);
             ResultSet resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
-                Book book = createBook(resultSet.getInt("book_id"),resultSet.getString("book_name"),
-                        resultSet.getString("book_description"),resultSet.getInt("release_year"),resultSet.getInt("author_id"),
-                        resultSet.getDouble("book_rating"),resultSet.getInt("available_count"));
+                Book book = createBook(resultSet);
 
                 resultList.add(book);
             }
@@ -59,9 +55,7 @@ public class BookShelfDao implements BookShelfDaoInterface{
             preparedStatement.setInt(2, SharedConstants.MARKED_FOR_FUTURE);
             ResultSet resultSet = preparedStatement.executeQuery();
             while(resultSet.next()){
-                Book book = createBook(resultSet.getInt("book_id"),resultSet.getString("book_name"),
-                        resultSet.getString("book_description"),resultSet.getInt("release_year"),resultSet.getInt("author_id"),
-                        resultSet.getDouble("book_rating"),resultSet.getInt("available_count"));
+                Book book = createBook(resultSet);
 
                 resultList.add(book);
             }
@@ -98,15 +92,16 @@ public class BookShelfDao implements BookShelfDaoInterface{
     }
 
 
-    private Book createBook(int book_id, String book_name, String book_description, int release_year, int author_id, double book_rating, int available_count){
+    private Book createBook(ResultSet resultSet) throws SQLException {
         Book book = new Book();
-        book.setBook_id(book_id);
-        book.setBook_name(book_name);
-        book.setBook_description(book_description);
-        book.setRelease_year(release_year);
-        book.setAuthor_id(author_id);
-        book.setBook_rating(book_rating);
-        book.setAvailable_count(available_count);
+        book.setBook_id(resultSet.getInt("book_id"));
+        book.setBook_name(resultSet.getString("book_name"));
+        book.setBook_description(resultSet.getString("book_description"));
+        book.setBook_photo(resultSet.getString("book_photo"));
+        book.setRelease_year(resultSet.getInt("release_year"));
+        book.setAuthor_id(resultSet.getInt("author_id"));
+        book.setBook_rating(resultSet.getDouble("book_rating"));
+        book.setAvailable_count(resultSet.getInt("available_count"));
         return book;
     }
 

@@ -41,7 +41,7 @@ public class BookServiceSort implements BookServiceSortInterface {
             public int compare(Book o1, Book o2) {
                 if(o1.getBook_rating() == o2.getBook_rating())
                     return 0;
-                if(o1.getBook_rating() < o2.getBook_rating())
+                if(o1.getBook_rating() > o2.getBook_rating())
                     return 1;
                 else
                     return -1;
