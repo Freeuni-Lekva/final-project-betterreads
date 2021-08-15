@@ -1,5 +1,6 @@
 .grid-wrapper{
     display: grid;
+    grid-template-columns: 33% 33% 33%;
 }
 
 #title-1{
@@ -33,12 +34,4 @@
     /*grid-gap: 10px;*/
     background-color: white;
     /*padding: 10px;*/
-}
-
-#list-1{
-    border-right: 1px solid;
-}
-
-#list-2{
-    border-right: 1px solid;
 }

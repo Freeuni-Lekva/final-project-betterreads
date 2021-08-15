@@ -46,7 +46,7 @@ li {
 }
 
 .preview{
-    /*position: relative;*/
+    position: relative;
     display: inline-block;
 }
 
