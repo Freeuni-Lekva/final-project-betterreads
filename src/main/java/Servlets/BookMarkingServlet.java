@@ -34,6 +34,7 @@ public class BookMarkingServlet extends HttpServlet {
                     allServices.getBookService().setBookCOunt(Integer.parseInt(book_ID), currCount - 1);
                     try {
                         ubs.addReservedBook(user.getUser_id(), Integer.parseInt(book_ID));
+                        System.out.println(user.getUser_id() + " " + Integer.parseInt(book_ID));
                         Book book;
                         book = allServices.getBookService().getBookById(Integer.parseInt(book_ID));
                         String mailText = mailService.reservedBookText(book, user);

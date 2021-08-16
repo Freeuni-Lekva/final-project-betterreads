@@ -41,9 +41,9 @@ public class ReservationsDao implements ReservationsDaoInterface{
             statement.setInt(2, book_id);
             Calendar date = Calendar.getInstance();
             long timeInSecs = date.getTimeInMillis();
-            Date afterAdding2Mins = new Date(timeInSecs + (2 * 60 * 1000));
+            Date afterAdding2Weeks = new Date(timeInSecs + (14 * 24 * 60 * 60 * 1000));
             //2min after
-            statement.setDate(3, afterAdding2Mins);
+            statement.setDate(3, afterAdding2Weeks);
             return statement.executeUpdate() != 0;
 
     }
