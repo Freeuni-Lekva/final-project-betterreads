@@ -80,15 +80,15 @@
             <label>Rate this book:</label>
             <div class="star-widget">
                 <input id="book" name="book_id" type="hidden" value="${bookID}">
-                <input type="radio" name="rate" id="rate-5" ${rating == 5 ? "checked" : ""}>
+                <input type="radio" name="rate" id="rate-5" ${user_rating == 5 ? "checked" : ""}>
                 <label for="rate-5" class="fas fa-star" onclick="rate(5)"></label>
-                <input type="radio" name="rate" id="rate-4" ${rating == 4 ? "checked" : ""}>
+                <input type="radio" name="rate" id="rate-4" ${user_rating == 4 ? "checked" : ""}>
                 <label for="rate-4" class="fas fa-star" onclick="rate(4)"></label>
-                <input type="radio" name="rate" id="rate-3" ${rating == 3 ? "checked" : ""}>
+                <input type="radio" name="rate" id="rate-3" ${user_rating == 3 ? "checked" : ""}>
                 <label for="rate-3" class="fas fa-star" onclick="rate(3)"></label>
-                <input type="radio" name="rate" id="rate-2" ${rating == 2 ? "checked" : ""}>
+                <input type="radio" name="rate" id="rate-2" ${user_rating == 2 ? "checked" : ""}>
                 <label for="rate-2" class="fas fa-star" onclick="rate(2)"></label>
-                <input type="radio" name="rate" id="rate-1" ${rating == 1 ? "checked" : ""}>
+                <input type="radio" name="rate" id="rate-1" ${user_rating == 1 ? "checked" : ""}>
                 <label for="rate-1" class="fas fa-star" onclick="rate(1)"></label>
             </div>
         </div>

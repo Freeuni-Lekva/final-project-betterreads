@@ -50,7 +50,10 @@ public class RatingService implements RatingServiceInterface{
     public int getRatingForBookByUser(int user_id, int book_id) {
         try {
             Rating r = ratingDao.getRatingForBookByUser(user_id, book_id);
-            return r.getBook_rating();
+            if(r == null)
+                return 0;
+            else
+                return r.getBook_rating();
         } catch (SQLException e) {
             e.printStackTrace();
         }

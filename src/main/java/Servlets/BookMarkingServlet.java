@@ -3,10 +3,7 @@ package Servlets;
 import Constants.SharedConstants;
 import Model.Book;
 import Model.User;
-import Service.AllServices;
-import Service.BookService;
-import Service.SendMailService;
-import Service.UserBooksService;
+import Service.*;
 
 import javax.mail.MessagingException;
 import javax.servlet.ServletException;
@@ -60,6 +57,12 @@ public class BookMarkingServlet extends HttpServlet {
             httpServletRequest.setAttribute("authorName", allServices.getBookService().getAuthorById(b.getBook_id()).getAuthor_name());
             httpServletRequest.setAttribute("description", b.getBook_description());
             httpServletRequest.setAttribute("rating", b.getBook_rating());
+            if(user != null){
+                RatingService ratingService = allServices.getRatingService();
+                httpServletRequest.setAttribute("user_rating", ratingService.getRatingForBookByUser(user.getUser_id(), b.getBook_id()));
+            }
+            else
+                httpServletRequest.setAttribute("user_rating", 0);
             httpServletRequest.setAttribute("count", b.getAvailable_count());
             httpServletRequest.setAttribute("year", b.getRelease_year());
             httpServletRequest.setAttribute("photo", b.getBook_photo());
