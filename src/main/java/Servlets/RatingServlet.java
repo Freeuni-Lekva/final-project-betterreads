@@ -50,6 +50,11 @@ public class RatingServlet extends HttpServlet {
         httpServletRequest.setAttribute("authorName", allServices.getBookService().getAuthorById(b.getBook_id()).getAuthor_name());
         httpServletRequest.setAttribute("description", b.getBook_description());
         httpServletRequest.setAttribute("rating", b.getBook_rating());
+        if(user != null){
+            httpServletRequest.setAttribute("user_rating", ratingService.getRatingForBookByUser(user.getUser_id(), b.getBook_id()));
+        }
+        else
+            httpServletRequest.setAttribute("user_rating", 0);
         httpServletRequest.setAttribute("photo",b.getBook_photo());
         httpServletRequest.setAttribute("count",b.getAvailable_count());
         httpServletRequest.setAttribute("year", b.getRelease_year());
